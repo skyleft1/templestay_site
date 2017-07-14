@@ -1,0 +1,165 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+
+html{
+
+}
+body{
+	
+}
+
+
+* {
+	border: 0px solid;
+	list-style: none;
+	margin :0 auto;
+	padding :0;
+	font-family: 'Nanum Gothic';
+}
+
+a {
+    text-decoration: none;
+    color: #888;
+}
+
+h3{
+	font-size: 20px;
+}
+h4{
+	font-size: 15px;
+	color : #4f964e;
+}
+h5{
+	font-size: 15px;
+}
+h6{
+	font-size: 14px;
+}
+
+
+
+.box{
+	width: 70px;
+	height: : 50px;
+	text-align: center;
+}
+
+
+.login{
+	text-align: center;
+	background-color: #d4e6bb;
+}
+.login > div{
+	width: 1100px;
+	text-align: right;
+}
+
+.login div{
+	display: inline-block;
+	line-height: 30px;
+}
+
+
+.dot {
+	color: white;
+}
+
+
+.wrap_menu {
+	background-color: #ffffff;
+}
+.menu{
+	height: 100px;
+	width: 1100px;
+
+}
+
+.menu_logo{
+	display: inline-block;
+	width: 20%;
+	height: 100px;
+	vertical-align: top;
+}
+.menu_logo img{
+	margin-top: 15px;
+	margin-left: 20px;
+}
+
+
+.menu_content{
+	display: inline-block;
+	width: 870px;
+	height: 100px;
+	text-align: right;
+}
+
+.menu_content > ul{
+	line-height: 100px;
+}
+
+.menu_content > ul > li{
+	display: inline-block;
+	width: 140px;
+	text-align: center;
+}
+
+
+.wrap_inner {
+	background-color: #ffffff;
+	padding: 15px 0;
+	display: none;
+	position: absolute;
+    width: 100%;
+    z-index :100;
+}
+.menu_content_inner {
+	width: 1100px;
+	text-align : right;
+}
+
+.menu_content_inner > ul{
+	vertical-align: top;
+	display: inline-block;
+	width: 140px;
+	text-align: center;
+}
+
+.menu_content_inner > ul > li{
+	line-height: 30px;
+	color: #707070;
+}
+
+/*여기서부터 footer*/
+
+.footer{
+	background-color: #333333;
+
+}
+.wrap_footer{
+	width: 1100px;
+}
+
+.footer_menu{
+	color: #a0a0a0;
+	line-height: 50px;
+	border-bottom: 1px solid #404040;
+}
+.footer_menu > div{
+	display: inline-block;
+}
+.footer_menu > div:first-child{
+	margin-right: 330px;
+}
+
+.footer_menu li{
+	display: inline-block;
+}
+
+
+.footer_copy{
+	color: #999;
+	line-height: 20px;
+	font-size: 13px;
+	padding: 20px 0px 30px 0px;
+}
