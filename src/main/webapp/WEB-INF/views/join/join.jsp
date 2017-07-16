@@ -34,37 +34,46 @@
                     <h3>회원가입</h3>
                 </div>
                 <div class=''>
-                    <form method='post' action=joinAction.jsp>
+                    <form method='post' action=/join/joinAction>
                         <table>
                             <tbody>
                                 <tr>
                                     <th>아이디</th>
                                     <td><p>영문자, 숫자, _ 만 입력 가능.
                                             최소 3자이상 입력하세요.</p> <input
-                                        type='text' name='userID'
+                                        type='text' name='id'
                                         value=''></td>
                                 </tr>
                                 <tr>
                                     <th>비밀번호</th>
                                     <td><input type='password'
-                                        name='userPassword' value=''>
+                                        name='password' value=''>
                                     </td>
                                 </tr>
-                                <tr>
+
+<!--
+                                 <tr>
                                     <th>비밀번호 확인</th>
                                     <td><input type='password'
-                                        name='userPassword' value=''>
+                                        name='password' value=''>
                                     </td>
                                 </tr>
+-->
                                 <tr>
                                     <th>이름</th>
                                     <td><input type='text'
-                                        name='userName' value=''></td>
+                                        name='name' value=''></td>
                                 </tr>
                                 <tr>
                                     <th>이메일</th>
                                     <td><input type='email'
-                                        name='userEmail' value=''>
+                                        name='email' value=''>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>연락처</th>
+                                    <td><input type='text'
+                                        name='phone' value=''>
                                     </td>
                                 </tr>
                             </tbody>

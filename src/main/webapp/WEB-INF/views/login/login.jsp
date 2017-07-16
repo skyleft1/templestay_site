@@ -32,10 +32,9 @@
             <div class=''>
                 <h3>로그인</h3>
                 <div class=''>
-                    <form method='post' action=loginAction.jsp>
-                        <div>
-                            아이디 <input type='text' name='userID'
-                                value=''>
+                    <form method='post' action=loginAction.jsp enctype="multipart/form-data">
+                        <div>아이디
+                            <input type='text' name='userID' value=''>
                         </div>
                         <div> 비밀번호 
                             <input type='password' name='userPassword' value=''>
@@ -44,7 +43,7 @@
                             <input type='submit' name='' value='로그인'>
                         </div>
                         <div>
-                            아직 회원이 아닌가요? <a href='signup.jsp'>회원가입</a>
+                            아직 회원이 아닌가요? <a href='/join/join'>회원가입</a>
                         </div>
                         <div>
                             비밀번호를 잊어버렸나요? <a href='#'>비밀번호 찾기</a>

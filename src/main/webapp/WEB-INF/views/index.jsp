@@ -16,7 +16,6 @@
 
 <link rel='stylesheet' href='http://fonts.googleapis.com/earlyaccess/nanumgothic.css'>
 
-
 <script src='/resources/js/jquery-3.1.0.js'></script>
 <script src='/resources/js/jquery-ui.js'></script>
 
