@@ -16,6 +16,21 @@
 <script src='/resources/js/jquery-ui.js'></script>
 <script src="/resources/js/common.js"></script>
 
+<script>
+$(document).ready(function(){
+    $('.')
+	
+})
+
+
+<c:choose>
+<c:when test="${userid} == null }">
+아이디를 입력하세요.
+</c:when>
+</c:choose>
+
+</script>
+
 </head>
 
 <body>
@@ -40,38 +55,39 @@
                                 <tr>
                                     <th>아이디</th>
                                     <td><p>영문자, 숫자, _ 만 입력 가능.
-                                            최소 3자이상 입력하세요.</p> <input
-                                        type='text' name='id'
-                                        value=''></td>
+                                            최소 3자이상 입력하세요.</p> 
+                                            <input type='text' name='id' value=''> 
+                                        
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>비밀번호</th>
                                     <td><input type='password'
-                                        name='password' value=''>
+                                        name='username' value=''>
                                     </td>
                                 </tr>
 
                                  <tr>
                                     <th>비밀번호 확인</th>
                                     <td><input type='password'
-                                        name='password' value=''>
+                                        name='userpassword' value=''>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>이름</th>
                                     <td><input type='text'
-                                        name='name' value=''></td>
+                                        name='username' value=''></td>
                                 </tr>
                                 <tr>
                                     <th>이메일</th>
                                     <td><input type='email'
-                                        name='email' value=''>
+                                        name='useremail' value=''>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>연락처</th>
                                     <td><input type='text'
-                                        name='phone' value=''>
+                                        name='phonenumber' value=''>
                                     </td>
                                 </tr>
                             </tbody>
