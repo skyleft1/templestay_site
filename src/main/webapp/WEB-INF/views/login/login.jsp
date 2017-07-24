@@ -32,12 +32,12 @@
             <div class=''>
                 <h3>로그인</h3>
                 <div class=''>
-                    <form method='post' action=loginAction.jsp enctype="multipart/form-data">
+                    <form method='post' action='/login/loginAction'>
                         <div>아이디
-                            <input type='text' name='userID' value=''>
+                            <input type='text' name='userid' value=''>
                         </div>
                         <div> 비밀번호 
-                            <input type='password' name='userPassword' value=''>
+                            <input type='password' name='userpassword' value=''>
                         </div>
                         <div>
                             <input type='submit' name='' value='로그인'>

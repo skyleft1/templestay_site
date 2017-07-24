@@ -34,7 +34,7 @@ public class DaoUser implements IDaoUser {
     }
     
     @Override
-    public int insertUserList(List<ModelUser> members) {
-        return session.insert("mapper.mapperUser.insertUserList", members);
+    public int insertUserList(List<ModelUser> users) {
+        return session.insert("mapper.mapperUser.insertUserList", users);
     }
 }
