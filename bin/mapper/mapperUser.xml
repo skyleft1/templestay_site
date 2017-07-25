@@ -11,7 +11,7 @@
     </select>
     
     <select id="getUserOne" parameterType="string" resultType="ModelUser">
-        SELECT userid, username, userpassword  
+        SELECT userid, username, userpassword, useremail, phonenumber
           FROM TB_User 
          WHERE userid = #{userid}
     </select>

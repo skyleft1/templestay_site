@@ -4,6 +4,8 @@ import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.templestay_site.start.dao.DaoUser;
 import com.templestay_site.start.model.ModelUser;
+import com.templestay_site.start.service.IServiceUser;
 
 /**
  * Handles requests for the application home page.
@@ -19,6 +22,9 @@ import com.templestay_site.start.model.ModelUser;
 @Controller
 public class JoinController {
 	
+    @Autowired
+    IServiceUser srv;
+    
 	private static final Logger logger = LoggerFactory.getLogger(JoinController.class);
 	
 	@RequestMapping(value = "/join/join", method = RequestMethod.GET)
@@ -33,11 +39,16 @@ public class JoinController {
             Model model
             , @ModelAttribute ModelUser userinfo
             ) {
+        logger.info("joinAction");
         
-        logger.info("고고");
+        int result = srv.insertUser(userinfo); 
         
-        model.addAttribute("userinfo", userinfo );
-
-        return "join/joinAction";
+        if(result == 1) {
+            return "redirect:/login/login";
+        } else {
+            model.addAttribute("userinfo", userinfo );
+            return "redirect:/join/join";
+        }
+                
     }
 }

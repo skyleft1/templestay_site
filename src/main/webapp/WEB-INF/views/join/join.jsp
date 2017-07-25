@@ -49,21 +49,21 @@ $(document).ready(function(){
                     <h3>회원가입</h3>
                 </div>
                 <div class=''>
-                    <form method='post' action=/join/joinAction>
+                    <form method='post' action='/join/joinAction'>
                         <table>
                             <tbody>
                                 <tr>
                                     <th>아이디</th>
                                     <td><p>영문자, 숫자, _ 만 입력 가능.
                                             최소 3자이상 입력하세요.</p> 
-                                            <input type='text' name='id' value=''> 
+                                            <input type='text' name='userid' value=''> 
                                         
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>비밀번호</th>
                                     <td><input type='password'
-                                        name='username' value=''>
+                                        name='userpassword' value=''>
                                     </td>
                                 </tr>
 
