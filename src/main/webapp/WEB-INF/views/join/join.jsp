@@ -70,7 +70,7 @@ $(document).ready(function(){
                                  <tr>
                                     <th>비밀번호 확인</th>
                                     <td><input type='password'
-                                        name='userpassword' value=''>
+                                        name='userpassword_confirm' value=''>
                                     </td>
                                 </tr>
                                 <tr>
