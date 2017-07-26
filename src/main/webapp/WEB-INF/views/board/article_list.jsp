@@ -17,6 +17,17 @@
 <script src='/resources/js/jquery-ui.js'></script>
 <script src="/resources/js/common.js"></script>
 
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+        $('.go_view').click(function(e){
+            window.location.href = "/board/article_view/${boardcd}/${articleno}";
+        });
+    });
+
+</script>
+
+
 </head>
 <body>
 
@@ -34,9 +45,9 @@
                 <h3>커뮤니티</h3>
             </div>
             <ul>
-                <li><h5>공지사항</h5></li>
-                <li><h5>질문과 답변</h5></li>
-                <li><a href='/bbs/bbs'><h5>게시판</h5></a></li>
+                <li class='go_notice'><h5>공지사항</h5></li>
+                <li class='go_qna'><h5>질문과 답변</h5></li>
+                <li class='go_free'><a href='/bbs/bbs'><h5>게시판</h5></a></li>
                 <li><h5>포토갤러리</h5></li>
                 <li><h5>홍보동영상</h5></li>
             </ul>
@@ -45,7 +56,7 @@
         <div class='bbs_content'>
             <div class=''>
                 <div class='bbs_maintitle'>
-                    <h3>게시판</h3>
+                    <h3>${boardnm}</h3>
                 </div>
                 <div class='bbs_maincontent'>
                     <table>
@@ -59,13 +70,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach var='boardlist' items='${list}' varStatus='status' >
-                                <tr>
-                                    <td><h6>${list.articleno}</h6></td>
-                                    <td><h6>${list.title}</h6></td>
-                                    <td><h6>${list.regdate}</h6></td>
-                                    <td><h6>${list.hit}</h6></td>
-                                    <td><h6>${list.hit}</h6></td>
+                            <c:forEach var='boardlist' items='${list2}' varStatus='status' >
+                                <tr class='go_view'>
+                                    <td><h6>${boardlist.articleno}</h6></td>
+                                    <td><h6>${boardlist.title}</h6></td>
+                                    <td><h6>작성자 아이디 </h6></td>
+                                    <td><h6>${boardlist.regdate}</h6></td>
+                                    <td><h6>${boardlist.hit}</h6></td>
                                 </tr>
                             </c:forEach>
                         </tbody>

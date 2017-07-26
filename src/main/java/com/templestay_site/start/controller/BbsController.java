@@ -28,26 +28,48 @@ public class BbsController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BbsController.class);
 
-	@RequestMapping(value = "/article_list/free", method = RequestMethod.GET)
-	public String board(Model model
-//	        , @PathVariable(value="boardkind") String boardkind
-            , @RequestParam(value="curPage", defaultValue="1") int curPage
+	@RequestMapping(value = "/article_list/{boardcd}", method = RequestMethod.GET)
+	public String article_list(Model model
+	        , @PathVariable(value="boardcd") String boardcd
+	        , @RequestParam(value="articleno", defaultValue="1") Integer articleno
+//            , @RequestParam(value="curPage", defaultValue="1") int curPage
 //            , @RequestParam(value="searchWord", defaultValue="") String searchWord
-	        , @ModelAttribute ModelBoard board
 	        ) {
 		logger.info("article_list");
 
-		List<ModelArticle> list = srv.getArticleList("free", null, 1, 10);
+        List<ModelBoard> list = srv.getBoardList();
+        model.addAttribute("list", list );
+        // 계속 써줘야 하는가?
 		
-		model.addAttribute("list", list );
+ 		List<ModelArticle> list2 = srv.getArticleList(boardcd, null, 1, 10);
+		model.addAttribute("list2", list2 );
+		
+		String boardnm = srv.getBoardName(boardcd); 
+		model.addAttribute("boardnm", boardnm );
+		
+		model.addAttribute("boardcd", boardcd );
+		model.addAttribute("articleno", articleno );
 		
 		return "board/article_list";
 	}
 	
-    @RequestMapping(value = "/article_view", method = RequestMethod.GET)
-    public String bbs_view(Locale locale, Model model) {
-        logger.info("고고", locale);
+    
+    
+	
+    @RequestMapping(value = "/article_view/{boardcd}/{articleno}", method = RequestMethod.GET)
+    public String bbs_view(Model model
+            , @PathVariable(value="boardcd") String boardcd
+            , @PathVariable(value="articleno") Integer articleno
+            ) {
+        logger.info("article_view");
 
+        List<ModelBoard> list = srv.getBoardList();
+        model.addAttribute("list", list );
+        // 계속 써줘야 하는가?
+        
+        ModelArticle article = srv.getArticle(articleno);
+        model.addAttribute("article", article );
+        
         return "board/article_view";
     }
 }

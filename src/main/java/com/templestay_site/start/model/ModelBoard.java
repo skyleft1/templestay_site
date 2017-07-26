@@ -6,79 +6,74 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ModelBoard {
-    String  boardkind  ; 
-    String  boardname  ; 
-    Boolean useYN  ; 
-    String  insertUID  ;                             
-    Date    insertdate  ;
-    String  updateUID  ;                             
-    Date    updatedate  ; 
+    String  boardcd    ; // VARCHAR2(20)    NOT NULL ENABLE
+    String  boardnm    ; // VARCHAR2(40)    NOT NULL ENABLE
+    Boolean UseYN      ; // NUMBER(1)       DEFAULT 1 NOT NULL ENABLE
+    String  InsertUID  ; // VARCHAR(40)     NULL                            
+    Date    InsertDT   ; // Date            NULL
+    String  UpdateUID  ; // VARCHAR(40)     NULL                            
+    Date    UpdateDT   ; // Date            NULL
+    public String getBoardcd() {
+        return boardcd;
+    }
+    public void setBoardcd(String boardcd) {
+        this.boardcd = boardcd;
+    }
+    public String getBoardnm() {
+        return boardnm;
+    }
+    public void setBoardnm(String boardnm) {
+        this.boardnm = boardnm;
+    }
+    public Boolean getUseYN() {           
+        return this.UseYN;    
+    }
+    public void setUseYN(Boolean useYN) {
+            this.UseYN = useYN;
+    }
+    public String getInsertUID() {
+        return InsertUID;
+    }
+    public void setInsertUID(String insertUID) {
+        InsertUID = insertUID;
+    }
+    public Date getInsertDT() {
+        return InsertDT;
+    }
+    public void setInsertDT(Date insertDT) {
+        InsertDT = insertDT;
+    }
+    public String getUpdateUID() {
+        return UpdateUID;
+    }
+    public void setUpdateUID(String updateUID) {
+        UpdateUID = updateUID;
+    }
+    public Date getUpdateDT() {
+        return UpdateDT;
+    }
+    public void setUpdateDT(Date updateDT) {
+        UpdateDT = updateDT;
+    }
     
     public ModelBoard() {
         super();
     }
-    public ModelBoard(String boardkind, String boardname, Boolean useYN,
-            String insertUID, Date insertdate, String updateUID,
-            Date updatedate) {
+    
+    public ModelBoard(String boardcd, String boardnm, Boolean useYN) {
         super();
-        this.boardkind = boardkind;
-        this.boardname = boardname;
-        this.useYN = useYN;
-        this.insertUID = insertUID;
-        this.insertdate = insertdate;
-        this.updateUID = updateUID;
-        this.updatedate = updatedate;
-    }
-    public String getBoardkind() {
-        return boardkind;
-    }
-    public void setBoardkind(String boardkind) {
-        this.boardkind = boardkind;
-    }
-    public String getBoardname() {
-        return boardname;
-    }
-    public void setBoardname(String boardname) {
-        this.boardname = boardname;
-    }
-    public Boolean getUseYN() {
-        return useYN;
-    }
-    public void setUseYN(Boolean useYN) {
-        this.useYN = useYN;
-    }
-    public String getInsertUID() {
-        return insertUID;
-    }
-    public void setInsertUID(String insertUID) {
-        this.insertUID = insertUID;
-    }
-    public Date getInsertdate() {
-        return insertdate;
-    }
-    public void setInsertdate(Date insertdate) {
-        this.insertdate = insertdate;
-    }
-    public String getUpdateUID() {
-        return updateUID;
-    }
-    public void setUpdateUID(String updateUID) {
-        this.updateUID = updateUID;
-    }
-    public Date getUpdatedate() {
-        return updatedate;
-    }
-    public void setUpdatedate(Date updatedate) {
-        this.updatedate = updatedate;
-    }
-    @Override
-    public String toString() {
-        return "ModelBoard [boardkind=" + boardkind + ", boardname=" + boardname
-                + ", useYN=" + useYN + ", insertUID=" + insertUID
-                + ", insertdate=" + insertdate + ", updateUID=" + updateUID
-                + ", updatedate=" + updatedate + "]";
+        this.boardcd = boardcd;
+        this.boardnm = boardnm;
+        this.UseYN = useYN;
     }
     
+    @Override
+    public String toString() {
+        return "ModelBoard [boardcd=" + boardcd + ", boardnm=" + boardnm
+                + ", UseYN=" + UseYN + ", InsertUID=" + InsertUID
+                + ", InsertDT=" + InsertDT + ", UpdateUID=" + UpdateUID
+                + ", UpdateDT=" + UpdateDT + "]";
+    }
     
     
 }

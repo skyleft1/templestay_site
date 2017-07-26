@@ -4,6 +4,17 @@
 <%@ page session="false" %>
 
 
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+        $('.go_board').click(function(e){
+        	var boardcd = $(this).attr('boardcd');
+            window.location.href = "/board/article_list/" + boardcd;
+        });
+    });
+
+</script>
+
 <div class=''>
     <div class=''>
         <div class='login'>
@@ -72,10 +83,9 @@
                         <li><h5></h5></li>
                     </ul>
                     <ul>
-                        <li><h5>공지사항</h5></li>
-                        <li><h5>질문과 답변</h5></li>
-                        <li class='go_article'><h5>게시판</h5></li>
-                        <li><h5>포토갤러리</h5></li>
+                        <c:forEach var='boardcdlist' items="${list}" varStatus="status">
+                            <li boardcd='${boardcdlist.boardcd}' class='go_board'>${boardcdlist.boardnm}</li>
+                        </c:forEach>
                     </ul>
                 </div>
             </div>

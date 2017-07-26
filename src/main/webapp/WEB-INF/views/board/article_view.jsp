@@ -37,23 +37,23 @@
                         <tbody>
                             <tr>
                                 <th><h5>번호</h5></th>
-                                <td><h6>번호 내용</h6></td>
+                                <td><h6>${article.articleno}</h6></td>
                             </tr>
                             <tr>
                                 <th><h5>제목</h5></th>
-                                <td><h6>제목 내용</h6></td>
+                                <td><h6>${article.title}</h6></td>
                             </tr>
                             <tr>
                                 <th><h5>작성자</h5></th>
-                                <td><h6>작성자 내용</h6></td>
+                                <td><h6>작성자 아이디</h6></td>
                             </tr>
                             <tr>
                                 <th><h5>날짜</h5></th>
-                                <td><h6>날짜 내용</h6></td>
+                                <td><h6>${article.regdate}</h6></td>
                             </tr>
                             <tr>
                                 <th><h5>내용</h5></th>
-                                <td><h6>내용 내용</h6></td>
+                                <td><h6>${article.content}</h6></td>
                             </tr>
                         </tbody>
                     </table>
