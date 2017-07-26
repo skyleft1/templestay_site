@@ -31,7 +31,7 @@ public class BbsController {
 	@RequestMapping(value = "/article_list/free", method = RequestMethod.GET)
 	public String board(Model model
 //	        , @PathVariable(value="boardkind") String boardkind
-//            , @RequestParam(value="curPage", defaultValue="1") int curPage
+            , @RequestParam(value="curPage", defaultValue="1") int curPage
 //            , @RequestParam(value="searchWord", defaultValue="") String searchWord
 	        , @ModelAttribute ModelBoard board
 	        ) {
