@@ -26,7 +26,7 @@ public class TestServiceUser {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         context= new ClassPathXmlApplicationContext("file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml");
-        service=context.getBean("serviceUser", IServiceUser.class);
+        service=context.getBean("serviceuser", IServiceUser.class);
     }
     
     @Test

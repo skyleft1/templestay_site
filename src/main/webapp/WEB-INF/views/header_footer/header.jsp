@@ -74,7 +74,7 @@
                     <ul>
                         <li><h5>공지사항</h5></li>
                         <li><h5>질문과 답변</h5></li>
-                        <li><a href='/bbs/bbs'><h5>게시판</h5></a></li>
+                        <li class='go_article'><h5>게시판</h5></li>
                         <li><h5>포토갤러리</h5></li>
                     </ul>
                 </div>

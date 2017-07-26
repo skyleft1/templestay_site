@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.templestay_site.start.model.ModelUser;
 
 
-@Repository("daoUser")
+@Repository("daouser")
 public class DaoUser implements IDaoUser {
     
     @Autowired

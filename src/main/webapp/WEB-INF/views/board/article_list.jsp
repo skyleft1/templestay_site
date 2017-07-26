@@ -59,13 +59,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><h6>글 번호</h6></td>
-                                <td><a href='/bbs/bbs_view'><h6>제목</h6></a></td>
-                                <td><h6>작성자</h6></td>
-                                <td><h6>날짜</h6></td>
-                                <td><h6>조회 수</h6></td>
-                            </tr>
+                            <c:forEach var='boardlist' items='${list}' varStatus='status' >
+                                <tr>
+                                    <td><h6>${list.articleno}</h6></td>
+                                    <td><h6>${list.title}</h6></td>
+                                    <td><h6>${list.regdate}</h6></td>
+                                    <td><h6>${list.hit}</h6></td>
+                                    <td><h6>${list.hit}</h6></td>
+                                </tr>
+                            </c:forEach>
                         </tbody>
                     </table>
                     <div class='bbs_write'>

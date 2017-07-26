@@ -21,7 +21,15 @@
 
 <script src='/resources/js/common.js'></script>
 
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+        $('.go_article').click(function(e){
+            window.location.href = "/board/article_list/free";
+        });
+    });
 
+</script>
 
 </head>
 <body>

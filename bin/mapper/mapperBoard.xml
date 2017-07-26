@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.mapperBoard">
+    
+    <select id="getBoardName" parameterType="string" resultType="string">        
+        SELECT boardname
+          FROM TB_Bbs_Board
+         WHERE boardkind = #{boardkind}
+    </select>
+    
+    <select id="getBoardOne" parameterType="string" resultType="ModelBoard">
+        SELECT boardkind, boardname, useYN 
+          FROM TB_Bbs_Board 
+         WHERE boardkind = #{boardkind}
+    </select>
+    
+    <select id="getBoardList" resultType="ModelBoard">
+        SELECT boardkind, boardname, useYN, insertUID, insertdate, updateUID, updatedate
+          FROM TB_Bbs_Board
+        ORDER BY boardname
+    </select>         
+           
+    <select id="getBoardListResultMap" resultType="ModelBoard">
+        SELECT * 
+          FROM TB_Bbs_Board 
+    </select>
+    
+        
+     
+    <insert id="insertBoard" parameterType="ModelBoard">
+        INSERT INTO 
+        TB_Bbs_Board ( boardkind   , boardname   , useYN   , insertUID   , insertdate   , updateUID   , updatedate    )
+        VALUES       ( #{boardkind}, #{boardname}, #{useYN}, #{insertUID}, #{insertdate}, #{updateUID}, #{updatedate} )
+    </insert>
+    
+    <update id="updateBoard" parameterType="hashmap">
+        UPDATE TB_Bbs_Board 
+            SET boardname   = #{updateValue.boardname}
+              , useYN     = #{updateValue.useYN}
+              , updateUID = #{updateValue.updateUID}
+              , updatedate  = #{updateValue.updatedate}
+            WHERE 1 = 1 
+              <if test="searchValue.boardkind != null and searchValue.boardkind != ''" >
+              AND boardkind    = #{searchValue.boardkind}
+              </if>
+              <if test="searchValue.boardname != null and searchValue.boardname != ''">
+              AND boardname  = #{searchValue.boardname}
+              </if>
+              <if test="searchValue.useYN != null and searchValue.useYN != ''">
+              AND useYN    = #{searchValue.useYN}
+              </if>
+    </update>
+    
+    <delete id="deleteBoard" parameterType="ModelBoard">
+        DELETE FROM TB_Bbs_Board 
+         WHERE 1 = 1 
+          <if test="boardkind != null and boardkind != ''" >
+          AND boardkind  = #{boardkind}
+          </if>
+          <if test="boardname != null and boardname != ''">
+          AND boardname  = #{boardname}
+          </if>
+          <if test="useYN != null">
+          AND useYN    = #{useYN}
+          </if>
+    </delete>
+    
+    <select id="getBoardSearch" parameterType="ModelBoard" resultType="ModelBoard">
+        SELECT boardkind, boardname, useYN 
+          FROM TB_Bbs_Board
+         WHERE 1 =1 
+           <if  test="boardkind != null and boardkind != ''">
+           AND boardkind LIKE CONCAT('%', #{boardkind},'%')
+           </if>
+           <if  test="boardname != null and boardname != ''">
+           AND boardname LIKE CONCAT('%', #{boardname},'%')
+           </if>
+    </select>
+    
+    <select id="getBoardPaging"  parameterType="hashmap"  resultType="ModelBoard">
+        SELECT boardkind, boardname, useYN
+        FROM (
+            SELECT @RNUM := @RNUM + 1 AS r, a.* 
+                FROM (
+                    SELECT 
+                        boardkind, boardname, useYN
+                    FROM 
+                        TB_BBS_Board
+                    WHERE 1 = 1
+                        <if test="boardkind != null and boardkind != ''">
+                        AND boardkind = #{boardkind}
+                        </if>
+                        <if test="searchWord != null and searchWord != ''">
+                        AND boardname LIKE #{searchWord} 
+                        </if>
+                    GROUP BY boardkind, boardname, useYN
+                    ORDER BY boardkind DESC
+                ) a, (SELECT @RNUM:=0) b
+            ) temp
+        WHERE r BETWEEN #{start} AND #{end}
+    </select>  
+    
+    <!-- mysql multi insert
+        INSERT INTO t (col1, col2, col3) 
+               VALUES ('val1_1', 'val1_2', 'val1_3')
+                    , ('val2_1', 'val2_2', 'val2_3')
+                    , ('val3_1', 'val3_2', 'val3_3')
+        ;
+     -->
+    <insert id="insertBoardList" parameterType="java.util.List">
+        INSERT INTO TB_Bbs_Board( boardkind , boardname , useYN  )
+        VALUES
+            <foreach collection="list" item="item" index="index" open="(" separator="),(" close=")">
+                #{item.boardkind} , #{item.boardname} , #{item.useYN}
+            </foreach>
+    </insert>
+    
+    <select id="getBoardTotalRecord" parameterType="hashmap" resultType="int">
+    SELECT count(*) FROM TB_BBS_Board
+        WHERE 1 = 1
+        <if test="boardkind != null and boardkind != ''">
+            AND boardkind = #{boardkind}
+        </if>
+        <if test="searchWord != null and searchWord != ''">
+            AND boardname LIKE #{searchWord}
+        </if>
+    </select> 
+    
+    <select id="getArticleTotalRecord" parameterType="hashmap" resultType="int">
+        SELECT count(*) FROM TB_BBS_Article 
+         WHERE boardkind = #{boardkind}
+            <if test="searchWord != null and searchWord != ''">
+            AND (title LIKE CONCAT('%', #{searchWord},'%') AND content LIKE CONCAT('%', #{searchWord},'%')   )
+            </if>
+    </select>   
+
+    <select id="getArticleList" parameterType="hashmap" resultType="ModelArticle">
+        SELECT articleno, title, regdate, hit, attachfileNum, commentNum 
+        FROM (
+            SELECT @RNUM := @RNUM + 1 AS r, a.* 
+            FROM (
+                    SELECT a.articleno articleno, 
+                           a.title, 
+                           a.regdate, 
+                           a.hit, 
+                           count(distinct(f.attachfileno)) attachfileNum, 
+                           count(distinct(c.commentno)) commentNum
+                    FROM 
+                        TB_BBS_Article a
+                        LEFT OUTER JOIN TB_BBS_Attachfile f ON a.articleno = f.articleno
+                        LEFT OUTER JOIN TB_BBS_Comments   c ON a.articleno = c.articleno
+                    WHERE
+                        a.boardkind = #{boardkind}
+                        <if test="searchWord != null">
+                        AND (title LIKE CONCAT('%', #{searchWord},'%') OR content LIKE CONCAT('%', #{searchWord},'%') )
+                        </if>
+                    GROUP BY a.articleno, title, a.regdate, hit
+                    ORDER BY articleno DESC
+                 ) a, (SELECT @RNUM:=0) b
+            ) temp
+        WHERE r BETWEEN #{start} AND #{end}
+    </select>  
+
+    
+    <select id="getArticle" parameterType="int" resultType="ModelArticle">
+        SELECT articleno, boardkind, title, content, email, hit, regdate
+        FROM TB_BBS_Article
+        WHERE articleno = #{articleno}
+    </select>
+    
+    <select id="getMaxArticleno" resultType="int">
+        SELECT Max(articleno) FROM TB_BBS_Article
+    </select>
+    
+    <insert id="insertArticle" parameterType="ModelArticle" useGeneratedKeys="true" keyProperty="articleno">
+        INSERT INTO 
+        TB_BBS_Article ( boardkind   , title   , content   , email   , hit, regdate   , insertUID   , insertdate   , updateUID   , updatedate     )
+            VALUES     ( #{boardkind}, #{title}, #{content}, #{email}, 0  , #{regdate}, #{insertUID}, #{insertdate}, #{updateUID}, #{updatedate}  )
+    </insert>   
+    
+    <update id="updateArticle" parameterType="hashmap">
+        UPDATE TB_BBS_Article 
+           SET title     = #{updateValue.title}
+             , content   = #{updateValue.content} 
+             , useYN     = #{updateValue.useYN    , jdbcType=BOOLEAN}
+             , updateUID = #{updateValue.updateUID, jdbcType=VARCHAR}
+             , updatedate  = #{updateValue.updatedate , jdbcType=DATE   }
+         WHERE  1 = 1 
+              <if test="searchValue.boardkind != null and searchValue.boardkind != ''" >
+              AND boardkind    = #{searchValue.boardkind}
+              </if>
+              <if test="searchValue.articleno != null and searchValue.articleno != ''">
+              AND articleno  = #{searchValue.articleno}
+              </if>
+              <if test="searchValue.title != null and searchValue.title != ''">
+              AND title      = #{searchValue.title}
+              </if>
+              <if test="searchValue.email != null and searchValue.email != ''">
+              AND email      = #{searchValue.email}
+              </if>
+              <if test="searchValue.useYN != null">
+              AND useYN      = #{searchValue.useYN}
+              </if>
+    </update>
+    
+    <delete id="deleteArticle" parameterType="ModelArticle">
+        DELETE FROM TB_BBS_Article 
+         WHERE 1 = 1 
+          <if test="articleno != null and articleno != ''" >
+          AND articleno = #{articleno}
+          </if>
+          <if test="boardkind != null and boardkind != ''">
+          AND boardkind  = #{boardkind}
+          </if>
+          <if test="email != null and email != ''">
+          AND email    = #{email}
+          </if>
+          <if test="useYN != null">
+          AND useYN    = #{useYN}
+          </if>
+    </delete>
+    
+    <update id="increaseHit" parameterType="int">
+        UPDATE TB_BBS_Article 
+           SET hit=hit+1 
+         WHERE articleno=#{articleno}
+    </update>
+    
+    <select id="getNextArticle" parameterType="hashmap" resultType="ModelArticle">
+        SELECT articleno, title
+        FROM
+        (
+            SELECT @RNUM := @RNUM + 1 AS r,a.*
+            FROM
+                (SELECT articleno, title 
+                   FROM TB_BBS_Article 
+                  WHERE boardkind = #{boardkind} 
+                    AND articleno &gt; #{articleno}
+                    <if test="searchWord != null">
+                        AND (title LIKE CONCAT('%', #{searchWord},'%') OR
+                        content LIKE CONCAT('%', #{searchWord},'%') )
+                    </if> 
+                    ORDER BY articleno asc
+                ) a
+                , (SELECT @RNUM:=0) b
+        ) c
+        WHERE r = 1
+    </select>
+    
+    <select id="getPrevArticle" parameterType="hashmap" resultType="ModelArticle">
+        SELECT articleno, title
+        FROM
+        (
+            SELECT @RNUM := @RNUM + 1 AS r,a.*
+            FROM
+            (SELECT articleno, title 
+               FROM TB_BBS_Article 
+              WHERE boardkind = #{boardkind} 
+                AND articleno &lt; #{articleno}
+                    <if test="searchWord != null">
+                        AND (title LIKE CONCAT('%', #{searchWord},'%') OR
+                        content LIKE CONCAT('%', #{searchWord},'%') )
+                    </if>
+                ORDER BY articleno DESC
+            ) a
+            , (SELECT @RNUM:=0) b
+        ) c
+        WHERE r = 1
+    </select>
+    
+
+</mapper>

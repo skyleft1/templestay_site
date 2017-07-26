@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 import com.templestay_site.start.dao.IDaoUser;
 import com.templestay_site.start.model.ModelUser;
 
-@Service("serviceUser")
+@Service("serviceuser")
 public class ServiceUser implements IServiceUser {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     
     @Autowired
-    @Qualifier("daoUser")
+    @Qualifier("daouser")
     IDaoUser dao;
     
     @Override
