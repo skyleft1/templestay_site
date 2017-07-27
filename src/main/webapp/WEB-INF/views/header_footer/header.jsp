@@ -72,7 +72,7 @@
                     </ul>
                     <ul>
                         <li><a href='map.jsp'><h5>찾아오시는 길</h5></a></li>
-                        <li><h5></h5></li>
+                        <li></li>
                         <li><h5></h5></li>
                         <li><h5></h5></li>
                     </ul>
@@ -83,9 +83,9 @@
                         <li><h5></h5></li>
                     </ul>
                     <ul>
-                        <c:forEach var='boardcdlist' items="${list}" varStatus="status">
-                            <li boardcd='${boardcdlist.boardcd}' class='go_board'>${boardcdlist.boardnm}</li>
-                        </c:forEach>
+                        <li><h5><a href="/board/article_list/free">자유게시판</a></h5></li>
+                        <li><h5><a href="/board/article_list/qna">질문게시판</a></h5></li>
+                        <li><h5><a href="/board/article_list/data">자료실</a></h5></li>
                     </ul>
                 </div>
             </div>

@@ -37,10 +37,6 @@ public class BbsController {
 	        ) {
 		logger.info("article_list");
 
-        List<ModelBoard> list = srv.getBoardList();
-        model.addAttribute("list", list );
-        // 계속 써줘야 하는가?
-		
  		List<ModelArticle> list2 = srv.getArticleList(boardcd, null, 1, 10);
 		model.addAttribute("list2", list2 );
 		
@@ -53,8 +49,6 @@ public class BbsController {
 		return "board/article_list";
 	}
 	
-    
-    
 	
     @RequestMapping(value = "/article_view/{boardcd}/{articleno}", method = RequestMethod.GET)
     public String bbs_view(Model model
@@ -62,10 +56,6 @@ public class BbsController {
             , @PathVariable(value="articleno") Integer articleno
             ) {
         logger.info("article_view");
-
-        List<ModelBoard> list = srv.getBoardList();
-        model.addAttribute("list", list );
-        // 계속 써줘야 하는가?
         
         ModelArticle article = srv.getArticle(articleno);
         model.addAttribute("article", article );
