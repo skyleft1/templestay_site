@@ -21,7 +21,13 @@
     
     $(document).ready(function(){
         $('.go_view').click(function(e){
-            window.location.href = "/board/article_view/${boardcd}/${articleno}";
+        	var articleno = $(this).children().attr('articleno');
+            window.location.href = "/board/article_view/${boardcd}/"+ articleno;
+        });
+        
+        
+        $('.go_write').click(function(e){
+            window.location.href = "/board/article_write/${boardcd}";
         });
     });
 
@@ -72,7 +78,7 @@
                         <tbody>
                             <c:forEach var='boardlist' items='${list2}' varStatus='status' >
                                 <tr class='go_view'>
-                                    <td><h6>${boardlist.articleno}</h6></td>
+                                    <td articleno='${boardlist.articleno}'><h6>${boardlist.articleno}</h6></td>
                                     <td><h6>${boardlist.title}</h6></td>
                                     <td><h6>작성자 아이디 </h6></td>
                                     <td><h6>${boardlist.regdate}</h6></td>
@@ -84,17 +90,16 @@
                     <div class='bbs_write'>
                         <div>
                             <div>
-                                <input type='bottom' name=''
+                                <input type='button' name=''
                                     class='prev_bbs' value='이전'>
                             </div>
                             <div>
-                                <input type='bottom' name=''
+                                <input type='button' name=''
                                     class='next_bbs' value='다음'>
                             </div>
                         </div>
-                        <div class='write_bottom'>
-                            <input type='bottom' name=''
-                                class='write_bbs' value='글쓰기'>
+                        <div class='write_button'>
+                            <input type='button' name='' class='go_write' value='글쓰기'>
                         </div>
                     </div>
                 </div>

@@ -69,8 +69,8 @@ td {
     margin: 0 10px;
 }
 
-.bbs_view_modify,
-.bbs_view_delete
+.go_modify,
+.go_delete
 {
     width: 30px;
     margin: 15px auto;

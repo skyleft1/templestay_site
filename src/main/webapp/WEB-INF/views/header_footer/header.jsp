@@ -7,10 +7,10 @@
 <script type="text/javascript">
     
     $(document).ready(function(){
-        $('.go_board').click(function(e){
-        	var boardcd = $(this).attr('boardcd');
-            window.location.href = "/board/article_list/" + boardcd;
-        });
+//        $('.go_board').click(function(e){
+//        	var boardcd = $(this).attr('boardcd');
+            //window.location.href = "/board/article_list/" + boardcd;
+//        });
     });
 
 </script>
@@ -83,9 +83,9 @@
                         <li><h5></h5></li>
                     </ul>
                     <ul>
-                        <li><h5><a href="/board/article_list/free">자유게시판</a></h5></li>
+                        <li><h5><a href="/board/article_list/notice">공지사항</a></h5></li>
                         <li><h5><a href="/board/article_list/qna">질문게시판</a></h5></li>
-                        <li><h5><a href="/board/article_list/data">자료실</a></h5></li>
+                        <li><h5><a href="/board/article_list/free">자유게시판</a></h5></li>
                     </ul>
                 </div>
             </div>

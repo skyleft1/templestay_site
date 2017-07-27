@@ -16,8 +16,22 @@
         <script src='/resources/js/jquery-3.1.0.js'></script>
         <script src='/resources/js/jquery-ui.js'></script>
         <script src="/resources/js/common.js"></script>
-        <script>
-        </script>
+        
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+        $('.go_modify').click(function(e){
+            window.location.href = "/board/article_modify/${boardcd}/${articleno}";
+        });
+        $('.go_delete').click(function(e){
+            window.location.href = "/board/article_delete/${boardcd}/${articleno}";
+        });
+        $('.go_write').click(function(e){
+            window.location.href = "/board/article_write/${boardcd}/${articleno}";
+        });
+    });
+
+</script>
 
     </head>
     <body>
@@ -59,10 +73,13 @@
                     </table>
                     <div class='modify_delete'>
                         <div>
-                            <input type='bottom' name=''class='bbs_view_modify' value='수정'>
+                            <input type='button' name='' class='go_modify' value='수정'>
                         </div>
                         <div>
-                            <input type='bottom' name=''class='bbs_view_delete' value='삭제'>
+                            <input type='button' name='' class='go_delete' value='삭제'>
+                        </div>
+                        <div>
+                            <input type='button' name='' class='go_write' value='글쓰기'>
                         </div>
                     </div>
                 </div>

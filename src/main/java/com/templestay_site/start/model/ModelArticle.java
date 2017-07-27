@@ -115,6 +115,27 @@ public class ModelArticle {
     public ModelArticle() {
         super();
     }
+
+    
+
+    public ModelArticle(String title, String content) {
+        super();
+        this.title = title;
+        this.content = content;
+    }
+    
+    
+    
+    public ModelArticle(String boardcd, String title, String content) {
+        super();
+        this.boardcd = boardcd;
+        this.title = title;
+        this.content = content;
+    }
+    public ModelArticle(Integer articleno) {
+        super();
+        this.articleno = articleno;
+    }
     @Override
     public String toString() {
         return "ModelArticle [articleno=" + articleno + ", boardcd=" + boardcd
@@ -129,3 +150,4 @@ public class ModelArticle {
     
 
 }
+

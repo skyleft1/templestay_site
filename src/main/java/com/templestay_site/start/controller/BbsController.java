@@ -48,10 +48,10 @@ public class BbsController {
 		
 		return "board/article_list";
 	}
-	
-	
+
+// view jsp
     @RequestMapping(value = "/article_view/{boardcd}/{articleno}", method = RequestMethod.GET)
-    public String bbs_view(Model model
+    public String article_view(Model model
             , @PathVariable(value="boardcd") String boardcd
             , @PathVariable(value="articleno") Integer articleno
             ) {
@@ -61,5 +61,78 @@ public class BbsController {
         model.addAttribute("article", article );
         
         return "board/article_view";
+    }
+    
+    // write jsp
+    @RequestMapping(value = "/article_modify/{boardcd}/{articleno}", method = RequestMethod.GET)
+    public String article_modify(Model model
+            , @PathVariable(value="boardcd") String boardcd
+            , @PathVariable(value="articleno") Integer articleno
+            , @ModelAttribute ModelArticle article
+            ) {
+        logger.info("article_modify");
+        
+        article = srv.getArticle(articleno);
+        model.addAttribute("article", article );
+        
+        return "board/article_write";
+    }
+    
+    
+    // write jsp
+    @RequestMapping(value = "/article_write/{boardcd}", method = RequestMethod.GET)
+    public String article_write_GET(Model model
+            , @PathVariable(value="boardcd") String boardcd
+            ) {
+        logger.info("article_write");
+        
+        return "/board/article_write";
+    }
+    
+    // modify 를 이용한 값 추가
+    @RequestMapping(value = "/article_write/{boardcd}/{articleno}", method = RequestMethod.POST)
+    public String article_write_POST_modify(Model model
+            , @PathVariable(value="boardcd") String boardcd
+            , @PathVariable(value="articleno") Integer articleno
+            , @RequestParam(value="title", defaultValue="") String title
+            , @RequestParam(value="content", defaultValue="") String content
+            , @RequestParam(value="useYN", defaultValue="true") Boolean useYN
+
+            ) {
+        logger.info("article_write");
+        
+        ModelArticle searchValue = new ModelArticle();
+        searchValue = srv.getArticle(articleno);
+        ModelArticle updateValue = new ModelArticle();
+        updateValue.setBoardcd(boardcd);
+        updateValue.setTitle(title);
+        updateValue.setContent(content);
+        updateValue.setUseYN(useYN);
+        int result = srv.updateArticle(updateValue, searchValue);
+        
+        if (result == 1) {
+            return "redirect:/board/article_view/{boardcd}/{articleno}";
+        } else {
+            return "redirect:/board/article_write/{boardcd}/{articleno}";
+        }
+    }
+    
+    // write 를 이용한 값 추가
+    @RequestMapping(value = "/article_write/{boardcd}", method = RequestMethod.POST)
+    public String article_write_POST_write(Model model
+            , @PathVariable(value="boardcd") String boardcd
+            , @RequestParam(value="title", defaultValue="") String title
+            , @RequestParam(value="content", defaultValue="") String content
+            , @RequestParam(value="useYN", defaultValue="true") Boolean useYN
+            ) {
+        logger.info("article_write");
+        ModelArticle article = new ModelArticle(boardcd, title, content);
+        int result = srv.insertArticle(article);
+
+         if (result == 1) {
+            return "redirect:/board/article_list/{boardcd}";
+        } else {
+            return "redirect:/board/article_write/{boardcd}";
+        }
     }
 }
