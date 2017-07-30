@@ -1,31 +1,59 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page session="false" %>
 
-
+ 
 <script type="text/javascript">
     
     $(document).ready(function(){
-//        $('.go_board').click(function(e){
-//        	var boardcd = $(this).attr('boardcd');
-            //window.location.href = "/board/article_list/" + boardcd;
-//        });
+        $('.go_login').click(function(e){
+            window.location.href = "/user/user_login" ;
+        });
     });
 
-</script>
+</script> 
+
 
 <div class=''>
     <div class=''>
         <div class='login'>
             <div class=''>
-                <div class='move_login box'>
-                    <a href='/login/login'><h4>로그인</h4></a>
-                </div>
-                <div class='dot'>ㆍ</div>
-                <div class='move_signup box'>
-                    <a href='/join/join'><h4>회원가입</h4></a>
-                </div>
+            
+                <c:choose>
+                    <c:when test="${session_user == null}"> <!--  WebConstants파일의 SESSION_NAME의 값을 불러옴 -->
+                        <div class='move_login box'>
+                        <input type="button" value="로그인" class="go_login" />
+                        </div>
+                        <div class='dot'>ㆍ</div>
+                        <div class='move_signup box'>
+                            <a href="javascript:location.href='/user/user_join'"><h4>회원가입</h4></a>
+                        </div>
+                            ${ session_user }
+                            ${ WebConstants.SESSION_NAME }
+                    </c:when>
+                    <c:otherwise>
+                        <div class='move_login box'>
+                            ${ result.userid} 님 환영합니다! ^0^/                          
+                        </div>
+                        <div class='move_login box'>
+                            <a href="javascript:location.href='/user/user_logout'"><h4>로그아웃</h4></a>
+                        </div>
+                        <div class='dot'>ㆍ</div>
+                        <div class='move_signup box'>
+                            <a href="javascript:location.href='/user/user_info'"><h4>회원정보수정</h4></a>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+                
+                        <div class='move_signup box'>
+                            <a href="javascript:location.href='/user/user_info'"><h4>회원정보수정</h4></a>
+                        </div>
+                        <div class='move_login box'>
+                            <a href="javascript:location.href='/user/user_logout'"><h4>로그아웃</h4></a>
+                        </div>
+                
+          
             </div>
         </div>
         <div class='warp_menu_inner'>

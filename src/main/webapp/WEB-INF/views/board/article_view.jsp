@@ -27,7 +27,7 @@
             window.location.href = "/board/article_delete/${boardcd}/${articleno}";
         });
         $('.go_write').click(function(e){
-            window.location.href = "/board/article_write/${boardcd}/${articleno}";
+            window.location.href = "/board/article_write/${boardcd}";
         });
     });
 

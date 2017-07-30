@@ -3,10 +3,11 @@ package com.templestay_site.start.commons;
 public class WebConstants {
     
     // Upload Path
-    public final static String UPLOAD_PATH           = "C:/upload/";
+    public final static String UPLOAD_PATH           = "D:/upload/";
     
     // Session key
-    public final static String USER_KEY              = "user";
+    public final static String SESSION_NAME         = "session_user" ;
+    // 로그인 로그아웃 전환을 위함
     
     // Error Message
     public final static String NOT_LOGIN             = "Not Login";

@@ -18,16 +18,9 @@
 
 <script>
 $(document).ready(function(){
-    $('.')
-	
-})
+    
+});
 
-
-<c:choose>
-<c:when test="${userid} == null }">
-아이디를 입력하세요.
-</c:when>
-</c:choose>
 
 </script>
 
@@ -46,55 +39,36 @@ $(document).ready(function(){
         <div class='join_content'>
             <div class=''>
                 <div class='join_maintitle'>
-                    <h3>회원가입</h3>
+                    <h3>회원정보 수정</h3>
                 </div>
                 <div class=''>
-                    <form method='post' action='/join/joinAction'>
+                
+                    <div><a href='/user/user_modify_password'>비밀번호 변경</a></div>
+                
+                    <form class='modify_form' method='post' action='/user/user_modify' >
                         <table>
                             <tbody>
-                                <tr>
-                                    <th>아이디</th>
-                                    <td><p>영문자, 숫자, _ 만 입력 가능.
-                                            최소 3자이상 입력하세요.</p> 
-                                            <input type='text' name='userid' value=''> 
-                                        
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>비밀번호</th>
-                                    <td><input type='password'
-                                        name='userpassword' value=''>
-                                    </td>
-                                </tr>
-
-                                 <tr>
-                                    <th>비밀번호 확인</th>
-                                    <td><input type='password'
-                                        name='userpassword_confirm' value=''>
-                                    </td>
-                                </tr>
+                                <p>
+                                    <input type="hidden" name="userid" value="${modify.userid }" />
+                                </p>
                                 <tr>
                                     <th>이름</th>
-                                    <td><input type='text'
-                                        name='username' value=''></td>
+                                    <td><input type='text' name='username' value='${modify.username}' /></td>
                                 </tr>
                                 <tr>
                                     <th>이메일</th>
-                                    <td><input type='email'
-                                        name='useremail' value=''>
-                                    </td>
+                                    <td><input type='email' name='useremail' value='${modify.useremail}' /></td>
                                 </tr>
                                 <tr>
                                     <th>연락처</th>
-                                    <td><input type='text'
-                                        name='phonenumber' value=''>
-                                    </td>
+                                    <td><input type='text' name='phonenumber' value='${modify.phonenumber}' /></td>
                                 </tr>
                             </tbody>
                         </table>
                         <div class='wrap_submit'>
-                            <input type='submit' name='' value='회원가입'>
+                            <input type='submit' class='modify_submit' value='회원정보 수정'>
                         </div>
+                        <div><a href='/user/user_delete'>회원탈퇴</a></div>
                     </form>
                 </div>
             </div>

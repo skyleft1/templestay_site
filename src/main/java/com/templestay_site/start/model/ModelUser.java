@@ -2,12 +2,7 @@ package com.templestay_site.start.model;
 
 import java.sql.Date;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class ModelUser {
-    // SLF4J Logging
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
     
         private Integer         userno ; 
         private String          userid ;
@@ -21,11 +16,18 @@ public class ModelUser {
             super();
         }
         
-        public ModelUser(Logger logger, Integer userno, String userid,
-                String userpassword, String username, String useremail,
-                String phonenumber, Date joindate) {
+        
+        public ModelUser(String userid, String userpassword) {
             super();
-            this.logger = logger;
+            this.userid = userid;
+            this.userpassword = userpassword;
+        }
+
+
+        public ModelUser(Integer userno, String userid, String userpassword,
+                String username, String useremail, String phonenumber,
+                Date joindate) {
+            super();
             this.userno = userno;
             this.userid = userid;
             this.userpassword = userpassword;
@@ -34,13 +36,8 @@ public class ModelUser {
             this.phonenumber = phonenumber;
             this.joindate = joindate;
         }
-        
-        public Logger getLogger() {
-            return logger;
-        }
-        public void setLogger(Logger logger) {
-            this.logger = logger;
-        }
+
+
         public Integer getUserno() {
             return userno;
         }
@@ -83,14 +80,17 @@ public class ModelUser {
         public void setJoindate(Date joindate) {
             this.joindate = joindate;
         }
+
+
         @Override
         public String toString() {
-            return "ModelUser [logger=" + logger + ", userno=" + userno
-                    + ", userid=" + userid + ", userpassword=" + userpassword
-                    + ", username=" + username + ", useremail=" + useremail
-                    + ", phonenumber=" + phonenumber + ", joindate=" + joindate
-                    + "]";
+            return "ModelUser [userno=" + userno + ", userid=" + userid
+                    + ", userpassword=" + userpassword + ", username="
+                    + username + ", useremail=" + useremail + ", phonenumber="
+                    + phonenumber + ", joindate=" + joindate + "]";
         }
+
+        
 
         
 }

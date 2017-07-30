@@ -19,6 +19,18 @@ public class ServiceUser implements IServiceUser {
     @Qualifier("daouser")
     IDaoUser dao;
     
+    
+    @Override
+    public ModelUser login(String userid, String userpassword) {
+        ModelUser result = null;
+        try {
+            result = dao.login(userid, userpassword);
+        } catch (Exception e) {
+            logger.error("getUserOne" + e.getMessage() );
+        }
+        return result;
+    }
+    
     @Override
     public ModelUser getUserOne(String userid) {
         ModelUser result = null;
@@ -62,4 +74,40 @@ public class ServiceUser implements IServiceUser {
         }
         return result;
     }
+
+    @Override
+    public int updatePassword(String newpassword, String currentpassword,
+            String userid) {
+        int result = -1;
+        try {
+            result = dao.updatePassword(newpassword, currentpassword, userid);
+        } catch (Exception e) {
+            logger.error("insertUserList" + e.getMessage() );
+        }
+        return result;
+    }
+
+    @Override
+    public int updateUser(ModelUser updateValue, ModelUser searchValue) {
+        int result = -1;
+        try {
+            result = dao.updateUser(updateValue, searchValue);
+        } catch (Exception e) {
+            logger.error("insertUserList" + e.getMessage() );
+        }
+        return result;
+    }
+
+    @Override
+    public int deleteUser(ModelUser user) {
+        int result = -1;
+        try {
+            result = dao.deleteUser(user);
+        } catch (Exception e) {
+            logger.error("insertUserList" + e.getMessage() );
+        }
+        return result;
+    }
+
+
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <%@ page session="false" %>
 
 
@@ -55,8 +56,7 @@
                                     type='text' class='calander2'
                                     name='' value='종료일'>
                                 <div>
-                                    <input type='submit' name=''
-                                        value='신청하기'>
+                                    <input type='submit' name='' value='신청하기'>
                                 </div>
                             </form>
                         </div>
@@ -77,8 +77,8 @@
                         <div class=''>
                             <ul>
                                 <li>게시1 title n</li>
-                                <li>게시2 title n-1</li>
-                                <li>게시3 title n-2</li>
+                                <li>${session_user}</li>
+                                <li>${session_user.userid}</li>
                                 <li>게시4 title n-3</li>
                                 <li>게시5 title n-4</li>
                             </ul>

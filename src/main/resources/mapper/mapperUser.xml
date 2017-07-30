@@ -4,6 +4,13 @@
 
 <mapper namespace="mapper.mapperUser">
     
+    <select id="login" parameterType="ModelUser" resultType="ModelUser">
+            select userid, username, userpassword, useremail, phonenumber
+              from TB_USER
+             WHERE  userid = #{userid}
+              AND userpassword = #{userpassword}
+    </select>
+    
     <select id="getUserName" parameterType="string" resultType="string">        
         SELECT username
           FROM TB_user
@@ -38,10 +45,15 @@
     
     
     
+    <update id="updatePassword" parameterType="hashmap" >
+            UPDATE TB_USER 
+               SET userpassword = #{newpassword}            
+             WHERE userpassword = #{currentpassword} AND userid = #{userid}
+    </update>
+    
     <update id="updateUser" parameterType="hashmap">
         UPDATE TB_User 
             SET userid   = #{updateValue.userid}
-              , userpassword     = #{updateValue.userpassword}
               , username = #{updateValue.username}
               , useremail  = #{updateValue.useremail}
               , phonenumber  = #{updateValue.phonenumber}
