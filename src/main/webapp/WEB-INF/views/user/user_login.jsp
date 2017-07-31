@@ -38,7 +38,7 @@ $(document).ready( function(e){
                 // 통신이 시작되기 전에 이 함수를 타게 된다.
             }
         }).done( function(data, textStatus, xhr ){
-            if (data.code != 1){
+            if (data.code === 1){
             	alert( data.userid + " 님 환영합니다." );
             	window.location = "/"
             	

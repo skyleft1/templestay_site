@@ -1,7 +1,9 @@
 package com.templestay_site.start.controller;
 
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -50,7 +52,7 @@ public class UserController {
 	
     @RequestMapping(value = "/user_login", method = RequestMethod.POST)
     @ResponseBody
-    public String login(Model model
+    public Map<String , Object> login(Model model
             , @ModelAttribute ModelUser user
             , @RequestParam(value="userid", defaultValue="") String userid
             , @RequestParam(value="userpassword", defaultValue="") String userpassword
@@ -63,9 +65,14 @@ public class UserController {
         if(result != null){
             session.setAttribute(WebConstants.SESSION_NAME, result);
             session.getAttribute(userid);
-            return String.format("{'code':%d, 'userid':%s }", 1, userid);
+            
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("code"  , 1);
+            map.put("userid", userid);
+            
+            return map;
         }else{
-            return "";
+            return null;
         }
         
     }
