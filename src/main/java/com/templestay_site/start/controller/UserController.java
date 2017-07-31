@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.templestay_site.start.commons.WebConstants;
 import com.templestay_site.start.model.ModelUser;
@@ -48,6 +49,7 @@ public class UserController {
 	}
 	
     @RequestMapping(value = "/user_login", method = RequestMethod.POST)
+    @ResponseBody
     public String login(Model model
             , @ModelAttribute ModelUser user
             , @RequestParam(value="userid", defaultValue="") String userid
@@ -60,16 +62,10 @@ public class UserController {
         
         if(result != null){
             session.setAttribute(WebConstants.SESSION_NAME, result);
-            model.addAttribute("result", result);
-            
-            ModelUser test = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
-            if( test == null){
-                return "redirect:/user/user_login";
-            }
-            
-            return "redirect:/";
+            session.getAttribute(userid);
+            return String.format("{'code':%d, 'userid':%s }", 1, userid);
         }else{
-            return "redirect:/user/user_login";
+            return "";
         }
         
     }

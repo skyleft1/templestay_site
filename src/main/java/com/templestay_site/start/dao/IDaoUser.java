@@ -15,4 +15,6 @@ public interface IDaoUser {
     int updatePassword(String newpassword, String currentpassword, String userid );
     int updateUser(ModelUser updateValue, ModelUser searchValue);
     int deleteUser(ModelUser user);
+    
+    int checkuserid(String userid);
 }

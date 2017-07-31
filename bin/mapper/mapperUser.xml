@@ -78,4 +78,10 @@
           </if>
     </delete>
 
+    <select id="checkuserid" parameterType="string" resultType="int">
+            SELECT count(userid)
+            FROM TB_USER
+            where userid = #{userid}
+    </select>
+
  </mapper>

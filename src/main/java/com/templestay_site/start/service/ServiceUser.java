@@ -109,5 +109,15 @@ public class ServiceUser implements IServiceUser {
         return result;
     }
 
+    @Override
+    public int checkuserid(String userid) {
+        int result = -1;
+        try {
+            result = dao.checkuserid(userid);
+        } catch (Exception e) {
+            logger.error("insertUserList" + e.getMessage() );
+        }
+        return result;
+    }
 
 }

@@ -68,4 +68,9 @@ public class DaoUser implements IDaoUser {
         return session.insert("mapper.mapperUser.deleteUser", user);
     }
 
+    @Override
+    public int checkuserid(String userid) {
+        return session.insert("mapper.mapperUser.checkuserid", userid);
+    }
+
 }
