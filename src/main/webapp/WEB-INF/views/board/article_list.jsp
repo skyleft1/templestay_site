@@ -80,7 +80,7 @@
                                 <tr class='go_view'>
                                     <td articleno='${boardlist.articleno}'><h6>${boardlist.articleno}</h6></td>
                                     <td><h6>${boardlist.title}</h6></td>
-                                    <td><h6>작성자 아이디 </h6></td>
+                                    <td><h6>${boardlist.insertUID } </h6></td>
                                     <td><h6>${boardlist.regdate}</h6></td>
                                     <td><h6>${boardlist.hit}</h6></td>
                                 </tr>

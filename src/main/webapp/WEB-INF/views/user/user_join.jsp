@@ -15,21 +15,39 @@
 <script src='/resources/js/jquery-3.1.0.js'></script>
 <script src='/resources/js/jquery-ui.js'></script>
 <script src="/resources/js/common.js"></script>
+<script src="/resources/js/ajaxsetup.js"></script>
 
 <!-- 
 필요한 자바스크립트
 1 중복체크
 2 빈값 알림
-3 비밀번호 확인 일치여부
+3 비밀번호 확인 일치여부(ajax로 하자)
+
  -->
 <script>
 $(document).ready(function(){
     $('.id_check').click(function(e){
-   //	중복검사 시작
-        $('table input').removeAttr('disabled', '').css('background-color', '#f7f7f7');
+    	var userid = $('input[name="userid"]').val();
+        $.ajax({
+            url : '/user/user_id_check'
+            , data: {'userid' : userid }        // 사용하는 경우에는 { data1:'test1', data2:'test2' }
+            , type: 'POST'       // get, post
+            , timeout: 30000    // 30초
+            , dataType: 'json'  // text, html, xml, json, jsonp, script
+            , beforeSend : function() {
+                // 통신이 시작되기 전에 이 함수를 타게 된다.
+            }
+        }).done( function(data, textStatus, xhr ){
+            if (data.code === 1){
+                alert( data.msg );
+            }else {
+            	$('table input').removeAttr('disabled', '').css('background-color', '#f7f7f7');
+            }
         });
-    
-    
+    });
+
+
+
     $('.join_submit').click(function(e) {
     	$('table input').next('label').remove();
         var a = $('.submit_check');
@@ -50,9 +68,8 @@ $(document).ready(function(){
         	$('.join_form').submit();
         }
     });
-    
-
 });
+
     
 </script>
 

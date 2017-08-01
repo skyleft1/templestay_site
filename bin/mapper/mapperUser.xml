@@ -61,6 +61,9 @@
               <if test="searchValue.userno != null and searchValue.userno != ''" >
               AND userno    = #{searchValue.userno}
               </if>
+              <if test="searchValue.userid != null and searchValue.userid != ''" >
+              AND userid    = #{searchValue.userid}
+              </if>
               <if test="searchValue.username != null and searchValue.username != ''">
               AND username  = #{searchValue.username}
               </if>
@@ -73,7 +76,10 @@
           <if test="userno != null and userno != ''" >
           AND userno  = #{userno}
           </if>
-          <if test="username != null and username != ''">
+          <if test="userid != null and userid != ''" >
+          AND userid  = #{userid}
+          </if>
+          <if test="username != null and username != ''" >
           AND username  = #{username}
           </if>
     </delete>

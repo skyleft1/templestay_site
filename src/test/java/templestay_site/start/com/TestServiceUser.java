@@ -33,11 +33,11 @@ public class TestServiceUser {
     public void testinsertUser() {
         ModelUser user = new ModelUser();
         
-        user.setUserid("yong1");
-        user.setUserpassword("yooooo");
-        user.setUsername("용느님");
-        user.setUseremail("yongyong@yong.com");
-        user.setPhonenumber("010101010101");
+        user.setUserid("bb1");
+        user.setUserpassword("aa");
+        user.setUsername("aa");
+        user.setUseremail("aa@aa");
+        user.setPhonenumber("aa");
         
         int result = service.insertUser(user);
         
@@ -66,11 +66,11 @@ public class TestServiceUser {
            
             user= new ModelUser();
           
-            user.setUserid("hehe1");
-            user.setUserpassword("Hrtht");
-            user.setUsername("김하하");
-            user.setUseremail("holhol@hol.com");
-            user.setPhonenumber("37878787101");
+            user.setUserid("aa"+i);
+            user.setUserpassword("aa");
+            user.setUsername("aa");
+            user.setUseremail("aa@aa");
+            user.setPhonenumber("aa");
            
             list.add(user);
         }

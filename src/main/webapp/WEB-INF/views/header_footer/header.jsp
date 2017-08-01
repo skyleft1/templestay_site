@@ -6,12 +6,19 @@
  
 <script type="text/javascript">
     
-    $(document).ready(function(){
-        $('.go_login').click(function(e){
-            window.location.href = "/user/user_login" ;
+$(document).ready(function(){
+    $('.go_login').click(function(e){
+        window.location.href = "/user/user_login" ;
         });
+        
+    $('.go_logout').click(function(e){
+    	window.location.href = "/user/user_logout" ;
+        alert('로그아웃 되었습니다.');
     });
+});
 
+    
+    
 </script> 
 
 
@@ -23,7 +30,7 @@
                 <c:choose>
                     <c:when test="${empty session_user}"> <!--  WebConstants파일의 SESSION_NAME의 값을 불러옴 -->
                         <div class='move_login box'>
-                        <input type="button" value="로그인" class="go_login" />
+                            <input type="button" value="로그인" class="go_login" />
                         </div>
                         <div class='dot'>ㆍ</div>
                         <div class='move_signup box'>
@@ -36,7 +43,7 @@
                             ${ session_user.userid} 님 환영합니다! ^0^/                          
                         </div>
                         <div class='move_login box'>
-                            <a href="javascript:location.href='/user/user_logout'"><h4>로그아웃</h4></a>
+                            <input type="button" value="로그아웃" class="go_logout" />
                         </div>
                         <div class='dot'>ㆍ</div>
                         <div class='move_signup box'>
@@ -78,26 +85,26 @@
             <div class='wrap_inner'>
                 <div class='menu_content_inner'>
                     <ul>
-                        <li><a href='intro01.jsp'><h5>템플스테이란?</h5></a></li>
-                        <li><a href='intro02.jsp'><h5>템플스테이 소개</h5></a></li>
-                        <li><a href='monk.jsp'><h5>주지스님 인사말</h5></a></li>
-                        <li><a href='fac.jsp'><h5>시설 현황</h5></a></li>
+                        <li><a href='/etc/intro01'><h5>템플스테이란?</h5></a></li>
+                        <li><a href='/etc/intro02'><h5>템플스테이 소개</h5></a></li>
+                        <li><a href='/etc/monk'><h5>주지스님 인사말</h5></a></li>
+                        <li><a href='/etc/fac'><h5>시설 현황</h5></a></li>
                     </ul>
                     <ul>
-                        <li><a href='program01.jsp'><h5>휴식형 프로그램</h5></a></li>
-                        <li><a href='program02.jsp'><h5>체험형 프로그램</h5></a></li>
-                        <li><a href='program03.jsp'><h5>템플라이프</h5></a></li>
+                        <li><a href='/etc/program01'><h5>휴식형 프로그램</h5></a></li>
+                        <li><a href='/etc/program02'><h5>체험형 프로그램</h5></a></li>
+                        <li><a href='/etc/program03'><h5>템플라이프</h5></a></li>
                         <li><h5></h5></li>
 
                     </ul>
                     <ul>
-                        <li><a href='map.jsp'><h5>찾아오시는 길</h5></a></li>
+                        <li><a href='/etc/map'><h5>찾아오시는 길</h5></a></li>
                         <li></li>
                         <li><h5></h5></li>
                         <li><h5></h5></li>
                     </ul>
                     <ul>
-                        <li><a href='training.jsp'><h5>여름수련회 소개</h5></a></li>
+                        <li><a href='/etc/training'><h5>여름수련회 소개</h5></a></li>
                         <li><h5></h5></li>
                         <li><h5></h5></li>
                         <li><h5></h5></li>

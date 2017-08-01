@@ -7,7 +7,7 @@
 	});
 	$( document ).ajaxError(function(xhr, textStatus, error) {
 		// 통신이 실패했을 때 이 함수를 타게 된다.
-		var msg ='3232323';
+		var msg ='11';
 		msg += "code:"    + xhr.status         + "\n";
 		msg += "message:" + xhr.responseText   + "\n";
 		msg += "status:"  + textStatus         + "\n";

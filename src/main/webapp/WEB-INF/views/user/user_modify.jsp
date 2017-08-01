@@ -18,7 +18,29 @@
 
 <script>
 $(document).ready(function(){
-    
+    $('.user_delete').click(function(e){
+    	var confirm_delete = confirm("정말로 탈퇴하시겠습니까? ㅠㅠ");
+            if (confirm_delete == true) {
+                $.ajax({
+                    url : '/user/user_delete',
+                    data : null, // 사용하는 경우에는 { data1:'test1', data2:'test2' }
+                    type : 'POST', // get, post
+                    timeout : 30000, // 30초
+                    dataType : 'json', // text, html, xml, json, jsonp, script
+                    beforeSend : function() {
+                        // 통신이 시작되기 전에 이 함수를 타게 된다.
+                    }
+                }).done(function(data, textStatus, xhr) {
+                    if (data.code === 1) {
+                        window.location = data.url;
+                    } else {
+                        alert("삭제실패. 관리자 문의 바람.");
+                        window.location = "user/user_delete" ;
+                    }
+                    alert(data.msg);
+                });
+        }
+    });
 });
 
 
@@ -68,7 +90,9 @@ $(document).ready(function(){
                         <div class='wrap_submit'>
                             <input type='submit' class='modify_submit' value='회원정보 수정'>
                         </div>
-                        <div><a href='/user/user_delete'>회원탈퇴</a></div>
+                        <div>
+                            <input type="button" value="회원삭제" class="user_delete" />
+                        </div>
                     </form>
                 </div>
             </div>

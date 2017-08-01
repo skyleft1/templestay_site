@@ -26,9 +26,6 @@
         SELECT * 
           FROM TB_Bbs_Board 
     </select>
-    
-        
-    
      
     <insert id="insertBoard" parameterType="ModelBoard">
         INSERT INTO 
@@ -138,12 +135,13 @@
     </select>   
 
     <select id="getArticleList" parameterType="hashmap" resultType="ModelArticle">
-        SELECT articleno, title, regdate, hit, attachfileNum, commentNum 
+        SELECT articleno, title, insertUID, regdate, hit, attachfileNum, commentNum 
         FROM (
             SELECT @RNUM := @RNUM + 1 AS r, a.* 
             FROM (
                     SELECT a.articleno articleno, 
-                           a.title, 
+                           a.title,
+                           a.insertUID,  
                            a.regdate, 
                            a.hit, 
                            count(distinct(f.attachfileno)) attachfileNum, 
@@ -166,7 +164,7 @@
 
     
     <select id="getArticle" parameterType="int" resultType="ModelArticle">
-        SELECT articleno, boardcd, title, content, email, hit, regdate
+        SELECT articleno, boardcd, title, content, insertUID, email, hit, regdate
         FROM TB_BBS_Article
         WHERE articleno = #{articleno}
     </select>

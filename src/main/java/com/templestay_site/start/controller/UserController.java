@@ -59,22 +59,21 @@ public class UserController {
             , HttpSession session
             ) {
         logger.info("login:POST");
-
+        Map<String, Object> map = new HashMap<String, Object>();
+        
         ModelUser result = srv.login(userid, userpassword) ;
         
         if(result != null){
             session.setAttribute(WebConstants.SESSION_NAME, result);
             session.getAttribute(userid);
             
-            Map<String, Object> map = new HashMap<String, Object>();
             map.put("code"  , 1);
             map.put("userid", userid);
-            
             return map;
         }else{
-            return null;
+            map.put("code"  , 2);
+            return map;
         }
-        
     }
     
     
@@ -85,9 +84,8 @@ public class UserController {
         logger.info("logout");
         
         session.removeAttribute(WebConstants.SESSION_NAME);
-
-        return "redirect:/";
         
+        return "redirect:/";
     }
     
     
@@ -99,8 +97,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user_join", method = RequestMethod.POST)
-    public String join(
-            Model model 
+    public String join( Model model 
             , @ModelAttribute ModelUser userinfo
             ) {
         logger.info("join:POST");
@@ -108,13 +105,49 @@ public class UserController {
         int result = srv.insertUser(userinfo); 
         
         if(result == 1) {
-            return "redirect:/user/user_login";
+            return "user/user_join_success";
         } else {
             model.addAttribute("userinfo", userinfo );
             return "redirect:/user/user_join";
         }
     }
     
+    // 아이디 체크하는 부분 (user_login의 ajax로 통신)
+    @RequestMapping(value = "/user_id_check", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> user_id_check( Model model 
+            , @RequestParam(value="userid", defaultValue="") String userid
+            ) {
+        logger.info("user_id_check");
+        
+        ModelUser user = srv.getUserOne(userid);
+                
+        Map<String, Object> map = new HashMap<String, Object>();
+        
+        if(user != null) {
+            map.put("code", 1);
+            map.put("msg", "이미 존재하는 아이디 입니다.");
+            
+            return map;
+        } else {
+            map.put("code", 2);
+            return map;
+        }
+    }
+    
+    
+    // 가입 성공!
+    @RequestMapping(value = "/user_join_success", method = RequestMethod.GET)
+    public String user_join_success( Model model
+            , HttpSession session
+            ) {
+        logger.info("user_join_success");
+        
+        return "user/user_join_success";
+    }
+    
+    
+    // 유저 정보 보기
     @RequestMapping(value = "/user_info", method = RequestMethod.GET)
     public String user_info( Model model 
             , HttpSession session
@@ -123,8 +156,6 @@ public class UserController {
 
         ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
         if(user != null){
-            ModelUser info = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
-            model.addAttribute("info", info);
 
             return "user/user_info";
         } else{
@@ -132,6 +163,7 @@ public class UserController {
         }
     }
     
+    // 유저 정보 수정 
     @RequestMapping(value = "/user_modify", method = RequestMethod.GET)
     public String user_modify_GET( Model model 
             , HttpSession session
@@ -149,6 +181,7 @@ public class UserController {
         }
     }
     
+    // 유저 정보 수정 POST
     @RequestMapping(value = "/user_modify", method = RequestMethod.POST)
     public String user_modify_POST( Model model
             , @RequestParam(value="userid", defaultValue="") String userid
@@ -164,7 +197,7 @@ public class UserController {
             
             if (result == 1) {
                 session.setAttribute(WebConstants.SESSION_NAME, srv.getUserOne(user.getUserid()));
-                return "redirect:/user/user_info";
+                return "user/user_info";
             }else{
                 return "redirect:/user/user_info";
             }
@@ -173,7 +206,7 @@ public class UserController {
         }
     }
     
-    
+    // 비밀번호 수정
     @RequestMapping(value = "/user_modify_password", method = RequestMethod.GET)
     public String user_modify_password_GET( Model model 
             , HttpSession session
@@ -188,6 +221,7 @@ public class UserController {
         }
     }
     
+    // 비밀번호 수정 POST
     @RequestMapping(value = "/user_modify_password", method = RequestMethod.POST)
     public String user_modify_password_POST( Model model
             , @RequestParam(value="currentpassword", defaultValue="") String currentpassword
@@ -212,7 +246,8 @@ public class UserController {
         }
     }
     
-    @RequestMapping(value = "/user_modify_password_success", method = RequestMethod.POST)
+    // 유저비밀번호 변경 성공
+    @RequestMapping(value = "/user_modify_password_success", method = RequestMethod.GET)
     public String user_modify_password_success( Model model
             , HttpSession session
             ) {
@@ -222,25 +257,44 @@ public class UserController {
     }
     
     
-    @RequestMapping(value = "/user_delete", method = RequestMethod.GET)
-    public String user_delete( Model model
+    // 회원 탈퇴
+    @RequestMapping(value = "/user_delete", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> user_delete( Model model
+            , HttpSession session) {
+
+        logger.info("user_delete");
+        
+        Map<String, Object> map = new HashMap<String, Object>();
+        
+        ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+        if (user != null) {
+            int result = srv.deleteUser(user);
+            
+            if (result >= 1) {
+                // 세션종료시키고 삭제 성공 화면으로
+                session.removeAttribute(WebConstants.SESSION_NAME);
+                map.put("code", 1);
+                map.put("url", "/user/user_delete_success");
+                return map;
+            } else {
+                map.put("code", 2);
+                return map;
+            }
+        } else {
+            map.put("code", 2);
+            return map;
+        }
+    }
+
+    
+    // 회원탈퇴 변경 성공
+    @RequestMapping(value = "/user_delete_success", method = RequestMethod.GET)
+    public String user_delete_success( Model model
             , HttpSession session
             ) {
-            logger.info("user_delete");
+        logger.info("user_delete_success");
         
-            ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
-            if(user != null){
-                int result = srv.deleteUser(user);
-                
-                if(result == 1){
-                    // 세션종료시키고 삭제 성공 화면으로
-                    session.removeAttribute(WebConstants.SESSION_NAME);
-                    return "user/user_delete_success";                
-                }else{
-                    return "redirect:/user/user_login";
-                }
-            }else{
-                return "redirect:/user/user_login";
-        }
+        return "user/user_delete_success";
     }
 }

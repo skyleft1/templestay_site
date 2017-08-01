@@ -39,11 +39,10 @@ $(document).ready( function(e){
             }
         }).done( function(data, textStatus, xhr ){
             if (data.code === 1){
-            	alert( data.userid + " 님 환영합니다." );
+            	alert( data.userid + " 님 환영합니다. " );
             	window.location = "/"
-            	
             }else {
-            	alert("로그인에 실패했습니다.");
+            	alert("아이디 또는 비밀번호가 틀렸습니다. ");
             	window.location = "/user/user_login"
             }
         });

@@ -100,7 +100,6 @@ public class PagingHelper {
         setPagingValue(totalRecord, curPage, numberPerPage, pagePerBlock);
     }
     
-
     public void setPagingValue(int totalRecord, int curPage) {
     
         setPagingValue(totalRecord, curPage, this.numberPerPage, this.pagePerBlock);

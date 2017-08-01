@@ -3,6 +3,8 @@ package com.templestay_site.start.controller;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.templestay_site.start.commons.WebConstants;
 import com.templestay_site.start.model.ModelArticle;
 import com.templestay_site.start.model.ModelBoard;
+import com.templestay_site.start.model.ModelUser;
 import com.templestay_site.start.service.IServiceBoard;
 
 
@@ -34,9 +38,11 @@ public class BbsController {
 	        , @RequestParam(value="articleno", defaultValue="1") Integer articleno
 //            , @RequestParam(value="curPage", defaultValue="1") int curPage
 //            , @RequestParam(value="searchWord", defaultValue="") String searchWord
+	        , HttpSession session
 	        ) {
 		logger.info("article_list");
 
+        		
  		List<ModelArticle> list2 = srv.getArticleList(boardcd, null, 1, 10);
 		model.addAttribute("list2", list2 );
 		
@@ -90,7 +96,7 @@ public class BbsController {
     }
     
     // modify 를 이용한 값 추가
-    @RequestMapping(value = "/article_write/{boardcd}/{articleno}", method = RequestMethod.POST)
+    @RequestMapping(value = "/article_modify/{boardcd}/{articleno}", method = RequestMethod.POST)
     public String article_write_POST_modify(Model model
             , @PathVariable(value="boardcd") String boardcd
             , @PathVariable(value="articleno") Integer articleno
@@ -99,7 +105,8 @@ public class BbsController {
             , @RequestParam(value="useYN", defaultValue="true") Boolean useYN
 
             ) {
-        logger.info("article_write");
+        logger.info("article_modify");
+        
         
         ModelArticle searchValue = new ModelArticle();
         searchValue = srv.getArticle(articleno);
@@ -108,6 +115,7 @@ public class BbsController {
         updateValue.setTitle(title);
         updateValue.setContent(content);
         updateValue.setUseYN(useYN);
+        
         int result = srv.updateArticle(updateValue, searchValue);
         
         if (result == 1) {
@@ -124,9 +132,15 @@ public class BbsController {
             , @RequestParam(value="title", defaultValue="") String title
             , @RequestParam(value="content", defaultValue="") String content
             , @RequestParam(value="useYN", defaultValue="true") Boolean useYN
+            , HttpSession session
             ) {
+        ModelUser board =(ModelUser)session.getAttribute(WebConstants.SESSION_NAME);
+        
         logger.info("article_write");
         ModelArticle article = new ModelArticle(boardcd, title, content);
+        article.setInsertUID(board.getUserid());
+        // ModelUser의 userid 를 가져와 ModelBoard의 InserUID에 넣는다.
+        
         int result = srv.insertArticle(article);
 
          if (result == 1) {

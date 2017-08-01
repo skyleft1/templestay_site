@@ -109,6 +109,7 @@ public class TestServiceBoard {
     public void getArticleList() {
         List<ModelArticle> result = board.getArticleList("free","article test",1,3);
         assertEquals(result.size(), 3);
+        assertNotNull(result.get(0).getInsertUID());
     }
     @Test
     public void getArticle() {

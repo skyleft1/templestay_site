@@ -59,7 +59,7 @@
                             </tr>
                             <tr>
                                 <th><h5>작성자</h5></th>
-                                <td><h6>작성자 아이디</h6></td>
+                                <td><h6>${article.insertUID}</h6></td>
                             </tr>
                             <tr>
                                 <th><h5>날짜</h5></th>

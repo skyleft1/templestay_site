@@ -132,9 +132,21 @@ public class ModelArticle {
         this.title = title;
         this.content = content;
     }
+        
     public ModelArticle(Integer articleno) {
         super();
         this.articleno = articleno;
+    }
+    
+    
+    
+    public ModelArticle(String boardcd, String title, String content,
+            String insertUID) {
+        super();
+        this.boardcd = boardcd;
+        this.title = title;
+        this.content = content;
+        this.InsertUID = insertUID;
     }
     @Override
     public String toString() {
