@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ page session="false" %>
 
 
 <!DOCTYPE html>
@@ -25,6 +24,9 @@
         });
         $('.go_delete').click(function(e){
             window.location.href = "/board/article_delete/${boardcd}/${articleno}";
+        });
+        $('.go_list').click(function(e){
+            window.location.href = "/board/article_list/${boardcd}";
         });
         $('.go_write').click(function(e){
             window.location.href = "/board/article_write/${boardcd}";
@@ -77,6 +79,9 @@
                         </div>
                         <div>
                             <input type='button' name='' class='go_delete' value='삭제'>
+                        </div>
+                        <div>
+                            <input type='button' name='' class='go_list' value='목록'>
                         </div>
                         <div>
                             <input type='button' name='' class='go_write' value='글쓰기'>

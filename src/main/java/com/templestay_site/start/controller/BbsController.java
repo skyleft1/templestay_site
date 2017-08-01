@@ -1,5 +1,8 @@
 package com.templestay_site.start.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -32,6 +35,8 @@ public class BbsController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BbsController.class);
 
+	DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일 a h시 m분");
+	
 	@RequestMapping(value = "/article_list/{boardcd}", method = RequestMethod.GET)
 	public String article_list(Model model
 	        , @PathVariable(value="boardcd") String boardcd
@@ -63,6 +68,8 @@ public class BbsController {
             ) {
         logger.info("article_view");
         
+        int a = srv.increaseHit(articleno);
+        
         ModelArticle article = srv.getArticle(articleno);
         model.addAttribute("article", article );
         
@@ -89,10 +96,48 @@ public class BbsController {
     @RequestMapping(value = "/article_write/{boardcd}", method = RequestMethod.GET)
     public String article_write_GET(Model model
             , @PathVariable(value="boardcd") String boardcd
+            , HttpSession session
             ) {
         logger.info("article_write");
         
-        return "/board/article_write";
+        ModelUser user = (ModelUser) session.getAttribute(WebConstants.SESSION_NAME);
+        if( user != null){
+            return "/board/article_write";
+        }else{
+            model.addAttribute("msg", 1);
+            return "/user/user_login";
+        }
+        
+        
+        
+    }
+    
+    // write 를 이용한 값 추가
+    @RequestMapping(value = "/article_write/{boardcd}", method = RequestMethod.POST)
+    public String article_write_POST_write(Model model
+            , @PathVariable(value="boardcd") String boardcd
+            , @RequestParam(value="title", defaultValue="") String title
+            , @RequestParam(value="content", defaultValue="") String content
+            , @RequestParam(value="useYN", defaultValue="true") Boolean useYN
+            , HttpSession session
+            ) {
+        logger.info("article_write");
+        
+        ModelArticle article = new ModelArticle(boardcd, title, content);
+        
+        ModelUser user =(ModelUser)session.getAttribute(WebConstants.SESSION_NAME);
+        
+        article.setInsertUID(user.getUserid());
+        article.setEmail(user.getUseremail());
+        // ModelUser의 session_user 에서 userid와 useremail을 얻어와 ModelBoard의 InserUID과 email 넣는다.
+        
+        int result = srv.insertArticle(article);
+
+         if (result == 1) {
+            return "redirect:/board/article_list/{boardcd}";
+        } else {
+            return "redirect:/board/article_write/{boardcd}";
+        }
     }
     
     // modify 를 이용한 값 추가
@@ -106,7 +151,6 @@ public class BbsController {
 
             ) {
         logger.info("article_modify");
-        
         
         ModelArticle searchValue = new ModelArticle();
         searchValue = srv.getArticle(articleno);
@@ -125,28 +169,5 @@ public class BbsController {
         }
     }
     
-    // write 를 이용한 값 추가
-    @RequestMapping(value = "/article_write/{boardcd}", method = RequestMethod.POST)
-    public String article_write_POST_write(Model model
-            , @PathVariable(value="boardcd") String boardcd
-            , @RequestParam(value="title", defaultValue="") String title
-            , @RequestParam(value="content", defaultValue="") String content
-            , @RequestParam(value="useYN", defaultValue="true") Boolean useYN
-            , HttpSession session
-            ) {
-        ModelUser board =(ModelUser)session.getAttribute(WebConstants.SESSION_NAME);
-        
-        logger.info("article_write");
-        ModelArticle article = new ModelArticle(boardcd, title, content);
-        article.setInsertUID(board.getUserid());
-        // ModelUser의 userid 를 가져와 ModelBoard의 InserUID에 넣는다.
-        
-        int result = srv.insertArticle(article);
 
-         if (result == 1) {
-            return "redirect:/board/article_list/{boardcd}";
-        } else {
-            return "redirect:/board/article_write/{boardcd}";
-        }
-    }
 }

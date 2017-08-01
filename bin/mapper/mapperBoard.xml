@@ -172,7 +172,7 @@
     <insert id="insertArticle" parameterType="ModelArticle">
         INSERT INTO 
         TB_BBS_Article ( boardcd   , title   , content   , email   , hit, regdate   , InsertUID   , InsertDT   , UpdateUID   , UpdateDT     )
-            VALUES     ( #{boardcd}, #{title}, #{content}, #{email}, 0  , #{regdate}, #{InsertUID}, #{InsertDT}, #{UpdateUID}, #{UpdateDT}  )
+            VALUES     ( #{boardcd}, #{title}, #{content}, #{email}, 0  , now() , #{InsertUID}, #{InsertDT}, #{UpdateUID}, #{UpdateDT}  )
     </insert>   
     
     <update id="updateArticle" parameterType="hashmap">
@@ -315,7 +315,7 @@
 
 <insert id="insertComment" parameterType="ModelComments">
     INSERT INTO TB_BBS_Comments ( articleno   , email   , memo   , regdate   , InsertUID   , InsertDT   , UpdateUID   , UpdateDT    )
-                         VALUES ( #{articleno}, #{email}, #{memo}, #{regdate}, #{InsertUID}, #{InsertDT}, #{UpdateUID}, #{UpdateDT} )
+                         VALUES ( #{articleno}, #{email}, #{memo}, now(), #{InsertUID}, #{InsertDT}, #{UpdateUID}, #{UpdateDT} )
 </insert>
 
 <update id="updateComment" parameterType="hashmap">

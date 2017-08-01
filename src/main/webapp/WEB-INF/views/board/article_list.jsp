@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ page session="false" %>
 
 
 <!DOCTYPE html>
@@ -25,10 +24,23 @@
             window.location.href = "/board/article_view/${boardcd}/"+ articleno;
         });
         
-        
         $('.go_write').click(function(e){
             window.location.href = "/board/article_write/${boardcd}";
+            var a = '${msg}';
+            if (a == 1){
+            	alert("rrrr");
+            }
+            if (a != 1){
+                alert("dfdfdf");
+            }
+            if (a != null){
+                alert("null");
+            }
+                /* <c:if test="${msg == 1}">
+                alert('로그인을 하셔야 작성이 가능합니다.');
+                </c:if> */
         });
+                	/* <c:set var="aa" value="${msg}" /> */
     });
 
 </script>
@@ -81,7 +93,7 @@
                                     <td articleno='${boardlist.articleno}'><h6>${boardlist.articleno}</h6></td>
                                     <td><h6>${boardlist.title}</h6></td>
                                     <td><h6>${boardlist.insertUID } </h6></td>
-                                    <td><h6>${boardlist.regdate}</h6></td>
+                                    <td><fmt:formatDate value="${boardlist.regdate}" pattern="yyyy.MM.dd HH:mm:ss"/></td>
                                     <td><h6>${boardlist.hit}</h6></td>
                                 </tr>
                             </c:forEach>
@@ -101,6 +113,9 @@
                         <div class='write_button'>
                             <input type='button' name='' class='go_write' value='글쓰기'>
                         </div>
+                        <c:if test="${not empty msg }">
+                            <p>alert(${msg});</p>
+                        </c:if>      
                     </div>
                 </div>
             </div>
