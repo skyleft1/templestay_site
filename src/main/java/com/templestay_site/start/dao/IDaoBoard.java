@@ -92,7 +92,7 @@ public interface IDaoBoard {
         
     int deleteAttachFile(ModelAttachFile attachfileno);
     
-    ModelComments getComment(int comment);
+    ModelComments getComment(ModelComments comment);
     
     List<ModelComments> getCommentList(int articleno);
     

@@ -25,22 +25,17 @@
         });
         
         $('.go_write').click(function(e){
+            <c:if test="${session_user == null}">
+            alert('로그인을 하셔야 작성이 가능합니다.');
+            </c:if>
+         // 로그인을 하지 않고 게시판 작성할 경우 alert 출력
             window.location.href = "/board/article_write/${boardcd}";
-            var a = '${msg}';
-            if (a == 1){
-            	alert("rrrr");
-            }
-            if (a != 1){
-                alert("dfdfdf");
-            }
-            if (a != null){
-                alert("null");
-            }
-                /* <c:if test="${msg == 1}">
-                alert('로그인을 하셔야 작성이 가능합니다.');
-                </c:if> */
         });
-                	/* <c:set var="aa" value="${msg}" /> */
+        
+        $('.bbs_write span').click(function(e){
+            var page = $(this).attr('articleno');
+            window.location.href = "/board/article_list/${boardcd}?curPage="+page +"&searchWord=${searchWord}";
+        })
     });
 
 </script>
@@ -88,7 +83,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach var='boardlist' items='${list2}' varStatus='status' >
+                            <c:forEach var='boardlist' items='${list}' varStatus='status' >
                                 <tr class='go_view'>
                                     <td articleno='${boardlist.articleno}'><h6>${boardlist.articleno}</h6></td>
                                     <td><h6>${boardlist.title}</h6></td>
@@ -97,18 +92,21 @@
                                     <td><h6>${boardlist.hit}</h6></td>
                                 </tr>
                             </c:forEach>
+
                         </tbody>
                     </table>
                     <div class='bbs_write'>
                         <div>
-                            <div>
-                                <input type='button' name=''
-                                    class='prev_bbs' value='이전'>
-                            </div>
-                            <div>
-                                <input type='button' name=''
-                                    class='next_bbs' value='다음'>
-                            </div>
+                            <c:if test="${prevLink > 0 }">
+                                <span articleno='${prevLink }'>[이전]</span>
+                            </c:if>
+                            <c:forEach var="i" items="${pageLinks }" varStatus="stat">
+                                <span articleno='${i }'>${i }</span>
+                            </c:forEach>
+                            <c:if test="${nextLink > 0 }">
+                                <span articleno='${nextLink }' class='nextpage'>[다음]</span>
+                            </c:if>
+
                         </div>
                         <div class='write_button'>
                             <input type='button' name='' class='go_write' value='글쓰기'>

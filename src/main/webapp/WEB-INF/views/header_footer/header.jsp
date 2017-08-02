@@ -110,9 +110,9 @@ $(document).ready(function(){
                         <li><h5></h5></li>
                     </ul>
                     <ul>
-                        <li><h5><a href="/board/article_list/notice">공지사항</a></h5></li>
-                        <li><h5><a href="/board/article_list/qna">질문게시판</a></h5></li>
-                        <li><h5><a href="/board/article_list/free">자유게시판</a></h5></li>
+                        <li><h5><a href="/board/article_list/notice?curPage=1&searchWord=${searchWord}">공지사항</a></h5></li>
+                        <li><h5><a href="/board/article_list/qna?curPage=1&searchWord=${searchWord}">질문게시판</a></h5></li>
+                        <li><h5><a href="/board/article_list/free?curPage=1&searchWord=${searchWord}">자유게시판</a></h5></li>
                     </ul>
                 </div>
             </div>

@@ -24,7 +24,16 @@
         $('.cancel').click(function(e) {
             window.location.href = "/board/article_list/${boardcd}/"
         });
-
+        
+        $('.write_confirm').click(function(e){
+        	$('.write_modify_Form').attr('action', '/board/article_write/${boardcd}/${article.articleno}');
+        	$('.write_modify_Form').submit();
+        });
+        
+        $('.modify_confirm').click(function(e){
+        	$('.write_modify_Form').attr('action', '/board/article_modify/${boardcd}/${article.articleno}');
+        	$('.write_modify_Form').submit();
+        });
 
     });
 </script>
@@ -45,9 +54,10 @@
                     <h3>게시판</h3>
                 </div>
                 <div class=''>
-                    <form class="writeForm" action="/board/article_write/${boardcd}/${article.articleno}" method="post" enctype="multipart/form-data" >  
+                    <form class="write_modify_Form" method="post" enctype="multipart/form-data" >  
                         <table>
                             <tbody>
+
                                 <tr>
                                     <th><h5>제목</h5></th>
                                     <td>
@@ -66,9 +76,17 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div>
-                            <input type='submit' name='' class='confirm' value='확인'>
-                        </div>                        
+                        <c:if test="${a == 'a'}" >
+                            <div>
+                                <input type='button' name='' class='write_confirm' value='확인'>
+                            </div>
+                        </c:if>
+                        
+                        <c:if test="${a == 'b'}" >
+                            <div>
+                                <input type='button' name='' class='modify_confirm' value='확인'>
+                            </div>
+                        </c:if>                                                
                       </form>
                                           
                     <div class='modify_delete'>

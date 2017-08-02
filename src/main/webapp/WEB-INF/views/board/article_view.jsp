@@ -15,6 +15,7 @@
         <script src='/resources/js/jquery-3.1.0.js'></script>
         <script src='/resources/js/jquery-ui.js'></script>
         <script src="/resources/js/common.js"></script>
+        <script src="/resources/js/MyApp.board.js"></script>
         
 <script type="text/javascript">
     
@@ -22,9 +23,21 @@
         $('.go_modify').click(function(e){
             window.location.href = "/board/article_modify/${boardcd}/${articleno}";
         });
+        
+        // 글삭제 (삭제시 파일, 댓글 모두 삭제되어야함)
         $('.go_delete').click(function(e){
-            window.location.href = "/board/article_delete/${boardcd}/${articleno}";
+            var chk = confirm('정말로 삭제하시겠습니까?');
+            if (chk == true) {
+                var boardcd = $(this).attr('boardcd');
+                var articleno = $(this).attr('articleno'); 
+                sendpost('/board/article_delete/${boardcd}/${articleno}', {'boardcd':boardcd , 'articleno':articleno});
+            }
         });
+        
+        $('.go_comment_delete').click(function(e){
+            window.location.href = "/board/article_comment_delete/${boardcd}/${articleno}";
+        });
+        
         $('.go_list').click(function(e){
             window.location.href = "/board/article_list/${boardcd}";
         });
@@ -71,15 +84,57 @@
                                 <th><h5>내용</h5></th>
                                 <td><h6>${article.content}</h6></td>
                             </tr>
+                            
                         </tbody>
                     </table>
+                    
+                    <c:forEach var='commentlist' items='${list}' varStatus='status' >
+                        <div>${commentlist.insertUID}</div>
+                        <div><fmt:formatDate
+                            value="${commentlist.regdate}"
+                            pattern="yyyy.MM.dd HH:mm:ss" /></div>
+                        <div>${commentlist.memo}</div>
+                        
+                        <c:if test="${session_user.userid == commentlist.insertUID} " >
+                            <input type='button' name='' class='go_comment_delete' value='댓글삭제' />
+                        </c:if>
+                        
+                    </c:forEach>
+                    
+                    
+                    
+                    
+                    <div>
+                        <form action='/board/article_comment/${boardcd}/${articleno}' method='post' enctype='application/x-www-form-urlencoded'>
+                            <div>
+                                <textarea name='memo'>
+                                </textarea>
+                            </div>
+                            <div>
+                                <input type='submit' class='go_comment' value='댓글 작성' />
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div>
+                        <c:if test='' >
+                            ${article.content}
+                            ${article.content}
+                        </c:if>
+                    </div>
+                    
                     <div class='modify_delete'>
+                        <c:choose>
+                        <c:when test='${session_user.userid == article.insertUID}'>
                         <div>
                             <input type='button' name='' class='go_modify' value='수정'>
                         </div>
                         <div>
-                            <input type='button' name='' class='go_delete' value='삭제'>
+                            <input type='button' name='' class='go_delete' value='삭제' boardcd='${article.boardcd }' articleno='${ article.articleno}' />
                         </div>
+                        </c:when>
+                        </c:choose>
+                        
                         <div>
                             <input type='button' name='' class='go_list' value='목록'>
                         </div>

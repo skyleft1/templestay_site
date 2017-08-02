@@ -188,7 +188,9 @@ public class TestServiceBoard {
     }
     @Test
     public void getComment() {
-        ModelComments result = board.getComment(1);
+        ModelComments model = new ModelComments();
+        model.setArticleno(1);
+        ModelComments result = board.getComment(model);
         assertEquals(result.getMemo(), "comment test");
     }
     @Test

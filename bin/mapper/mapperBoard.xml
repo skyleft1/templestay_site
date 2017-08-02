@@ -299,14 +299,20 @@
 </delete>
 
 
-<select id="getComment" parameterType="int" resultType="ModelComments">
-    SELECT commentno,articleno,email,memo,regdate 
+<select id="getComment" parameterType="hashmap" resultType="ModelComments">
+    SELECT commentno, articleno, email, memo, insertUID, regdate 
     FROM TB_BBS_Comments 
-    WHERE commentno = #{commentNo}
+    WHERE 1 = 1 
+      <if test="commentno != null and commentno != ''" >
+      AND commentno = #{commentno}
+      </if>
+      <if test="articleno != null and articleno != ''">
+      AND articleno = #{articleno}
+      </if>
 </select>
 
 <select id="getCommentList" parameterType="int" resultType="ModelComments">
-    SELECT commentno, articleno, email, memo, regdate
+    SELECT commentno, articleno, email, memo, insertUID, regdate
     FROM TB_BBS_Comments
     WHERE articleno = #{articleno}
     ORDER BY commentno DESC
