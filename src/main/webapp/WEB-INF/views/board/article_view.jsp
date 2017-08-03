@@ -26,16 +26,15 @@
         
         // 글삭제 (삭제시 파일, 댓글 모두 삭제되어야함)
         $('.go_delete').click(function(e){
-            var chk = confirm('정말로 삭제하시겠습니까?');
-            if (chk == true) {
                 var boardcd = $(this).attr('boardcd');
                 var articleno = $(this).attr('articleno'); 
                 sendpost('/board/article_delete/${boardcd}/${articleno}', {'boardcd':boardcd , 'articleno':articleno});
-            }
         });
         
         $('.go_comment_delete').click(function(e){
-            window.location.href = "/board/article_comment_delete/${boardcd}/${articleno}";
+        	var commentno = $(this).attr('commentno');
+                comment_delete(commentno);
+                window.location='/board/article_view';
         });
         
         $('.go_list').click(function(e){
@@ -87,19 +86,27 @@
                             
                         </tbody>
                     </table>
-                    
-                    <c:forEach var='commentlist' items='${list}' varStatus='status' >
-                        <div>${commentlist.insertUID}</div>
-                        <div><fmt:formatDate
-                            value="${commentlist.regdate}"
-                            pattern="yyyy.MM.dd HH:mm:ss" /></div>
-                        <div>${commentlist.memo}</div>
-                        
-                        <c:if test="${session_user.userid == commentlist.insertUID} " >
-                            <input type='button' name='' class='go_comment_delete' value='댓글삭제' />
+
+                    <div>
+                        <c:forEach var='commentlist' items='${list}' varStatus='status'>
+                            <div>
+                                <div>${commentlist.insertUID}</div>
+                                <div>
+                                    <fmt:formatDate
+                                        value="${commentlist.regdate}"
+                                        pattern="yyyy.MM.dd HH:mm:ss" />
+                                </div>
+                                <div>${commentlist.memo}</div>
+                            </div>
+
+
+                    <!--  session의 userid 와 comment쓴 userid를 비교해 같을 경우 삭제보이기+삭제가능 --> 
+                        <c:if test="${session_user.userid eq commentlist.insertUID}" >
+                            <input type='button' name='' class='go_comment_delete' value='댓글삭제' commentno='${commentlist.commentno}'/>
                         </c:if>
                         
-                    </c:forEach>
+                        </c:forEach>
+                    </div>
                     
                     
                     

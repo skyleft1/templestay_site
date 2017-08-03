@@ -1,7 +1,8 @@
 package com.templestay_site.start.controller;
 
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.templestay_site.start.commons.PagingHelper;
 import com.templestay_site.start.commons.WebConstants;
@@ -222,26 +224,29 @@ public class BbsController {
         }
     }
 
-    @RequestMapping(value = "/article_comment_delete/{boardcd}/{articleno}", method = RequestMethod.GET)
-    public String article_comment_delete(Model model
-            , @PathVariable(value="boardcd") String boardcd
-            , @PathVariable(value="articleno") Integer articleno
-            , @ModelAttribute ModelComments comment
+    @RequestMapping(value = "/article_comment_delete", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> article_comment_delete(Model model
+//            , @PathVariable(value="boardcd") String boardcd
+//            , @PathVariable(value="articleno") Integer articleno
+            , @RequestParam(value="commentno", defaultValue="") Integer commentno
             , HttpSession session
             ) {
         logger.info("article_comment_delete");
+        Map<String, Object> map = new HashMap<String, Object>();
         
-        //session의 userid 와 comment쓴 userid를 비교해 같을 경우 삭제보이기+삭제가능
         ModelUser user =(ModelUser)session.getAttribute(WebConstants.SESSION_NAME);
         user.getUserid();
         
-        
+        ModelComments comment = new ModelComments();
+        comment.setCommentno(commentno);
         int result = srv.deleteComment(comment);
         
         if (result == 1) {
-            return "redirect:/board/article_list/{boardcd}";
+            map.put("code", result);
+            return map; 
         } else {
-            return "redirect:/board/article_list/{boardcd}";
+            return null;
         }
     }
 }

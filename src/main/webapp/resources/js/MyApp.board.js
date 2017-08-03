@@ -70,7 +70,7 @@ var deleteAttachFile = function deleteAttachFile(attachfileno) {
 }
 
 // 댓글쓰기
-var commentadd = function commentadd(articleno, memo) {
+var comment_add = function commentadd(articleno, memo) {
     $.ajax({
         url : '/board/commentadd', // comment는 무조건 ajax로 처리하기로 함
         data: { 'articleno': articleno, 'memo': memo },   // 사용하는 경우에는 { data1:'test1', data2:'test2' }
@@ -91,7 +91,7 @@ var commentadd = function commentadd(articleno, memo) {
     };
 
 
-var commentupdate = function commentupdate(commentno) {
+var comment_update = function commentupdate(commentno) {
     var textarea = $('div[commentno="' + commentno + '"] textarea');
     
     $.ajax({
@@ -113,19 +113,19 @@ var commentupdate = function commentupdate(commentno) {
     return false;
 }
 
-var commentdelete = function commentdelete(commentno) {
+var comment_delete = function commentdelete(commentno) {
     var chk = confirm("정말로 삭제하시겠습니까?");
     if (chk==true) {
 
         $.ajax({
-            url : '/board/commentdeleteajax',
+            url : '/board/article_comment_delete',
             data: { 'commentno': commentno },   // 사용하는 경우에는 { data1:'test1', data2:'test2' }
             type: 'post',       // get, post
             timeout: 30000,    // 30초
             dataType: 'json',  // text, html, xml, json, jsonp, script
         }).done( function(data, textStatus, xhr ){
             // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
-            if(data > 0){
+            if(data.code > 0){
                 $('div[commentno="' + commentno +'"]').remove();
             }
             else {
