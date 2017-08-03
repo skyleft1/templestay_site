@@ -46,7 +46,7 @@ var sendpost = function sendpost(url, params) {
 };
 
 
-var deleteAttachFile = function deleteAttachFile(attachfileno) {
+var delete_AttachFile = function delete_AttachFile(attachfileno) {
 	var chk = confirm("정말로 삭제하시겠습니까?");
 	if(chk == true){
 	$.ajax({
@@ -70,18 +70,19 @@ var deleteAttachFile = function deleteAttachFile(attachfileno) {
 }
 
 // 댓글쓰기
-var commentadd = function commentadd(articleno, memo) {
+var comment_write = function comment_write(articleno, memo) {
     $.ajax({
-        url : '/board/commentadd', // comment는 무조건 ajax로 처리하기로 함
-        data: { 'articleno': articleno, 'memo': memo },   // 사용하는 경우에는 { data1:'test1', data2:'test2' }
+        url : '/board/article_comment_write' 
+        , data: { 'articleno': articleno, 'memo': memo },   // 사용하는 경우에는 { data1:'test1', data2:'test2' }
         type: 'post',       // get, post
         timeout: 30000,     // 30초
         dataType: 'html',   // text, html, xml, json, jsonp, script
     }).done( function(data, textStatus, xhr ){
         // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
         if(data != null ){
-            $('#commentlist').append( data );
-            $('#addComment textarea').val('');
+        	
+            $('.comment_list').append( data );
+            $('textarea').val('');
         }
         else {
             alert( '댓글 추가 실패');
@@ -91,20 +92,21 @@ var commentadd = function commentadd(articleno, memo) {
     };
 
 
-var commentupdate = function commentupdate(commentno) {
-    var textarea = $('div[commentno="' + commentno + '"] textarea');
-    
+    // 댓글 수정
+var comment_modify = function comment_modify(commentno) {
+	var textarea = $('div[commentno="' + commentno + '"] textarea');
+	// 댓글 내용을 textarea에 담아 data로 controller에 쏴준다.
     $.ajax({
-        url : '/board/commentupdateajax',
-        data: { 'commentno': commentno, 'memo' : $(textarea).val() },   // 사용하는 경우에는 { data1:'test1', data2:'test2' }
+        url : '/board/article_comment_modify' 
+        , data: { 'commentno': commentno, 'memo' : $(textarea).val() },   // 사용하는 경우에는 { data1:'test1', data2:'test2' }
         type: 'post',       // get, post
         timeout: 30000,     // 30초
-        dataType: 'html',   // text, html, xml, json, jsonp, script
+        dataType: 'json',   // text, html, xml, json, jsonp, script
     }).done( function(data, textStatus, xhr ){
         // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
-        if(data == 1 ){
-            $('#comment'+commentno).text( $(textarea).val() );
-            commentModifyShowHide(commentno);
+        if(data != null ){
+        	$('div[commentno="' + commentno + '"]').find($('.comment_memo')).text(data);
+
         }
         else {
             alert( '댓글 수정 실패');
@@ -113,16 +115,17 @@ var commentupdate = function commentupdate(commentno) {
     return false;
 }
 
-var commentdelete = function commentdelete(commentno) {
+// 댓글 삭제
+var comment_delete = function comment_delete(commentno) {
     var chk = confirm("정말로 삭제하시겠습니까?");
     if (chk==true) {
 
         $.ajax({
-            url : '/board/commentdeleteajax',
+            url : '/board/article_comment_delete',
             data: { 'commentno': commentno },   // 사용하는 경우에는 { data1:'test1', data2:'test2' }
             type: 'post',       // get, post
             timeout: 30000,    // 30초
-            dataType: 'json',  // text, html, xml, json, jsonp, script
+            dataType: 'html',  // text, html, xml, json, jsonp, script
         }).done( function(data, textStatus, xhr ){
             // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
             if(data > 0){

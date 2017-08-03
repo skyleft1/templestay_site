@@ -327,8 +327,8 @@
 <update id="updateComment" parameterType="hashmap">
     UPDATE TB_BBS_Comments 
        SET memo      = #{updateValue.memo   } 
-         , regdate   = #{updateValue.regdate} 
          , UseYN     = #{updateValue.UseYN  } 
+         , regdate     = now()
      WHERE  1 = 1 
           <if test="searchValue.commentno != null and searchValue.commentno != ''" >
           AND commentno = #{searchValue.commentno}

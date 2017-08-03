@@ -34,8 +34,34 @@
             }
         });
         
+        // 댓글 쓰기
+        $('.go_comment_write').click(function(e){
+        	var textarea = $('.comment textarea');
+            var articleno = $(textarea).attr('articleno');
+            var memo = $(textarea).val();
+        	comment_write(articleno, memo);
+        });
+        
+        // 댓글 수정
+        $('.click_comment_modify').click(function(e){
+        	var aa =  $(this).prev('.comment_memo').text();
+        	$(this).prev('.comment_memo').html("<textarea>"+ aa +"</textarea>");
+        	$(this).parent().find('.hide_comment_modify_delete').hide();
+        	$(this).parent().append("<input type='button' class='go_comment_modify' value='수정확인'/>");
+        	
+        	$('.go_comment_modify').click(function(e){
+        		var commentno = $(this).parent($('.comment_list')).attr('commentno');
+        		comment_modify(commentno);
+        		
+        		$('.hide_comment_modify_delete').show();
+        		$('.go_comment_modify').remove();
+        	});
+        });
+        
+        // 댓글 삭제
         $('.go_comment_delete').click(function(e){
-            window.location.href = "/board/article_comment_delete/${boardcd}/${articleno}";
+            var commentno = $(this).parent($('.comment_list')).attr('commentno');
+            comment_delete(commentno);
         });
         
         $('.go_list').click(function(e){
@@ -88,40 +114,33 @@
                         </tbody>
                     </table>
                     
+                    <!-- 댓글 반복 -->
                     <c:forEach var='commentlist' items='${list}' varStatus='status' >
-                        <div>${commentlist.insertUID}</div>
-                        <div><fmt:formatDate
-                            value="${commentlist.regdate}"
-                            pattern="yyyy.MM.dd HH:mm:ss" /></div>
-                        <div>${commentlist.memo}</div>
+                        <div class='comment_list' commentno='${commentlist.commentno }'>
+                            <div>${commentlist.insertUID}</div>
+                            <div class='comment_date'><fmt:formatDate value="${commentlist.regdate}" pattern="yyyy.MM.dd" /></div>
+                            <div class='comment_memo'>${commentlist.memo}</div>
                         
-                        <c:if test="${session_user.userid == commentlist.insertUID} " >
-                            <input type='button' name='' class='go_comment_delete' value='댓글삭제' />
-                        </c:if>
-                        
+                        <!-- 댓글 수정 삭제 -->
+                            <c:if test="${session_user.userid eq commentlist.insertUID}" >
+                                <input type='button' name='' class='click_comment_modify hide_comment_modify_delete' value='댓글수정' />
+                                <input type='button' name='' class='go_comment_delete hide_comment_modify_delete' value='댓글삭제' />
+                            </c:if>
+                        </div>
+                        <!-- session의 userid 와 comment쓴 userid를 비교해 같을 경우 삭제보이기+삭제가능 -->
                     </c:forEach>
                     
                     
-                    
-                    
-                    <div>
-                        <form action='/board/article_comment/${boardcd}/${articleno}' method='post' enctype='application/x-www-form-urlencoded'>
-                            <div>
-                                <textarea name='memo'>
-                                </textarea>
-                            </div>
-                            <div>
-                                <input type='submit' class='go_comment' value='댓글 작성' />
-                            </div>
-                        </form>
+                    <!-- 댓글 작성 -->
+                    <div class='comment'>
+                        <div>
+                            <textarea name='memo' articleno='${article.articleno}' class='comment_content'></textarea>
+                        </div>
+                        <div>
+                            <input type='button' class='go_comment_write' value='댓글 작성' />
+                        </div>
                     </div>
-                    
-                    <div>
-                        <c:if test='' >
-                            ${article.content}
-                            ${article.content}
-                        </c:if>
-                    </div>
+
                     
                     <div class='modify_delete'>
                         <c:choose>

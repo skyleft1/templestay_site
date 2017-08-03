@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.templestay_site.start.commons.PagingHelper;
 import com.templestay_site.start.commons.WebConstants;
@@ -73,6 +74,7 @@ public class BbsController {
     public String article_view(Model model
             , @PathVariable(value="boardcd") String boardcd
             , @PathVariable(value="articleno") Integer articleno
+            , @ModelAttribute ModelComments comment
             ) {
         logger.info("article_view");
         
@@ -83,7 +85,7 @@ public class BbsController {
 
         List<ModelComments> list = srv.getCommentList(articleno);
         model.addAttribute("list", list );
-        // comment에 쏴줌
+        // session의 userid 와 comment쓴 userid를 비교해 같을 경우 삭제보이기+삭제가능
         
         return "board/article_view";
     }
@@ -200,14 +202,17 @@ public class BbsController {
     
     
     // 댓글 달기
-    @RequestMapping(value = "/article_comment/{boardcd}/{articleno}", method = RequestMethod.POST)
+    @RequestMapping(value = "/article_comment_write", method = RequestMethod.POST)
+    @ResponseBody
     public String article_comment(Model model
-            , @PathVariable(value="boardcd") String boardcd
-            , @PathVariable(value="articleno") Integer articleno
+//            , @PathVariable(value="boardcd") String boardcd
+//            , @PathVariable(value="articleno") Integer articleno
+            , @RequestParam(value="articleno", defaultValue="") Integer articleno
+            , @RequestParam(value="memo", defaultValue="") String memo
             , @ModelAttribute ModelComments comment
             , HttpSession session
             ) {
-        logger.info("article_comment");
+        logger.info("article_comment_write");
         
         ModelUser user =(ModelUser)session.getAttribute(WebConstants.SESSION_NAME);
         comment.setInsertUID(user.getUserid()); 
@@ -216,32 +221,57 @@ public class BbsController {
         int result = srv.insertComment(comment);
         
         if (result == 1) {
-            return "redirect:/board/article_list/{boardcd}";
+            String data_memo = comment.getMemo();
+            return data_memo;
         } else {
-            return "redirect:/board/article_list/{boardcd}";
+            return null;
         }
     }
 
-    @RequestMapping(value = "/article_comment_delete/{boardcd}/{articleno}", method = RequestMethod.GET)
-    public String article_comment_delete(Model model
-            , @PathVariable(value="boardcd") String boardcd
-            , @PathVariable(value="articleno") Integer articleno
-            , @ModelAttribute ModelComments comment
+
+    // 댓글 수정 : post
+    @RequestMapping(value = "/article_comment_modify", method = RequestMethod.POST)
+    @ResponseBody
+    public String article_comment_modify(Model model
+            , @RequestParam(value="commentno", defaultValue="") Integer commentno
+            , @RequestParam(value="memo", defaultValue="") String memo
+            , HttpSession session
+            ) {
+        logger.info("article_comment_modify");
+        
+        ModelComments searchValue = new ModelComments();
+        searchValue.setCommentno(commentno);
+        
+        ModelComments updateValue = new ModelComments();
+        updateValue.setMemo(memo);
+        
+        int result = srv.updateComment(updateValue, searchValue);
+        
+        if (result == 1) {
+            return memo;
+        } else {
+            return memo;
+        }
+    }
+    
+    // 댓글 삭제
+    @RequestMapping(value = "/article_comment_delete", method = RequestMethod.POST)
+    @ResponseBody
+    public int article_comment_delete(Model model
+            , @RequestParam(value="commentno", defaultValue="") Integer commentno
             , HttpSession session
             ) {
         logger.info("article_comment_delete");
-        
-        //session의 userid 와 comment쓴 userid를 비교해 같을 경우 삭제보이기+삭제가능
-        ModelUser user =(ModelUser)session.getAttribute(WebConstants.SESSION_NAME);
-        user.getUserid();
-        
+
+        ModelComments comment = new ModelComments();
+        comment.setCommentno(commentno);
         
         int result = srv.deleteComment(comment);
         
         if (result == 1) {
-            return "redirect:/board/article_list/{boardcd}";
+            return result;
         } else {
-            return "redirect:/board/article_list/{boardcd}";
+            return result;
         }
     }
 }
