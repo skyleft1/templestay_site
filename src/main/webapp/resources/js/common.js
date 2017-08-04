@@ -1,10 +1,10 @@
 $(document).ready(function(){
 	
 	$(document).on('mouseenter', '.warp_menu_inner', function(e){
-		$('.wrap_inner').slideDown(200);
+		$('.wrap_inner').stop().slideDown(200);
 	})
 	$(document).on('mouseleave', '.warp_menu_inner', function(e){
-		$('.wrap_inner').slideUp(200);
+		$('.wrap_inner').stop().slideUp(200);
 	});
 	
 

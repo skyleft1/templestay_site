@@ -47,7 +47,6 @@ $(document).ready(function(){
     });
 
 
-
     $('.join_submit').click(function(e) {
     	$('table input').next('label').remove();
         var a = $('.submit_check');

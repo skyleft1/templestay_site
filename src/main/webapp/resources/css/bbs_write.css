@@ -6,7 +6,58 @@ p{
 	height: 30px;
 }
 
-textarea {
-    height: 50px;
+
+.bbs_write_content{
+    width: 900px;
+}
+
+.bbs_write_maintitle{
+    margin-bottom: 20px;
+}
+
+.bbs_write_content > div{
     
+    border: 1px solid #e4e4e4;
+    background-color: white;
+    margin: 130px auto;
+    padding: 30px;
+
+    text-align: center;
+}
+
+
+
+.write_modify_title th {
+    width: 100px;
+    border: 1px solid #e4e4e4;
+    background-color: #fafafa;
+}
+.write_modify_content th {
+    width: 100px;
+    height: 200px;
+    border: 1px solid #e4e4e4;
+    background-color: #fafafa;
+}
+
+
+.write_modify_Form textarea {
+    width: 600px;
+    border: 1px solid #e4e4e4;
+}
+
+.write_modify_Form textarea[name='title'] {
+    width: 600px;
+
+}
+
+.write_modify_Form textarea[name='content'] {
+    height: 200px;
+    width: 600px;
+
+}
+
+
+/* 확인취소 정렬 */
+.write_modify_Form div{
+    display: inline-block;
 }

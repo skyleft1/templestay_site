@@ -31,10 +31,10 @@
 		<div class='side_menu'>
 			<div><h3>커뮤니티</h3></div>
 			<ul>
-				<li><a href='intro01.jsp'><h5>템플스테이란?</h5></a></li>
-				<li><a href='intro02.jsp'><h5>템플스테이 소개</h5></a></li>
-				<li><a href='monk.jsp'><h5>주지스님 인사말</h5></a></li>
-				<li><a href='fac.jsp'><h5>시설 현황</h5></a></li>
+                <li><a href='/etc/intro01'><h5>템플스테이란?</h5></a></li>
+                <li><a href='/etc/intro02'><h5>템플스테이 소개</h5></a></li>
+                <li><a href='/etc/monk'><h5>주지스님 인사말</h5></a></li>
+                <li><a href='/etc/fac'><h5>시설 현황</h5></a></li>
 			</ul>
 		</div>
 	<!-- 우측내용 -->

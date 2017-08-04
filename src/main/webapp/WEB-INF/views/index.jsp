@@ -77,8 +77,8 @@
                         <div class=''>
                             <ul>
                                 <li>게시1 title n</li>
-                                <li>${session_user}</li>
-                                <li>${session_user.userid}</li>
+                                <li>게시1 title n</li>
+                                <li>게시1 title n</li>
                                 <li>게시4 title n-3</li>
                                 <li>게시5 title n-4</li>
                             </ul>

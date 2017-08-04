@@ -16,6 +16,15 @@ body{
 	margin :0 auto;
 	padding :0;
 	font-family: 'Nanum Gothic';
+	
+}
+
+input[type='button'] {
+    margin: 20px auto;
+    background-color: #fc6a19;
+    color: white;
+    font-size: 16px;
+    padding: 9px 15px;
 }
 
 a {
@@ -58,6 +67,21 @@ h6{
 .login div{
 	display: inline-block;
 	line-height: 30px;
+}
+
+/* 로그인 후 환영합니다 출력 */
+.move_login box2{
+    color: #378c42;
+    font-size: 16px;
+}
+
+
+.login > div input[type='button'] {
+    margin: 10px auto;
+    background-color: #d4e6bb;
+    color: #378c42;
+    font-size: 16px;
+    padding: 9px 15px;
 }
 
 
@@ -130,7 +154,8 @@ h6{
 	color: #707070;
 }
 
-/*여기서부터 footer*/
+
+/* footer */
 
 .footer{
 	background-color: #333333;

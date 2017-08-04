@@ -65,7 +65,8 @@ public class BbsController {
         model.addAttribute("pageLinks", paging.getPageLinks());
         model.addAttribute("nextLink", paging.getNextLink());
         model.addAttribute("lastPage", paging.getLastPage());
-		
+
+        
 		return "board/article_list";
 	}
 

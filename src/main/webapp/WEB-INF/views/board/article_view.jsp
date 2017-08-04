@@ -36,16 +36,23 @@
         
         // 댓글 쓰기
         $('.go_comment_write').click(function(e){
-        	var textarea = $('.comment textarea');
-            var articleno = $(textarea).attr('articleno');
-            var memo = $(textarea).val();
-        	comment_write(articleno, memo);
+        	<c:choose>
+        	   <c:when test="${session_user == null}">
+        	     alert('로그인을 하셔야 작성이 가능합니다.');   
+        	   </c:when>
+        	   <c:otherwise>
+        	     var textarea = $('.comment textarea');
+        	        var articleno = $(textarea).attr('articleno');
+        	           var memo = $(textarea).val();
+        	             comment_write(articleno, memo);
+        	   </c:otherwise>
+        	</c:choose>
         });
         
         // 댓글 수정
         $('.click_comment_modify').click(function(e){
-        	var aa =  $(this).prev('.comment_memo').text();
-        	$(this).prev('.comment_memo').html("<textarea>"+ aa +"</textarea>");
+        	var aa =  $(this).siblings('.comment_memo').text();
+        	$(this).siblings('.comment_memo').html("<textarea maxlength='500' class='comment_textarea'>"+ aa +"</textarea>");
         	$(this).parent().find('.hide_comment_modify_delete').hide();
         	$(this).parent().append("<input type='button' class='go_comment_modify' value='수정확인'/>");
         	
@@ -104,7 +111,7 @@
                             </tr>
                             <tr>
                                 <th><h5>날짜</h5></th>
-                                <td><h6>${article.regdate}</h6></td>
+                                <td><h6><fmt:formatDate value="${article.regdate}" pattern="yyyy.MM.dd HH:mm:ss"/></h6></td>
                             </tr>
                             <tr>
                                 <th><h5>내용</h5></th>
@@ -114,12 +121,22 @@
                         </tbody>
                     </table>
                     
+                                        
+                    <!-- 댓글 작성 -->
+                    <div class='comment_title'><div>댓글 작성</div></div>
+                    <div class='comment'>
+                        <textarea name='memo' articleno='${article.articleno}' class='comment_content'></textarea>
+                        <input type='button' class='go_comment_write' value='댓글 작성' />
+                    </div>
+                    
+                    
+                    
                     <!-- 댓글 반복 -->
                     <c:forEach var='commentlist' items='${list}' varStatus='status' >
                         <div class='comment_list' commentno='${commentlist.commentno }'>
-                            <div>${commentlist.insertUID}</div>
-                            <div class='comment_date'><fmt:formatDate value="${commentlist.regdate}" pattern="yyyy.MM.dd" /></div>
+                            <div><strong>${commentlist.insertUID}</strong></div>
                             <div class='comment_memo'>${commentlist.memo}</div>
+                            <div class='comment_date'><fmt:formatDate value="${commentlist.regdate}" pattern="yyyy.MM.dd" /></div>                            
                         
                         <!-- 댓글 수정 삭제 -->
                             <c:if test="${session_user.userid eq commentlist.insertUID}" >
@@ -130,16 +147,6 @@
                         <!-- session의 userid 와 comment쓴 userid를 비교해 같을 경우 삭제보이기+삭제가능 -->
                     </c:forEach>
                     
-                    
-                    <!-- 댓글 작성 -->
-                    <div class='comment'>
-                        <div>
-                            <textarea name='memo' articleno='${article.articleno}' class='comment_content'></textarea>
-                        </div>
-                        <div>
-                            <input type='button' class='go_comment_write' value='댓글 작성' />
-                        </div>
-                    </div>
 
                     
                     <div class='modify_delete'>
