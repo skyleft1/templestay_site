@@ -1,5 +1,6 @@
 package com.templestay_site.start.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,8 +48,8 @@ public class BbsController {
 		logger.info("article_list");
 
 		// 공지사항, 자유게시판 등 name을 가져옴
-        String boardnm = srv.getBoardName(boardcd); 
-        model.addAttribute("boardnm", boardnm );
+        String boardname = srv.getBoardName(boardcd); 
+        model.addAttribute("boardname", boardname );
 		
         // 전체 개시글 갯수 가져오기
         int totalRecord = srv.getArticleTotalRecord(boardcd, searchWord);
@@ -113,11 +114,10 @@ public class BbsController {
     
     // write 를 이용한 값 추가
     @RequestMapping(value = "/article_write/{boardcd}", method = RequestMethod.POST)
-    public String article_write_POST_write(Model model
+    public String article_write_POST(Model model
             , @PathVariable(value="boardcd") String boardcd
             , @RequestParam(value="title", defaultValue="") String title
             , @RequestParam(value="content", defaultValue="") String content
-            , @RequestParam(value="useYN", defaultValue="true") Boolean useYN
             , HttpSession session
             ) {
         logger.info("article_write");
@@ -126,7 +126,7 @@ public class BbsController {
         
         ModelUser user =(ModelUser)session.getAttribute(WebConstants.SESSION_NAME);
         
-        article.setInsertUID(user.getUserid());
+        article.setUserid(user.getUserid());
         article.setEmail(user.getUseremail());
         // ModelUser의 session_user 에서 userid와 useremail을 얻어와 ModelBoard의 InserUID과 email 넣는다.
         
@@ -157,13 +157,11 @@ public class BbsController {
     
     // modify 를 이용한 값 추가
     @RequestMapping(value = "/article_modify/{boardcd}/{articleno}", method = RequestMethod.POST)
-    public String article_write_POST_modify(Model model
+    public String article_modify_POST(Model model
             , @PathVariable(value="boardcd") String boardcd
             , @PathVariable(value="articleno") Integer articleno
             , @RequestParam(value="title", defaultValue="") String title
             , @RequestParam(value="content", defaultValue="") String content
-            , @RequestParam(value="useYN", defaultValue="true") Boolean useYN
-
             ) {
         logger.info("article_modify");
         
@@ -173,7 +171,6 @@ public class BbsController {
         updateValue.setBoardcd(boardcd);
         updateValue.setTitle(title);
         updateValue.setContent(content);
-        updateValue.setUseYN(useYN);
         
         int result = srv.updateArticle(updateValue, searchValue);
         
@@ -186,7 +183,7 @@ public class BbsController {
     
     
     @RequestMapping(value = "/article_delete/{boardcd}/{articleno}", method = RequestMethod.POST)
-    public String article_write_POST_modify(Model model
+    public String article_delete(Model model
             , @PathVariable(value="boardcd") String boardcd
             , @PathVariable(value="articleno") Integer articleno
             , @ModelAttribute ModelArticle article
@@ -206,7 +203,7 @@ public class BbsController {
     // 댓글 달기
     @RequestMapping(value = "/article_comment_write", method = RequestMethod.POST)
     @ResponseBody
-    public String article_comment(Model model
+    public Map<String, Object> article_comment_write(Model model
 //            , @PathVariable(value="boardcd") String boardcd
 //            , @PathVariable(value="articleno") Integer articleno
             , @RequestParam(value="articleno", defaultValue="") Integer articleno
@@ -216,45 +213,30 @@ public class BbsController {
             ) {
         logger.info("article_comment_write");
         
+        Map<String, Object> map = new HashMap<String, Object>();
+        
         ModelUser user =(ModelUser)session.getAttribute(WebConstants.SESSION_NAME);
-        comment.setInsertUID(user.getUserid()); 
-        comment.setEmail(user.getUseremail()); 
-        
+        comment.setUserid(user.getUserid()); 
+
         int result = srv.insertComment(comment);
+        ModelComments comment_date = srv.getComment(comment);
+        //  디비에 인서트된 comment 의 날짜를 가져옴
         
+        Date a = comment_date.getDate();
+
         if (result == 1) {
-            String data_memo = comment.getMemo();
-            return data_memo;
+//            map.put("commentno", comment.getCommentno());
+            map.put("userid", comment.getUserid());
+            map.put("memo", comment.getMemo());
+            map.put("date", comment_date.getDate());
+            
+            return map;
         } else {
             return null;
         }
     }
 
-<<<<<<< HEAD
-    @RequestMapping(value = "/article_comment_delete", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> article_comment_delete(Model model
-//            , @PathVariable(value="boardcd") String boardcd
-//            , @PathVariable(value="articleno") Integer articleno
-            , @RequestParam(value="commentno", defaultValue="") Integer commentno
-            , HttpSession session
-            ) {
-        logger.info("article_comment_delete");
-        Map<String, Object> map = new HashMap<String, Object>();
-        
-        ModelUser user =(ModelUser)session.getAttribute(WebConstants.SESSION_NAME);
-        user.getUserid();
-        
-        ModelComments comment = new ModelComments();
-        comment.setCommentno(commentno);
-        int result = srv.deleteComment(comment);
-        
-        if (result == 1) {
-            map.put("code", result);
-            return map; 
-        } else {
-            return null;
-=======
+
 
     // 댓글 수정 : post
     @RequestMapping(value = "/article_comment_modify", method = RequestMethod.POST)
@@ -299,7 +281,6 @@ public class BbsController {
             return result;
         } else {
             return result;
->>>>>>> eeff1e932f423e52d960514b65b1255287aacc01
         }
     }
 }

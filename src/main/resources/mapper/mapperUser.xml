@@ -5,7 +5,7 @@
 <mapper namespace="mapper.mapperUser">
     
     <select id="login" parameterType="ModelUser" resultType="ModelUser">
-            select userid, username, userpassword, useremail, phonenumber
+            select userid, userpassword, username,  useremail, phonenumber
               from TB_USER
              WHERE  userid = #{userid}
               AND userpassword = #{userpassword}
@@ -18,7 +18,7 @@
     </select>
     
     <select id="getUserOne" parameterType="string" resultType="ModelUser">
-        SELECT userid, username, userpassword, useremail, phonenumber
+        SELECT userid, userpassword, username, useremail, phonenumber
           FROM TB_User 
          WHERE userid = #{userid}
     </select>

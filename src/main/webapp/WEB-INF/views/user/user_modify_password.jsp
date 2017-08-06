@@ -17,7 +17,18 @@
 
 <script>
 $(document).ready(function(){
-    
+	// 비밀번호 일치여부 확인하는 부분
+    $('.modify_password_submit').click(function(e){
+    	if( $('input[name="currentpassword"]').val()  != '${session_user.userpassword}'){
+    		alert('로그인 비밀번호가 틀렸습니다.');
+    	}
+    	else if( $('input[name="newpassword"]').val() != $('input[name="newpassword_confirm"]').val()){
+    		alert('비밀번호 확인이 일치하지 않습니다.');
+    	}
+    	else{
+    		$('.modify_password_form').submit();
+    	}
+    });
 });
 
 
@@ -48,21 +59,19 @@ $(document).ready(function(){
                                 <th>현재 비밀번호</th>
                                     <td><input type='password' name='currentpassword' value=''></td>
                             </tr>
-                            
                             <tr>
                                 <th>새로운 비밀번호</th>
                                 <td><input type='password' name='newpassword' value=''></td>
                             </tr>
                             <tr>
                                 <th>새로운 비밀번호 확인</th>
-                                <td><input type='password' name='' value=''></td>
+                                <td><input type='password' name='newpassword_confirm' value=''></td>
                             </tr>
-                            <div class='wrap_submit'>
-                                <input type='submit' class='modify_password_submit' value='비밀번호 수정'>
-                            </div>
-                            
                         </tbody>
                     </table>
+                    <div class='wrap_submit'>
+                        <input type='button' class='modify_password_submit' value='비밀번호 수정'>
+                    </div>
                     </form>
                 </div>
             </div>

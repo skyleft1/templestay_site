@@ -64,14 +64,9 @@
         
         // 댓글 삭제
         $('.go_comment_delete').click(function(e){
-<<<<<<< HEAD
-        	var commentno = $(this).attr('commentno');
-                comment_delete(commentno);
-                window.location='/board/article_view';
-=======
             var commentno = $(this).parent($('.comment_list')).attr('commentno');
             comment_delete(commentno);
->>>>>>> eeff1e932f423e52d960514b65b1255287aacc01
+
         });
         
         $('.go_list').click(function(e){
@@ -110,11 +105,11 @@
                             </tr>
                             <tr>
                                 <th><h5>작성자</h5></th>
-                                <td><h6>${article.insertUID}</h6></td>
+                                <td><h6>${article.userid}</h6></td>
                             </tr>
                             <tr>
                                 <th><h5>날짜</h5></th>
-                                <td><h6><fmt:formatDate value="${article.regdate}" pattern="yyyy.MM.dd HH:mm:ss"/></h6></td>
+                                <td><h6><fmt:formatDate value="${article.date}" pattern="yyyy.MM.dd HH:mm:ss"/></h6></td>
                             </tr>
                             <tr>
                                 <th><h5>내용</h5></th>
@@ -123,30 +118,6 @@
                             
                         </tbody>
                     </table>
-<<<<<<< HEAD
-
-                    <div>
-                        <c:forEach var='commentlist' items='${list}' varStatus='status'>
-                            <div>
-                                <div>${commentlist.insertUID}</div>
-                                <div>
-                                    <fmt:formatDate
-                                        value="${commentlist.regdate}"
-                                        pattern="yyyy.MM.dd HH:mm:ss" />
-                                </div>
-                                <div>${commentlist.memo}</div>
-                            </div>
-
-
-                    <!--  session의 userid 와 comment쓴 userid를 비교해 같을 경우 삭제보이기+삭제가능 --> 
-                        <c:if test="${session_user.userid eq commentlist.insertUID}" >
-                            <input type='button' name='' class='go_comment_delete' value='댓글삭제' commentno='${commentlist.commentno}'/>
-                        </c:if>
-                        
-                        </c:forEach>
-                    </div>
-=======
-                    
                                         
                     <!-- 댓글 작성 -->
                     <div class='comment_title'><div>댓글 작성</div></div>
@@ -156,29 +127,28 @@
                     </div>
                     
                     
-                    
+                    <div class='commentlist_parent'>
                     <!-- 댓글 반복 -->
                     <c:forEach var='commentlist' items='${list}' varStatus='status' >
                         <div class='comment_list' commentno='${commentlist.commentno }'>
-                            <div><strong>${commentlist.insertUID}</strong></div>
+                            <div><strong>${commentlist.userid}</strong></div>
                             <div class='comment_memo'>${commentlist.memo}</div>
-                            <div class='comment_date'><fmt:formatDate value="${commentlist.regdate}" pattern="yyyy.MM.dd" /></div>                            
+                            <div class='comment_date'><fmt:formatDate value="${commentlist.date}" pattern="yyyy.MM.dd" /></div>                            
                         
                         <!-- 댓글 수정 삭제 -->
-                            <c:if test="${session_user.userid eq commentlist.insertUID}" >
+                            <c:if test="${session_user.userid eq commentlist.userid}" >
                                 <input type='button' name='' class='click_comment_modify hide_comment_modify_delete' value='댓글수정' />
                                 <input type='button' name='' class='go_comment_delete hide_comment_modify_delete' value='댓글삭제' />
                             </c:if>
                         </div>
                         <!-- session의 userid 와 comment쓴 userid를 비교해 같을 경우 삭제보이기+삭제가능 -->
                     </c:forEach>
->>>>>>> eeff1e932f423e52d960514b65b1255287aacc01
-                    
+                    </div>
 
                     
                     <div class='modify_delete'>
                         <c:choose>
-                        <c:when test='${session_user.userid == article.insertUID}'>
+                        <c:when test='${session_user.userid == article.userid}'>
                         <div>
                             <input type='button' name='' class='go_modify' value='수정'>
                         </div>

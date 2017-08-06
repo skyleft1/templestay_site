@@ -23,6 +23,15 @@ var download = function download(tempfilename, filename) {
 	f.submit();
 };
 
+// 날짜 형변환 
+var getFormatDate = function getFormatDate(date) {
+	var syear = date.getFullYear();                                 //yyyy
+	var smonth = (1 + date.getMonth());                     //M
+	month = month >= 10 ? month : '0' + month;     // month 두자리로 저장
+	var sday = date.getDate();                                        //d
+	day = day >= 10 ? day : '0' + day;                            //day 두자리로 저장
+	return  syear + '' + smonth + '' + sday;
+}
  
 var sendpost = function sendpost(url, params) {
 	var f = document.createElement('form');
@@ -70,25 +79,54 @@ var delete_AttachFile = function delete_AttachFile(attachfileno) {
 }
 
 // 댓글쓰기
-<<<<<<< HEAD
-var comment_add = function commentadd(articleno, memo) {
-=======
 var comment_write = function comment_write(articleno, memo) {
->>>>>>> eeff1e932f423e52d960514b65b1255287aacc01
     $.ajax({
         url : '/board/article_comment_write' 
         , data: { 'articleno': articleno, 'memo': memo },   // 사용하는 경우에는 { data1:'test1', data2:'test2' }
         type: 'post',       // get, post
         timeout: 30000,     // 30초
-        dataType: 'html',   // text, html, xml, json, jsonp, script
+        dataType: 'json',   // text, html, xml, json, jsonp, script
     }).done( function(data, textStatus, xhr ){
         // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
         if(data != null ){
+        	var commentno = data.commentno;
+        	var userid = data.userid;
+        	var memo = data.memo;
+        	var date1 = data.date;
+        	var session_userid = "${session_user.userid}"; 
+        	var date2 = getFormatDate(date1);
         	
-            $('.comment_list').append( data );
-            $('textarea').val('');
-        }
-        else {
+        	
+        	$('.commentlist_parent').append("<div class= 'comment_list' commentno='" +  commentno + "'>") ;
+        	
+        		$('.comment_list').append("<div><strong>" + userid + "</strong></div>");
+            	$('.comment_list').append("<div class= 'comment_memo'>" + memo + "</div>");
+            	$('.comment_list').append('<div class= "comment_date">'+ date2 + '</div>');
+
+            	$('.comment_list').append("<input type= 'button' name='" + "' class= 'click_comment_modify hide_comment_modify_delete' value='댓글수정' />");
+            	$('.comment_list').append("<input type= 'button' name='" + "' class= 'go_comment_delete hide_comment`_modify_delete' value='댓글삭제' />");        		
+        	$('.commentlist_parent').append("</div>") ;
+            	
+//        	$('.commentlist_parent').append("<div class= 'comment_list' commentno='" +  commentno + "'> <br>" + a + "</div>") ;
+
+
+//        	var a = function(e){
+
+//        	       <div class='comment_list' commentno='${data.commentno }'>
+//                   <div><strong>${data.userid}</strong></div>
+//                   <div class='comment_memo'>${data.memo}</div>
+//                   <div class='comment_date'><fmt:formatDate value="${data.date}" pattern="yyyy.MM.dd" /></div>                            
+//               
+//               // 댓글 수정 삭제 
+//                   <c:if test="${session_user.userid eq data.userid}" >
+//                       <input type='button' name='' class='click_comment_modify hide_comment_modify_delete' value='댓글수정' />
+//                       <input type='button' name='' class='go_comment_delete hide_comment_modify_delete' value='댓글삭제' />
+//                   </c:if>
+//               </div>
+//            $('.commentlist_parent').prepend( a);
+        	$('textarea').val('');
+        	}
+        	else {
             alert( '댓글 추가 실패');
         }
     });
@@ -96,16 +134,10 @@ var comment_write = function comment_write(articleno, memo) {
     };
 
 
-<<<<<<< HEAD
-var comment_update = function commentupdate(commentno) {
-    var textarea = $('div[commentno="' + commentno + '"] textarea');
-    
-=======
     // 댓글 수정
 var comment_modify = function comment_modify(commentno) {
 	var textarea = $('div[commentno="' + commentno + '"] textarea');
 	// 댓글 내용을 textarea에 담아 data로 controller에 쏴준다.
->>>>>>> eeff1e932f423e52d960514b65b1255287aacc01
     $.ajax({
         url : '/board/article_comment_modify' 
         , data: { 'commentno': commentno, 'memo' : $(textarea).val() },   // 사용하는 경우에는 { data1:'test1', data2:'test2' }
@@ -116,7 +148,6 @@ var comment_modify = function comment_modify(commentno) {
         // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
         if(data != null ){
         	$('div[commentno="' + commentno + '"]').find($('.comment_memo')).text(data);
-
         }
         else {
             alert( '댓글 수정 실패');
@@ -125,12 +156,8 @@ var comment_modify = function comment_modify(commentno) {
     return false;
 }
 
-<<<<<<< HEAD
-var comment_delete = function commentdelete(commentno) {
-=======
 // 댓글 삭제
 var comment_delete = function comment_delete(commentno) {
->>>>>>> eeff1e932f423e52d960514b65b1255287aacc01
     var chk = confirm("정말로 삭제하시겠습니까?");
     if (chk==true) {
 
@@ -142,7 +169,7 @@ var comment_delete = function comment_delete(commentno) {
             dataType: 'html',  // text, html, xml, json, jsonp, script
         }).done( function(data, textStatus, xhr ){
             // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
-            if(data.code > 0){
+            if(data > 0){
                 $('div[commentno="' + commentno +'"]').remove();
             }
             else {

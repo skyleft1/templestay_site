@@ -70,7 +70,6 @@ th {
 
 th, td {
 	font-size: 15px;
-	width: 100px;
 	padding: 9px 13px;
     border: 1px solid #e4e4e4;
     background: #fafafa;
@@ -82,8 +81,28 @@ th, td {
 
 td {
 	background-color: white;
-	width: 400px;
 }
+
+th:nth-child(1), th:nth-child(5),
+td:nth-child(1), td:nth-child(5){
+    width: 50px;
+}
+
+th:nth-child(2), 
+td:nth-child(2){
+    width: 300px;
+}
+th:nth-child(3),
+td:nth-child(3)
+{
+    width: 100px;
+}
+th:nth-child(4),
+td:nth-child(4)
+{
+    width: 150px;
+}
+
 
 .wrap_submit{
 	display: inline-block;

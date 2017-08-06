@@ -5,21 +5,21 @@
 <mapper namespace="mapper.mapperBoard">
     
     <select id="getBoardName" parameterType="string" resultType="string">        
-        SELECT boardnm
+        SELECT boardname
           FROM TB_Bbs_Board
          WHERE boardcd = #{boardcd}
     </select>
     
     <select id="getBoardOne" parameterType="string" resultType="ModelBoard">
-        SELECT boardcd, boardnm, UseYN 
+        SELECT boardcd, boardname, userid 
           FROM TB_Bbs_Board 
          WHERE boardcd = #{boardcd}
     </select>
     
     <select id="getBoardList" resultType="ModelBoard">
-        SELECT boardcd, boardnm, UseYN, InsertUID, InsertDT, UpdateUID, UpdateDT
+        SELECT boardcd, boardname, userid
           FROM TB_Bbs_Board
-        ORDER BY boardnm
+        ORDER BY boardname
     </select>         
            
     <select id="getBoardListResultMap" resultType="ModelBoard">
@@ -29,25 +29,23 @@
      
     <insert id="insertBoard" parameterType="ModelBoard">
         INSERT INTO 
-        TB_Bbs_Board ( boardcd   , boardnm   , UseYN   , InsertUID   , InsertDT   , UpdateUID   , UpdateDT    )
-        VALUES       ( #{boardcd}, #{boardnm}, #{UseYN}, #{InsertUID}, #{InsertDT}, #{UpdateUID}, #{UpdateDT} )
+        TB_Bbs_Board ( boardcd   , boardname   , userid  )
+        VALUES       ( #{boardcd}, #{boardname}, #{userid} )
     </insert>
     
     <update id="updateBoard" parameterType="hashmap">
         UPDATE TB_Bbs_Board 
-            SET boardnm   = #{updateValue.boardnm}
-              , UseYN     = #{updateValue.UseYN}
-              , UpdateUID = #{updateValue.UpdateUID}
-              , UpdateDT  = #{updateValue.UpdateDT}
+            SET boardname   = #{updateValue.boardname}
+              , userid     = #{updateValue.userid}
             WHERE 1 = 1 
               <if test="searchValue.boardcd != null and searchValue.boardcd != ''" >
               AND boardcd    = #{searchValue.boardcd}
               </if>
-              <if test="searchValue.boardnm != null and searchValue.boardnm != ''">
-              AND boardnm  = #{searchValue.boardnm}
+              <if test="searchValue.boardname != null and searchValue.boardname != ''">
+              AND boardname  = #{searchValue.boardname}
               </if>
-              <if test="searchValue.UseYN != null and searchValue.UseYN != ''">
-              AND UseYN    = #{searchValue.UseYN}
+              <if test="searchValue.userid != null and searchValue.userid != ''">
+              AND userid    = #{searchValue.userid}
               </if>
     </update>
     
@@ -57,33 +55,33 @@
           <if test="boardcd != null and boardcd != ''" >
           AND boardcd  = #{boardcd}
           </if>
-          <if test="boardnm != null and boardnm != ''">
-          AND boardnm  = #{boardnm}
+          <if test="boardname != null and boardname != ''">
+          AND boardname  = #{boardname}
           </if>
-          <if test="UseYN != null">
-          AND UseYN    = #{UseYN}
+          <if test="userid != null  and userid != ''">
+          AND userid    = #{userid}
           </if>
     </delete>
     
     <select id="getBoardSearch" parameterType="ModelBoard" resultType="ModelBoard">
-        SELECT boardcd, boardnm, UseYN 
+        SELECT boardcd, boardname, userid 
           FROM TB_Bbs_Board
          WHERE 1 =1 
            <if  test="boardcd != null and boardcd != ''">
            AND boardcd LIKE CONCAT('%', #{boardcd},'%')
            </if>
-           <if  test="boardnm != null and boardnm != ''">
-           AND boardnm LIKE CONCAT('%', #{boardnm},'%')
+           <if  test="boardname != null and boardname != ''">
+           AND boardname LIKE CONCAT('%', #{boardname},'%')
            </if>
     </select>
     
     <select id="getBoardPaging"  parameterType="hashmap"  resultType="ModelBoard">
-        SELECT boardcd, boardnm, UseYN
+        SELECT boardcd, boardname, userid
         FROM (
             SELECT @RNUM := @RNUM + 1 AS r, a.* 
                 FROM (
                     SELECT 
-                        boardcd, boardnm, UseYN
+                        boardcd, boardname, userid
                     FROM 
                         TB_BBS_Board
                     WHERE 1 = 1
@@ -91,9 +89,9 @@
                         AND boardcd = #{boardcd}
                         </if>
                         <if test="searchWord != null and searchWord != ''">
-                        AND boardnm LIKE #{searchWord} 
+                        AND boardname LIKE #{searchWord} 
                         </if>
-                    GROUP BY boardcd, boardnm, UseYN
+                    GROUP BY boardcd, boardname, userid
                     ORDER BY boardcd DESC
                 ) a, (SELECT @RNUM:=0) b
             ) temp
@@ -108,10 +106,10 @@
         ;
      -->
     <insert id="insertBoardList" parameterType="java.util.List">
-        INSERT INTO TB_Bbs_Board( boardcd , boardnm , UseYN  )
+        INSERT INTO TB_Bbs_Board( boardcd , boardname , userid  )
         VALUES
             <foreach collection="list" item="item" index="index" open="(" separator="),(" close=")">
-                #{item.boardcd} , #{item.boardnm} , #{item.UseYN}
+                #{item.boardcd} , #{item.boardname} , #{item.userid}
             </foreach>
     </insert>
     
@@ -122,7 +120,7 @@
             AND boardcd = #{boardcd}
         </if>
         <if test="searchWord != null and searchWord != ''">
-            AND boardnm LIKE #{searchWord}
+            AND boardname LIKE #{searchWord}
         </if>
     </select> 
     
@@ -135,15 +133,16 @@
     </select>   
 
     <select id="getArticleList" parameterType="hashmap" resultType="ModelArticle">
-        SELECT articleno, title, insertUID, regdate, hit, attachfileNum, commentNum 
+        SELECT articleno, title, email, hit, date, userid, attachfileNum, commentNum 
         FROM (
             SELECT @RNUM := @RNUM + 1 AS r, a.* 
             FROM (
                     SELECT a.articleno articleno, 
                            a.title,
-                           a.insertUID,  
-                           a.regdate, 
+                           a.email,  
                            a.hit, 
+                           a.date,
+                           a.userid,  
                            count(distinct(f.attachfileno)) attachfileNum, 
                            count(distinct(c.commentno)) commentNum
                     FROM 
@@ -155,7 +154,7 @@
                         <if test="searchWord != null">
                         AND (title LIKE CONCAT('%', #{searchWord},'%') OR content LIKE CONCAT('%', #{searchWord},'%') )
                         </if>
-                    GROUP BY a.articleno, title, a.regdate, hit
+                    GROUP BY a.articleno, title, a.date, hit
                     ORDER BY articleno DESC
                  ) a, (SELECT @RNUM:=0) b
             ) temp
@@ -164,24 +163,22 @@
 
     
     <select id="getArticle" parameterType="int" resultType="ModelArticle">
-        SELECT articleno, boardcd, title, content, insertUID, email, hit, regdate
+        SELECT articleno, boardcd, title, content, email, hit, date, userid
         FROM TB_BBS_Article
         WHERE articleno = #{articleno}
     </select>
     
     <insert id="insertArticle" parameterType="ModelArticle">
         INSERT INTO 
-        TB_BBS_Article ( boardcd   , title   , content   , email   , hit, regdate   , InsertUID   , InsertDT   , UpdateUID   , UpdateDT     )
-            VALUES     ( #{boardcd}, #{title}, #{content}, #{email}, 0  , now() , #{InsertUID}, #{InsertDT}, #{UpdateUID}, #{UpdateDT}  )
+        TB_BBS_Article ( boardcd   , title   , content   , email   , hit, date, userid     )
+            VALUES     ( #{boardcd}, #{title}, #{content}, #{email}, 0  , now() , #{userid}  )
     </insert>   
     
     <update id="updateArticle" parameterType="hashmap">
         UPDATE TB_BBS_Article 
            SET title     = #{updateValue.title}
              , content   = #{updateValue.content} 
-             , UseYN     = #{updateValue.UseYN    , jdbcType=BOOLEAN}
-             , UpdateUID = #{updateValue.UpdateUID, jdbcType=VARCHAR}
-             , UpdateDT  = #{updateValue.UpdateDT , jdbcType=DATE   }
+             , date  = #{updateValue.date , jdbcType=DATE   }
          WHERE  1 = 1 
               <if test="searchValue.boardcd != null and searchValue.boardcd != ''" >
               AND boardcd    = #{searchValue.boardcd}
@@ -194,9 +191,6 @@
               </if>
               <if test="searchValue.email != null and searchValue.email != ''">
               AND email      = #{searchValue.email}
-              </if>
-              <if test="searchValue.UseYN != null">
-              AND UseYN      = #{searchValue.UseYN}
               </if>
     </update>
     
@@ -211,9 +205,6 @@
           </if>
           <if test="email != null and email != ''">
           AND email    = #{email}
-          </if>
-          <if test="UseYN != null">
-          AND UseYN    = #{UseYN}
           </if>
     </delete>
     
@@ -272,7 +263,7 @@
 </select>
 
 <select id="getAttachFileList" parameterType="int" resultType="ModelAttachFile">
-    SELECT attachfileno, filename, filetype, filesize,articleno 
+    SELECT attachfileno, filename, filetype, filesize, articleno 
       FROM TB_BBS_Attachfile 
      WHERE articleno = #{articleno} 
     ORDER BY attachfileno
@@ -280,8 +271,8 @@
 
 <insert id="insertAttachFile" parameterType="ModelAttachFile">
     INSERT INTO 
-    TB_BBS_Attachfile (filename, filetype, filesize, articleno, InsertUID   , InsertDT   , UpdateUID   , UpdateDT    )
-    VALUES        ( #{filename}, #{filetype}, #{filesize}, #{articleno}, #{InsertUID}, #{InsertDT}, #{UpdateUID}, #{UpdateDT} )
+    TB_BBS_Attachfile (filename, filetype, filesize, articleno, date , userid   )
+    VALUES        ( #{filename}, #{filetype}, #{filesize}, #{articleno}, #{date}, #{userid} )
 </insert>
 
 <delete id="deleteAttachFile" parameterType="ModelAttachFile">
@@ -293,14 +284,11 @@
       <if test="articleno != null and articleno != ''">
       AND articleno  = #{articleno}
       </if>
-      <if test="UseYN != null">
-      AND UseYN    = #{UseYN}
-      </if>
 </delete>
 
 
 <select id="getComment" parameterType="hashmap" resultType="ModelComments">
-    SELECT commentno, articleno, email, memo, insertUID, regdate 
+    SELECT commentno, articleno, memo, userid, date 
     FROM TB_BBS_Comments 
     WHERE 1 = 1 
       <if test="commentno != null and commentno != ''" >
@@ -312,7 +300,7 @@
 </select>
 
 <select id="getCommentList" parameterType="int" resultType="ModelComments">
-    SELECT commentno, articleno, email, memo, insertUID, regdate
+    SELECT commentno, articleno, memo, userid, date 
     FROM TB_BBS_Comments
     WHERE articleno = #{articleno}
     ORDER BY commentno DESC
@@ -320,24 +308,20 @@
 
 
 <insert id="insertComment" parameterType="ModelComments">
-    INSERT INTO TB_BBS_Comments ( articleno   , email   , memo   , regdate   , InsertUID   , InsertDT   , UpdateUID   , UpdateDT    )
-                         VALUES ( #{articleno}, #{email}, #{memo}, now(), #{InsertUID}, #{InsertDT}, #{UpdateUID}, #{UpdateDT} )
+    INSERT INTO TB_BBS_Comments ( articleno, memo, date, userid    )
+                         VALUES ( #{articleno}, #{memo}, now() , #{userid} )
 </insert>
 
 <update id="updateComment" parameterType="hashmap">
     UPDATE TB_BBS_Comments 
        SET memo      = #{updateValue.memo   } 
-         , UseYN     = #{updateValue.UseYN  } 
-         , regdate     = now()
+         , date     = now()
      WHERE  1 = 1 
           <if test="searchValue.commentno != null and searchValue.commentno != ''" >
           AND commentno = #{searchValue.commentno}
           </if>
           <if test="searchValue.articleno != null and searchValue.articleno != ''">
           AND articleno = #{searchValue.articleno}
-          </if>
-          <if test="searchValue.email != null and searchValue.email != ''">
-          AND email     = #{searchValue.email}
           </if>
 </update>
 
@@ -349,12 +333,6 @@
       </if>
       <if test="articleno != null and articleno != ''">
       AND articleno  = #{articleno}
-      </if>
-      <if test="email != null and email != ''">
-      AND email    = #{email}
-      </if>
-      <if test="UseYN != null">
-      AND UseYN    = #{UseYN}
       </if>
 </delete>
 

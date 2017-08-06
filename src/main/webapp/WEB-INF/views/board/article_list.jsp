@@ -67,7 +67,7 @@
         <div class='bbs_content'>
             <div class=''>
                 <div class='bbs_maintitle'>
-                    <h3>${boardnm}</h3>
+                    <h3>${boardname}</h3>
                 </div>
                 <div class='bbs_maincontent'>
                     <table>
@@ -86,8 +86,8 @@
                                     <td articleno='${boardlist.articleno}'><h6>${no - status.index}</h6></td>
                                     <!--  ${no - status.index} 게시판 순서대로 번호 넣기 --> 
                                     <td><h6>${boardlist.title}</h6></td>
-                                    <td><h6>${boardlist.insertUID } </h6></td>
-                                    <td><fmt:formatDate value="${boardlist.regdate}" pattern="yyyy.MM.dd HH:mm:ss"/></td>
+                                    <td><h6>${boardlist.userid } </h6></td>
+                                    <td><fmt:formatDate value="${boardlist.date}" pattern="yyyy.MM.dd HH:mm:ss"/></td>
                                     <td><h6>${boardlist.hit}</h6></td>
                                 </tr>
                             </c:forEach>

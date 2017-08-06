@@ -19,7 +19,7 @@ $(document).ready(function(){
     	window.location.href = "/user/user_logout" ;
         alert('로그아웃 되었습니다.');
     });
-    $('.go_user_modify').click(function(e){
+    $('.go_user_info').click(function(e){
         window.location.href = "/user/user_info" ;
     });
 });
@@ -54,7 +54,7 @@ $(document).ready(function(){
                         </div>
                         <div class='dot'>ㆍ</div>
                         <div class='move_signup box'>
-                            <input type="button" value="정보수정" class="go_user_modify" />
+                            <input type="button" value="정보수정" class="go_user_info" />
                         </div>
                     </c:otherwise>
                 </c:choose>

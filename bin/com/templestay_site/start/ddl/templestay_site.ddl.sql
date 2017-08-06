@@ -20,11 +20,6 @@ DROP DATABASE IF EXISTS templestay_site;
 CREATE DATABASE templestay_site DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 
--- 사용자 추가
-GRANT ALL ON templestay_site.* TO tester1@localhost IDENTIFIED BY '1234';
-
-
-FLUSH PRIVILEGES;
 
 
 
@@ -32,7 +27,6 @@ FLUSH PRIVILEGES;
 USE templestay_site;
 
 DROP TABLE IF EXISTS TB_User;
-
 
 DROP TABLE IF EXISTS TB_Bbs_Article;
 DROP TABLE IF EXISTS TB_Bbs_Board;

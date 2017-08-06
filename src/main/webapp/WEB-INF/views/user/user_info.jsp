@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 
 <link rel="stylesheet" type="text/css" href="/resources/css/common.css">
-<link rel="stylesheet" type="text/css" href="/resources/css/join.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/user_info.css">
 
 <script src='/resources/js/jquery-3.1.0.js'></script>
 <script src='/resources/js/jquery-ui.js'></script>
@@ -17,7 +17,16 @@
 
 <script>
 $(document).ready(function(){
-    $('.user_delete').click(function(e){
+	// 회원정보 수정
+    $('.go_user_modify').click(function(e){
+        window.location = "/user/user_modify" ;
+    });
+    $('.go_user_modify_password').click(function(e){
+	    window.location = "/user/user_modify_password" ;
+	});
+	
+	// 회원 탈퇴
+    $('.go_user_delete').click(function(e){
         var confirm_delete = confirm("정말로 탈퇴하시겠습니까? ㅠㅠ");
             if (confirm_delete == true) {
                 $.ajax({
@@ -62,9 +71,6 @@ $(document).ready(function(){
                     <h3>회원정보 수정</h3>
                 </div>
                 <div class=''>
-                
-                    <div><a href='/user/user_modify'>회원정보 변경</a></div>
-                    <div><a href='/user/user_modify_password'>비밀번호 변경</a></div>
                         <table>
                             <tbody>
                                 <tr>
@@ -86,9 +92,10 @@ $(document).ready(function(){
                             </tbody>
                         </table>
                         <div>
-                            <input type="button" value="회원삭제" class="user_delete" />
+                            <input type="button" value="회원정보 변경" class="go_user_modify" />
+                            <input type="button" value="비밀번호 변경" class="go_user_modify_password" />
+                            <input type="button" value="회원탈퇴" class="go_user_delete" />
                         </div>
-                    </form>
                 </div>
             </div>
         </div>
