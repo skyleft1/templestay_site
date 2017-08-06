@@ -32,9 +32,9 @@
 		<div class='side_menu'>
 			<div><h3>여름수련회</h3></div>
 			<ul>
-				<li><a href='program01.jsp'><h5>휴식형 프로그램</h5></a></li>
-				<li><a href='program02.jsp'><h5>체험형 프로그램</h5></a></li>
-				<li><a href='program03.jsp'><h5>템플라이프</h5></a></li>
+                <li><a href='/etc/program01'><h5>휴식형 프로그램</h5></a></li>
+                <li><a href='/etc/program02'><h5>체험형 프로그램</h5></a></li>
+                <li><a href='/etc/program03'><h5>템플라이프</h5></a></li>
 			</ul>
 		</div>
 	<!-- 우측내용 -->

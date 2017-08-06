@@ -30,7 +30,7 @@
 		<div class='side_menu'>
 			<div><h3>템플스테이</h3></div>
 			<ul>
-				<li><a href='map.jsp'><h5>찾아오시는 길</h5></a></li>
+				<li><a href='/etc/map'><h5>찾아오시는 길</h5></a></li>
 			</ul>
 		</div>
 	<!-- 우측내용 -->

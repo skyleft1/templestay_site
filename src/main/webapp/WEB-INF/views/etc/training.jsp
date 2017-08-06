@@ -31,7 +31,7 @@
 		<div class='side_menu'>
 			<div><h3>여름수련회</h3></div>
 			<ul>
-				<li><a href='training.jsp'><h5>여름수련회 소개</h5></a></li>
+				<li><a href='/etc/training'><h5>여름수련회 소개</h5></a></li>
 			</ul>
 		</div>
 	<!--  우측내용 -->

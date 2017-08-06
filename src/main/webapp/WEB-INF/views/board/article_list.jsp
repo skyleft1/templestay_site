@@ -58,11 +58,9 @@
                 <h3>커뮤니티</h3>
             </div>
             <ul>
-                <li class='go_notice'><h5>공지사항</h5></li>
-                <li class='go_qna'><h5>질문과 답변</h5></li>
-                <li class='go_free'><a href='/bbs/bbs'><h5>게시판</h5></a></li>
-                <li><h5>포토갤러리</h5></li>
-                <li><h5>홍보동영상</h5></li>
+                <li><h5><a href="/board/article_list/notice?curPage=1&searchWord=${searchWord}">공지사항</a></h5></li>
+                <li><h5><a href="/board/article_list/qna?curPage=1&searchWord=${searchWord}">QnA게시판</a></h5></li>
+                <li><h5><a href="/board/article_list/free?curPage=1&searchWord=${searchWord}">자유게시판</a></h5></li>
             </ul>
         </div>
         <!-- bbs 우측내용 -->
@@ -85,7 +83,8 @@
                         <tbody>
                             <c:forEach var='boardlist' items='${list}' varStatus='status' >
                                 <tr class='go_view'>
-                                    <td articleno='${boardlist.articleno}'><h6>${boardlist.articleno}</h6></td>
+                                    <td articleno='${boardlist.articleno}'><h6>${no - status.index}</h6></td>
+                                    <!--  ${no - status.index} 게시판 순서대로 번호 넣기 --> 
                                     <td><h6>${boardlist.title}</h6></td>
                                     <td><h6>${boardlist.insertUID } </h6></td>
                                     <td><fmt:formatDate value="${boardlist.regdate}" pattern="yyyy.MM.dd HH:mm:ss"/></td>

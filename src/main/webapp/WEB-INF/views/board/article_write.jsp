@@ -11,8 +11,7 @@
 <title>Insert title here</title>
 
 <link rel="stylesheet" type="text/css" href="/resources/css/common.css">
-<link rel="stylesheet" type="text/css"
-    href="/resources/css/bbs_write.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/bbs_write.css">
 
 <script src='/resources/js/jquery-3.1.0.js'></script>
 <script src='/resources/js/jquery-ui.js'></script>
@@ -22,7 +21,7 @@
 
     $(document).ready(function() {
         $('.cancel').click(function(e) {
-            window.location.href = "/board/article_list/${boardcd}/"
+            window.location.href = "/board/article_view/${boardcd}/${articleno}"
         });
         
         $('.write_confirm').click(function(e){
@@ -48,9 +47,9 @@
 
     <!-- bbs_view -->
     <div class=''>
-        <div class='bbs_view_content'>
+        <div class='bbs_write_content'>
             <div class=''>
-                <div class='bbs_view_maintitle'>
+                <div class='bbs_write_maintitle'>
                     <h3>게시판</h3>
                 </div>
                 <div class=''>
@@ -58,20 +57,16 @@
                         <table>
                             <tbody>
 
-                                <tr>
+                                <tr class='write_modify_title'>
                                     <th><h5>제목</h5></th>
                                     <td>
-                                        <textarea name='title'>
-                                        ${article.title}
-                                        </textarea>
+                                        <textarea name='title'>${article.title}</textarea>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr class='write_modify_content'>
                                     <th><h5>내용</h5></th>
                                     <td>
-                                        <textarea name='content'>
-                                        ${article.content}
-                                        </textarea>
+                                        <textarea name='content'>${article.content}</textarea>
                                     </td>
                                 </tr>
                             </tbody>
@@ -86,15 +81,13 @@
                             <div>
                                 <input type='button' name='' class='modify_confirm' value='확인'>
                             </div>
-                        </c:if>                                                
-                      </form>
-                                          
-                    <div class='modify_delete'>
-                        <div>
+                        </c:if>
+                        <div class='modify_delete'>
                             <input type='button' name='' class='cancel' value='취소'>
                         </div>
+                                                                        
+                      </form>
                     </div>
-                </div>
             </div>
         </div>
     </div>

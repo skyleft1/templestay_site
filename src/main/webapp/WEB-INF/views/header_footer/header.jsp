@@ -10,10 +10,17 @@ $(document).ready(function(){
     $('.go_login').click(function(e){
         window.location.href = "/user/user_login" ;
         });
-        
+    $('.go_join').click(function(e){
+        window.location.href = "/user/user_join" ;
+        });
+            
+    
     $('.go_logout').click(function(e){
     	window.location.href = "/user/user_logout" ;
         alert('로그아웃 되었습니다.');
+    });
+    $('.go_user_modify').click(function(e){
+        window.location.href = "/user/user_info" ;
     });
 });
 
@@ -34,12 +41,12 @@ $(document).ready(function(){
                         </div>
                         <div class='dot'>ㆍ</div>
                         <div class='move_signup box'>
-                            <a href="javascript:location.href='/user/user_join'"><h4>회원가입</h4></a>
+                            <input type="button" value="회원가입" class="go_join" />
                         </div>
 
                     </c:when>
                     <c:otherwise>
-                        <div class='move_login box'>
+                        <div class='move_login box2'>
                             ${ session_user.userid} 님 환영합니다! ^0^/                          
                         </div>
                         <div class='move_login box'>
@@ -47,12 +54,11 @@ $(document).ready(function(){
                         </div>
                         <div class='dot'>ㆍ</div>
                         <div class='move_signup box'>
-                            <a href="javascript:location.href='/user/user_info'"><h4>회원정보수정</h4></a>
+                            <input type="button" value="정보수정" class="go_user_modify" />
                         </div>
                     </c:otherwise>
                 </c:choose>
                 
-          
             </div>
         </div>
         <div class='warp_menu_inner'>
@@ -111,7 +117,7 @@ $(document).ready(function(){
                     </ul>
                     <ul>
                         <li><h5><a href="/board/article_list/notice?curPage=1&searchWord=${searchWord}">공지사항</a></h5></li>
-                        <li><h5><a href="/board/article_list/qna?curPage=1&searchWord=${searchWord}">질문게시판</a></h5></li>
+                        <li><h5><a href="/board/article_list/qna?curPage=1&searchWord=${searchWord}">QnA게시판</a></h5></li>
                         <li><h5><a href="/board/article_list/free?curPage=1&searchWord=${searchWord}">자유게시판</a></h5></li>
                     </ul>
                 </div>
