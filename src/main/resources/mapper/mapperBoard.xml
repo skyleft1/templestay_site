@@ -288,7 +288,7 @@
 
 
 <select id="getComment" parameterType="hashmap" resultType="ModelComments">
-    SELECT commentno, articleno, memo, userid, date 
+    SELECT commentno, articleno, memo, userid, DATE_FORMAT(date, '%Y-%m-%d %H:%m:%s')  as date
     FROM TB_BBS_Comments 
     WHERE 1 = 1 
       <if test="commentno != null and commentno != ''" >
@@ -297,10 +297,13 @@
       <if test="articleno != null and articleno != ''">
       AND articleno = #{articleno}
       </if>
+    <if test="memo!= null and memo != ''">
+      AND memo = #{memo}
+      </if>
 </select>
 
 <select id="getCommentList" parameterType="int" resultType="ModelComments">
-    SELECT commentno, articleno, memo, userid, date 
+    SELECT commentno, articleno, memo, userid, DATE_FORMAT(date, '%Y-%m-%d %H:%m:%s')  as date
     FROM TB_BBS_Comments
     WHERE articleno = #{articleno}
     ORDER BY commentno DESC
@@ -308,8 +311,8 @@
 
 
 <insert id="insertComment" parameterType="ModelComments">
-    INSERT INTO TB_BBS_Comments ( articleno, memo, date, userid    )
-                         VALUES ( #{articleno}, #{memo}, now() , #{userid} )
+    INSERT INTO TB_BBS_Comments ( articleno, memo, date,  userid    )
+                         VALUES ( #{articleno}, #{memo}, now(),   #{userid} )
 </insert>
 
 <update id="updateComment" parameterType="hashmap">

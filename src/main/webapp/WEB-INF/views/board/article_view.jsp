@@ -109,7 +109,7 @@
                             </tr>
                             <tr>
                                 <th><h5>날짜</h5></th>
-                                <td><h6><fmt:formatDate value="${article.date}" pattern="yyyy.MM.dd HH:mm:ss"/></h6></td>
+                                <td><h6>${article.date}</h6></td>
                             </tr>
                             <tr>
                                 <th><h5>내용</h5></th>
@@ -133,7 +133,7 @@
                         <div class='comment_list' commentno='${commentlist.commentno }'>
                             <div><strong>${commentlist.userid}</strong></div>
                             <div class='comment_memo'>${commentlist.memo}</div>
-                            <div class='comment_date'><fmt:formatDate value="${commentlist.date}" pattern="yyyy.MM.dd" /></div>                            
+                            <div class='comment_date'>${commentlist.date}</div>                            
                         
                         <!-- 댓글 수정 삭제 -->
                             <c:if test="${session_user.userid eq commentlist.userid}" >

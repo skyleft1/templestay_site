@@ -24,14 +24,22 @@ var download = function download(tempfilename, filename) {
 };
 
 // 날짜 형변환 
-var getFormatDate = function getFormatDate(date) {
-	var syear = date.getFullYear();                                 //yyyy
-	var smonth = (1 + date.getMonth());                     //M
-	month = month >= 10 ? month : '0' + month;     // month 두자리로 저장
-	var sday = date.getDate();                                        //d
-	day = day >= 10 ? day : '0' + day;                            //day 두자리로 저장
-	return  syear + '' + smonth + '' + sday;
-}
+//var getFormatDate = function getFormatDate(date) {
+//	function dateToYYYYMMDD(date){
+//	    function pad(num) {
+//	        num = num + '';
+//	        return num.length < 2 ? '0' + num : num;
+//	    }
+//	    return date.getFullYear() + '-' + pad(date.getMonth()+1) + '-' + pad(date.getDate());
+//	}
+
+//	var syear = date.getFullYear();                                 //yyyy
+//	var smonth = (1 + date.getMonth());                     //M
+//	month = month >= 10 ? month : '0' + month;     // month 두자리로 저장
+//	var sday = date.getDate();                                        //d
+//	day = day >= 10 ? day : '0' + day;                            //day 두자리로 저장
+//	return  syear + '' + smonth + '' + sday;
+//}
  
 var sendpost = function sendpost(url, params) {
 	var f = document.createElement('form');
@@ -94,14 +102,12 @@ var comment_write = function comment_write(articleno, memo) {
         	var memo = data.memo;
         	var date1 = data.date;
         	var session_userid = "${session_user.userid}"; 
-        	var date2 = getFormatDate(date1);
-        	
         	
         	$('.commentlist_parent').append("<div class= 'comment_list' commentno='" +  commentno + "'>") ;
         	
         		$('.comment_list').append("<div><strong>" + userid + "</strong></div>");
             	$('.comment_list').append("<div class= 'comment_memo'>" + memo + "</div>");
-            	$('.comment_list').append('<div class= "comment_date">'+ date2 + '</div>');
+            	$('.comment_list').append('<div class= "comment_date">'+ date1 + '</div>');
 
             	$('.comment_list').append("<input type= 'button' name='" + "' class= 'click_comment_modify hide_comment_modify_delete' value='댓글수정' />");
             	$('.comment_list').append("<input type= 'button' name='" + "' class= 'go_comment_delete hide_comment`_modify_delete' value='댓글삭제' />");        		

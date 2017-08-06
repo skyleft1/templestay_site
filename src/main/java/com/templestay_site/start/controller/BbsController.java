@@ -222,7 +222,7 @@ public class BbsController {
         ModelComments comment_date = srv.getComment(comment);
         //  디비에 인서트된 comment 의 날짜를 가져옴
         
-        Date a = comment_date.getDate();
+        Date a = comment_date.getDate();    
 
         if (result == 1) {
 //            map.put("commentno", comment.getCommentno());
