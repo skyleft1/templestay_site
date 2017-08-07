@@ -5,7 +5,7 @@
 <mapper namespace="mapper.mapperUser">
     
     <select id="login" parameterType="ModelUser" resultType="ModelUser">
-            select userid, userpassword, username,  useremail, phonenumber
+            select userid, userpassword, username,  useremail, phonenumber, address,  joindate 
               from TB_USER
              WHERE  userid = #{userid}
               AND userpassword = #{userpassword}
@@ -18,28 +18,28 @@
     </select>
     
     <select id="getUserOne" parameterType="string" resultType="ModelUser">
-        SELECT userid, userpassword, username, useremail, phonenumber
+        SELECT userid, userpassword, username, useremail, phonenumber, address,  joindate 
           FROM TB_User 
          WHERE userid = #{userid}
     </select>
     
     <select id="getUserList" resultType="ModelUser">
-        SELECT userno, userid, userpassword, username, useremail, phonenumber, joindate
+        SELECT userno, userid, userpassword, username, useremail, phonenumber, address,  joindate 
           FROM TB_User
         ORDER BY username
     </select>         
         
     <insert id="insertUser" parameterType="ModelUser">
         INSERT INTO 
-        TB_User ( userid, userpassword, username, useremail, phonenumber, joindate   )
-        VALUES ( #{userid}, #{userpassword}, #{username}, #{useremail}, #{phonenumber}, #{joindate} )
+        TB_User ( userid, userpassword, username, useremail, phonenumber, address,  joindate   )
+        VALUES ( #{userid}, #{userpassword}, #{username}, #{useremail}, #{phonenumber} , #{address} , #{joindate} )
     </insert>
     
     <insert id="insertUserList" parameterType="java.util.List">
-        INSERT INTO tb_User( userid, userpassword, username, useremail, phonenumber, joindate )
+        INSERT INTO tb_User( userid, userpassword, username, useremail, phonenumber , address , joindate )
         VALUES
             <foreach collection="list" item="item" index="index" open="(" separator="),(" close=")">
-                #{item.userid} , #{item.userpassword} , #{item.username}, #{item.useremail} , #{item.phonenumber} , #{item.joindate}
+                #{item.userid} , #{item.userpassword} , #{item.username}, #{item.useremail} , #{item.phonenumber} , #{item.address}  , now() }
             </foreach>
     </insert>
     
@@ -57,6 +57,7 @@
               , username = #{updateValue.username}
               , useremail  = #{updateValue.useremail}
               , phonenumber  = #{updateValue.phonenumber}
+              , address  = #{updateValue.address}
             WHERE 1 = 1 
               <if test="searchValue.userno != null and searchValue.userno != ''" >
               AND userno    = #{searchValue.userno}

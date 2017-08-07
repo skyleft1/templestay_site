@@ -17,6 +17,10 @@
 <script src="/resources/js/common.js"></script>
 <script src="/resources/js/ajaxsetup.js"></script>
 
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
+<!--  다음 지도 이용 -->
+<!--autoload=false 파라미터를 이용하여 자동으로 로딩되는 것을 막습니다.-->
+
 <!-- 
 필요한 자바스크립트
 1 중복체크
@@ -30,18 +34,17 @@ $(document).ready(function(){
     	var userid = $('input[name="userid"]').val();
         $.ajax({
             url : '/user/user_id_check'
-            , data: {'userid' : userid }        // 사용하는 경우에는 { data1:'test1', data2:'test2' }
-            , type: 'POST'       // get, post
-            , timeout: 30000    // 30초
-            , dataType: 'json'  // text, html, xml, json, jsonp, script
+            , data: {'userid' : userid }       
+            , type: 'POST'       
+            , timeout: 30000    
+            , dataType: 'json'  
             , beforeSend : function() {
-                // 통신이 시작되기 전에 이 함수를 타게 된다.
             }
         }).done( function(data, textStatus, xhr ){
             if (data.code === 1){
                 alert( data.msg );
             }else {
-            	$('table input').removeAttr('disabled', '').css('background-color', '#f7f7f7');
+            	$('table input:not([type=button])').removeAttr('disabled', '').css('background-color', '#f7f7f7');
             }
         });
     });
@@ -68,6 +71,8 @@ $(document).ready(function(){
         }
     });
 });
+
+
 
     
 </script>
@@ -124,6 +129,17 @@ $(document).ready(function(){
                                     <td><input type='text' name='phonenumber' value='' class='submit_check' disabled style='background-color: grey'>
                                     </td>
                                 </tr>
+                                
+                                <tr>
+                                    <th>주소</th>
+                                    <td>
+                                        <input type="text" id="sample4_postcode" placeholder="우편번호" value="">
+                                        <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+                                        <input type="text" id="sample4_roadAddress" placeholder="도로명주소" value="">
+                                        <input type="text" id="sample4_jibunAddress" placeholder="지번주소" value="">
+                                        <span id="guide" style="color:#999"></span>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <div class='wrap_submit'>
@@ -135,6 +151,59 @@ $(document).ready(function(){
         </div>
     </div>
 
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script>
+    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+                // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+                if(fullRoadAddr !== ''){
+                    fullRoadAddr += extraRoadAddr;
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample4_postcode').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('sample4_roadAddress').value = fullRoadAddr;
+                document.getElementById('sample4_jibunAddress').value = data.jibunAddress;
+
+                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                if(data.autoRoadAddress) {
+                    //예상되는 도로명 주소에 조합형 주소를 추가한다.
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    document.getElementById('guide').innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+
+                } else if(data.autoJibunAddress) {
+                    var expJibunAddr = data.autoJibunAddress;
+                    document.getElementById('guide').innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+
+                } else {
+                    document.getElementById('guide').innerHTML = '';
+                }
+            }
+        }).open();
+    }
+</script>
     <!-- footer -->
     <div class='footer'>
         <%@ include file="../header_footer/footer.jsp" %>

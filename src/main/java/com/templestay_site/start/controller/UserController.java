@@ -100,7 +100,7 @@ public class UserController {
     public String join( Model model 
             , @ModelAttribute ModelUser userinfo
             ) {
-        logger.info("join:POST");
+         logger.info("join:POST");
         
         int result = srv.insertUser(userinfo); 
         
