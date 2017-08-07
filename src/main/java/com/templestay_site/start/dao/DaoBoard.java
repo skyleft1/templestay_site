@@ -105,8 +105,8 @@ public class DaoBoard implements IDaoBoard {
         return session.selectList("mapper.mapperBoard.getArticleList", map);
     }
     @Override
-    public ModelArticle getArticle(int articleno) {
-        return session.selectOne("mapper.mapperBoard.getArticle", articleno);
+    public ModelArticle getArticle(ModelArticle article) {
+        return session.selectOne("mapper.mapperBoard.getArticle", article);
     }
     @Override
     public int insertArticle(ModelArticle article) {

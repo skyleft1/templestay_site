@@ -30,7 +30,7 @@ p{
 
 
 
-tbody tr:last-child{
+tbody tr:nth-child(5){
     height: 200px;
 }
 

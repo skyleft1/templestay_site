@@ -47,13 +47,13 @@
         });
         
         // 댓글 수정
-        $('.click_comment_modify').click(function(e){
+        $('.commentlist_parent').on('click', '.click_comment_modify', function(e){
         	var aa =  $(this).siblings('.comment_memo').text();
         	$(this).siblings('.comment_memo').html("<textarea maxlength='500' class='comment_textarea'>"+ aa +"</textarea>");
         	$(this).parent().find('.hide_comment_modify_delete').hide();
         	$(this).parent().append("<input type='button' class='go_comment_modify' value='수정확인'/>");
         	
-        	$('.go_comment_modify').click(function(e){
+        	$('.commentlist_parent').on('click', '.go_comment_modify', function(e){
         		var commentno = $(this).parent($('.comment_list')).attr('commentno');
         		comment_modify(commentno);
         		
@@ -63,7 +63,7 @@
         });
         
         // 댓글 삭제
-        $('.go_comment_delete').click(function(e){
+        $('.commentlist_parent').on('click', '.go_comment_delete', function(e){
             var commentno = $(this).parent($('.comment_list')).attr('commentno');
             comment_delete(commentno);
 
@@ -109,15 +109,27 @@
                             </tr>
                             <tr>
                                 <th><h5>날짜</h5></th>
-                                <td><h6>${article.date}</h6></td>
+                                <td><h6><fmt:formatDate value="${article.date}" pattern="yyyy.MM.dd HH:mm:ss"/></h6></td>
                             </tr>
                             <tr>
                                 <th><h5>내용</h5></th>
                                 <td><h6>${article.content}</h6></td>
                             </tr>
-                            
+                            <tr>
+                                <th><h5>첨부파일</h5></th>
+                                <td>
+                                <div class="file_list" >
+                                    <c:forEach var="file" items="${attachFileList }" varStatus="status">
+                                    <a href="javascript:download('${file.tempfilename }', '${file.filename }' )">${file.filename }</a>
+                                    <br />
+                                    </c:forEach>
+                                </div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
+                                
+                               
                                         
                     <!-- 댓글 작성 -->
                     <div class='comment_title'><div>댓글 작성</div></div>
@@ -133,7 +145,7 @@
                         <div class='comment_list' commentno='${commentlist.commentno }'>
                             <div><strong>${commentlist.userid}</strong></div>
                             <div class='comment_memo'>${commentlist.memo}</div>
-                            <div class='comment_date'>${commentlist.date}</div>                            
+                            <div class='comment_date'><fmt:formatDate value="${commentlist.date}" pattern="yyyy-MM-dd"/></div>                            
                         
                         <!-- 댓글 수정 삭제 -->
                             <c:if test="${session_user.userid eq commentlist.userid}" >

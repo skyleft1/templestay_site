@@ -22,6 +22,15 @@
 
 <script src='/resources/js/common.js'></script>
 
+<script>
+$(document).ready(function(){
+	$('.list_lineup').click(function(e){
+		var articleno = $(this).children(0).attr('articleno');
+		window.location.href = '/board/article_view/notice/' + articleno ; 
+	});
+});
+
+</script>
 
 
 </head>
@@ -75,12 +84,13 @@
                             <h3>게시판</h3>
                         </div>
                         <div class=''>
-                            <ul>
-                                <li>게시1 title n</li>
-                                <li>게시1 title n</li>
-                                <li>게시1 title n</li>
-                                <li>게시4 title n-3</li>
-                                <li>게시5 title n-4</li>
+                            <ul class=''>
+                                <c:forEach var='list1' items='${list}' varStatus='status' >
+                                    <li class='list_lineup'>
+                                        <div articleno='${list1.articleno}'></div>
+                                        <div class='list_title'>${list1.title}</div><div class='list_date'><fmt:formatDate value="${list1.date}" pattern="yyyy-MM-dd"/></div>
+                                    </li>
+                                </c:forEach>
                             </ul>
                         </div>
                     </div>

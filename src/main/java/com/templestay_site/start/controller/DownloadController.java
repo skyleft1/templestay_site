@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.templestay_site.start.model.ModelBoard;
 import com.templestay_site.start.service.IServiceBoard;
@@ -22,16 +23,17 @@ public class DownloadController {
     @Autowired
     IServiceBoard srv;
     
-    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-
-    @RequestMapping(value = "/download", method = RequestMethod.GET)
+    @RequestMapping(value = "/download", method = RequestMethod.POST)
     public String download(Model model
-            
+            , @RequestParam(value="filename", defaultValue="") String filename
+            , @RequestParam(value="tempfilename", defaultValue="") String tempfilename 
             ) {
-        logger.info("고고 home");
 
+        model.addAttribute("filename" , filename);
+        model.addAttribute("tempfilename" , tempfilename);
+        //filename은 URL을 통해 받는다.
         
-        return "home";
+        return "etc/download";
     }
     
 }

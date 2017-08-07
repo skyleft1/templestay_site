@@ -110,7 +110,9 @@ public class TestServiceBoard {
     }
     @Test
     public void getArticle() {
-        ModelArticle result = board.getArticle(1);
+        ModelArticle article = new ModelArticle();
+        article.setArticleno(1);
+        ModelArticle result = board.getArticle(article);
         assertEquals(result.getBoardcd(), "free");
     }
     @Test

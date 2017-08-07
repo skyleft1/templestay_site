@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.templestay_site.start.model.ModelArticle;
 import com.templestay_site.start.model.ModelBoard;
 import com.templestay_site.start.service.IServiceBoard;
 
@@ -30,8 +31,9 @@ public class HomeController {
             ) {
         logger.info("고고 home");
 
-        List<ModelBoard> list = srv.getBoardList();
+        List<ModelArticle> list = srv.getArticleList("notice", null, 1, 5);
         model.addAttribute("list", list );
+        
         
         return "index";
     }

@@ -173,15 +173,12 @@ public class ServiceBoard implements IServiceBoard {
     }
 
     @Override
-    public ModelArticle getArticle(int articleno) {
+    public ModelArticle getArticle(ModelArticle article) {
         ModelArticle result = null;
         try {
-            result = daoboard.getArticle(articleno);
+            result = daoboard.getArticle(article);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            // e.printStackTrace();
             logger.error("getArticle" + e.getMessage() );
-            throw e;
         }
         return result;
     }

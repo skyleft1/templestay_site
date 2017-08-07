@@ -11,28 +11,31 @@ public class ModelAttachFile {
     Integer attachfileno   ;
     String  filename       ;
     String  filetype       ;
-    Long    filesize       ;
+    Integer    filesize       ;
     Integer articleno      ;
-    Date    InsertDT       ;
+    Date    date       ;
     String  userid      ;     
     Byte[]  imageData       ;
+    
+    String  tempfilename       ;
     
     public ModelAttachFile() {
         super();
     }
 
     public ModelAttachFile(Integer attachfileno, String filename,
-            String filetype, Long filesize, Integer articleno, Date insertDT,
-            String userid, Byte[] imageData) {
+            String filetype, Integer filesize, Integer articleno, Date date,
+            String userid, Byte[] imageData, String tempfilename) {
         super();
         this.attachfileno = attachfileno;
         this.filename = filename;
         this.filetype = filetype;
         this.filesize = filesize;
         this.articleno = articleno;
-        InsertDT = insertDT;
+        this.date = date;
         this.userid = userid;
         this.imageData = imageData;
+        this.tempfilename = tempfilename;
     }
 
     public Integer getAttachfileno() {
@@ -59,11 +62,11 @@ public class ModelAttachFile {
         this.filetype = filetype;
     }
 
-    public Long getFilesize() {
+    public Integer getFilesize() {
         return filesize;
     }
 
-    public void setFilesize(Long filesize) {
+    public void setFilesize(Integer filesize) {
         this.filesize = filesize;
     }
 
@@ -75,12 +78,12 @@ public class ModelAttachFile {
         this.articleno = articleno;
     }
 
-    public Date getInsertDT() {
-        return InsertDT;
+    public Date getDate() {
+        return date;
     }
 
-    public void setInsertDT(Date insertDT) {
-        InsertDT = insertDT;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getUserid() {
@@ -99,13 +102,31 @@ public class ModelAttachFile {
         this.imageData = imageData;
     }
 
+    public String getTempfilename() {
+        return tempfilename;
+    }
+
+    public void setTempfilename(String tempfilename) {
+        this.tempfilename = tempfilename;
+    }
+
     @Override
     public String toString() {
         return "ModelAttachFile [attachfileno=" + attachfileno + ", filename="
                 + filename + ", filetype=" + filetype + ", filesize=" + filesize
-                + ", articleno=" + articleno + ", InsertDT=" + InsertDT
-                + ", userid=" + userid + ", imageData="
-                + Arrays.toString(imageData) + "]";
+                + ", articleno=" + articleno + ", date=" + date + ", userid="
+                + userid + ", imageData=" + Arrays.toString(imageData)
+                + ", tempfilename=" + tempfilename + ", getAttachfileno()="
+                + getAttachfileno() + ", getFilename()=" + getFilename()
+                + ", getFiletype()=" + getFiletype() + ", getFilesize()="
+                + getFilesize() + ", getArticleno()=" + getArticleno()
+                + ", getDate()=" + getDate() + ", getUserid()=" + getUserid()
+                + ", getImageData()=" + Arrays.toString(getImageData())
+                + ", getTempfilename()=" + getTempfilename() + ", getClass()="
+                + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+                + super.toString() + "]";
     }
+
+
 
 }

@@ -23,23 +23,26 @@ var download = function download(tempfilename, filename) {
 	f.submit();
 };
 
-// 날짜 형변환 
-//var getFormatDate = function getFormatDate(date) {
-//	function dateToYYYYMMDD(date){
-//	    function pad(num) {
-//	        num = num + '';
-//	        return num.length < 2 ? '0' + num : num;
-//	    }
-//	    return date.getFullYear() + '-' + pad(date.getMonth()+1) + '-' + pad(date.getDate());
-//	}
+ //날짜 형변환 
+var getFormatDate = function getFormatDate(date) {
+	function dateToYYYYMMDD(date){
+	    function pad(num) {
+	        num = num + '';
+	        return num.length < 2 ? '0' + num : num;
+	    }
+	    return date.getFullYear() + '-' + pad(date.getMonth()+1) + '-' + pad(date.getDate());
+	}
+}
+	
+var getFormatDate2 = function getFormatDate(date) {
+	var syear = date.getFullYear();                                 //yyyy
+	var smonth = (1 + date.getMonth());                     //M
+	month = month >= 10 ? month : '0' + month;     // month 두자리로 저장
+	var sday = date.getDate();                                        //d
+	day = day >= 10 ? day : '0' + day;                            //day 두자리로 저장
+	return  syear + '' + smonth + '' + sday;
+}
 
-//	var syear = date.getFullYear();                                 //yyyy
-//	var smonth = (1 + date.getMonth());                     //M
-//	month = month >= 10 ? month : '0' + month;     // month 두자리로 저장
-//	var sday = date.getDate();                                        //d
-//	day = day >= 10 ? day : '0' + day;                            //day 두자리로 저장
-//	return  syear + '' + smonth + '' + sday;
-//}
  
 var sendpost = function sendpost(url, params) {
 	var f = document.createElement('form');
@@ -100,36 +103,20 @@ var comment_write = function comment_write(articleno, memo) {
         	var commentno = data.commentno;
         	var userid = data.userid;
         	var memo = data.memo;
-        	var date1 = data.date;
-        	var session_userid = "${session_user.userid}"; 
-        	
-        	$('.commentlist_parent').append("<div class= 'comment_list' commentno='" +  commentno + "'>") ;
-        	
-        		$('.comment_list').append("<div><strong>" + userid + "</strong></div>");
-            	$('.comment_list').append("<div class= 'comment_memo'>" + memo + "</div>");
-            	$('.comment_list').append('<div class= "comment_date">'+ date1 + '</div>');
+        	var date1 = new Date( data.date ).toISOString().substring(0, 10);
+        	var session_userid = "${session_user.userid}";
 
-            	$('.comment_list').append("<input type= 'button' name='" + "' class= 'click_comment_modify hide_comment_modify_delete' value='댓글수정' />");
-            	$('.comment_list').append("<input type= 'button' name='" + "' class= 'go_comment_delete hide_comment`_modify_delete' value='댓글삭제' />");        		
+        	
+        	$('.commentlist_parent').prepend("<div class= 'comment_list' commentno='" + commentno + "'>") ;
+
+        		$('.comment_list:eq(0)').append("<div><strong>" + userid + "</strong></div>");
+            	$('.comment_list:eq(0)').append("<div class= 'comment_memo'>" + memo + "</div>");
+            	$('.comment_list:eq(0)').append('<div class= "comment_date">'+ date1 + '</div>');
+
+            	$('.comment_list:eq(0)').append("<input type= 'button' name='" + "' class= 'click_comment_modify hide_comment_modify_delete' value='댓글수정' />");
+            	$('.comment_list:eq(0)').append("<input type= 'button' name='" + "' class= 'go_comment_delete hide_comment_modify_delete' value='댓글삭제' />");        		
         	$('.commentlist_parent').append("</div>") ;
-            	
-//        	$('.commentlist_parent').append("<div class= 'comment_list' commentno='" +  commentno + "'> <br>" + a + "</div>") ;
 
-
-//        	var a = function(e){
-
-//        	       <div class='comment_list' commentno='${data.commentno }'>
-//                   <div><strong>${data.userid}</strong></div>
-//                   <div class='comment_memo'>${data.memo}</div>
-//                   <div class='comment_date'><fmt:formatDate value="${data.date}" pattern="yyyy.MM.dd" /></div>                            
-//               
-//               // 댓글 수정 삭제 
-//                   <c:if test="${session_user.userid eq data.userid}" >
-//                       <input type='button' name='' class='click_comment_modify hide_comment_modify_delete' value='댓글수정' />
-//                       <input type='button' name='' class='go_comment_delete hide_comment_modify_delete' value='댓글삭제' />
-//                   </c:if>
-//               </div>
-//            $('.commentlist_parent').prepend( a);
         	$('textarea').val('');
         	}
         	else {
@@ -153,7 +140,9 @@ var comment_modify = function comment_modify(commentno) {
     }).done( function(data, textStatus, xhr ){
         // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
         if(data != null ){
+        	$('div[commentno="' + commentno + '"]').find($('.comment_memo')).remove('textarea');
         	$('div[commentno="' + commentno + '"]').find($('.comment_memo')).text(data);
+
         }
         else {
             alert( '댓글 수정 실패');

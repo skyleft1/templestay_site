@@ -104,4 +104,14 @@ form input[type='submit'] {
     padding: 9px 127px;
 }
 
+.list_title{
+    display: inline-block;
+    width: 160px;
+    height: 25px;
+    overflow: hidden;
+}
 
+.list_date{
+    display: inline-block;
+    width: 90px;
+}

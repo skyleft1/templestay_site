@@ -67,6 +67,10 @@
                                     <td>
                                         <textarea name='content'>${article.content}</textarea>
                                     </td>
+                                </tr>                               
+                                <tr>
+                                    <td>파일첨부</td>
+                                    <td><input type="file" name="uploadfile" /></td>
                                 </tr>
                             </tbody>
                         </table>
