@@ -161,6 +161,11 @@
         WHERE r BETWEEN #{start} AND #{end}
     </select>  
 
+    <select id="getArticleOne" parameterType="int" resultType="ModelArticle">
+        SELECT articleno, boardcd, title, content, email, hit, date, userid
+        FROM TB_BBS_Article
+        WHERE articleno = #{articleno}
+    </select>
     
     <select id="getArticle" parameterType="int" resultType="ModelArticle">
         SELECT articleno, boardcd, title, content, email, hit, date, userid
@@ -187,7 +192,7 @@
         UPDATE TB_BBS_Article 
            SET title     = #{updateValue.title}
              , content   = #{updateValue.content} 
-             , date  = #{updateValue.date , jdbcType=DATE   }
+             , date  = now()
          WHERE  1 = 1 
               <if test="searchValue.boardcd != null and searchValue.boardcd != ''" >
               AND boardcd    = #{searchValue.boardcd}

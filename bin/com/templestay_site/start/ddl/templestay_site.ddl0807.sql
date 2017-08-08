@@ -43,7 +43,9 @@ CREATE TABLE IF NOT EXISTS  TB_User (
 	, username           NVARCHAR(40)   NOT NULL
 	, useremail	NVARCHAR(40)	NULL
 	, phonenumber     NVARCHAR(40)    NULL                            
-    , address     NVARCHAR(40)    NULL
+    , addr_postcode     NVARCHAR(40)    NULL
+    , addr_road     NVARCHAR(40)    NULL
+    , addr_jibun     NVARCHAR(40)    NULL
 	, joindate      DateTime       NULL
 
     , PRIMARY KEY(userno)

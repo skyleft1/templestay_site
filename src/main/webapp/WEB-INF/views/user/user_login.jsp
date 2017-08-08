@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>user_login</title>
 
 <link rel="stylesheet" type="text/css" href="/resources/css/common.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/login.css">
@@ -79,9 +79,7 @@ $(document).ready( function(e){
                         <div>
                             아직 회원이 아닌가요? <a href='/user/user_join'>회원가입</a>
                         </div>
-                        <div>
-                            비밀번호를 잊어버렸나요? <a href='user/user_findpassword'>비밀번호 찾기</a>
-                        </div>
+
                     </form>
                 </div>
             </div>

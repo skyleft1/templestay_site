@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>user_join</title>
 
 <link rel="stylesheet" type="text/css" href="/resources/css/common.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/join.css">
@@ -51,25 +51,16 @@ $(document).ready(function(){
 
 
     $('.join_submit').click(function(e) {
-    	$('table input').next('label').remove();
-        var a = $('.submit_check');
-        for(var i=0 ; i<a.length; i++){
-        	if( $(a[i]).val() == '' ){
-        		$(a[i]).after('<label>빈 값을 입력하세요.</label>');
-        	}
-        }
-        $('.submit_check').keyup( function (e) {
-            if( $(this).val() !== '') {
-                $(this).next('label').remove();
-                }
-            });
-        	/*  $('.join_form').submit(); */
+    	var a = $('.submit_check');
         if ($('.password').val() !== $('.password_confirm').val()) {
-        	$('.password_confirm').after('<label>비밀번호가 일치하지 않습니다.</label>');
-        } else{
-        	$('.join_form').submit();
+            alert('비밀번호가 일치하지 않습니다.'); 
         }
-    });
+        else if( $(a[0]).val() === '' || $(a[1]).val() === '' || $(a[2]).val() === '' ){
+            alert('빈값이 있습니다.');
+        } else{
+            $('.join_form').submit();
+        }
+    });        
 });
 
 
@@ -133,10 +124,10 @@ $(document).ready(function(){
                                 <tr>
                                     <th>주소</th>
                                     <td>
-                                        <input type="text" id="sample4_postcode" placeholder="우편번호" value="">
-                                        <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-                                        <input type="text" id="sample4_roadAddress" placeholder="도로명주소" value="">
-                                        <input type="text" id="sample4_jibunAddress" placeholder="지번주소" value="">
+                                        <input type="text"  name="addr_postcode" id="sample4_postcode" placeholder="우편번호" value="">
+                                        <input type="button"  onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+                                        <input type="text" name="addr_road" id="sample4_roadAddress" placeholder="도로명주소" value="">
+                                        <input type="text" name="addr_jibun" id="sample4_jibunAddress" placeholder="지번주소" value="">
                                         <span id="guide" style="color:#999"></span>
                                     </td>
                                 </tr>

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>article_write</title>
 
 <link rel="stylesheet" type="text/css" href="/resources/css/common.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/bbs_write.css">
@@ -29,7 +29,7 @@
         });
         
         $('.modify_confirm').click(function(e){
-        	$('.write_modify_Form').attr('action', '/board/article_modify/${boardcd}/${article.articleno}');
+        	$('.write_modify_Form').attr('action', '/board/article_modify/${boardcd}/${article.articleno}?curPage=${curPage}');
         	$('.write_modify_Form').submit();
         });
 

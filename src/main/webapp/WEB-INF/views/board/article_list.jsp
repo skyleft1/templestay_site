@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>article_list</title>
 
 <link rel="stylesheet" type="text/css" href="/resources/css/common.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/bbs.css">
@@ -21,7 +21,8 @@
     $(document).ready(function(){
         $('.go_view').click(function(e){
         	var articleno = $(this).children().attr('articleno');
-            window.location.href = "/board/article_view/${boardcd}/"+ articleno;
+        	var curPage = $(this).children().attr('curPage');
+            window.location.href = "/board/article_view/${boardcd}/"+ articleno + "?curPage="+curPage;
         });
         
         $('.go_write').click(function(e){
@@ -33,8 +34,8 @@
         });
         
         $('.bbs_write span').click(function(e){
-            var page = $(this).attr('articleno');
-            window.location.href = "/board/article_list/${boardcd}?curPage="+page +"&searchWord=${searchWord}";
+            var curPage = $(this).attr('articleno');
+            window.location.href = "/board/article_list/${boardcd}?curPage="+curPage +"&searchWord=${searchWord}";
         })
     });
 
@@ -83,7 +84,7 @@
                         <tbody>
                             <c:forEach var='boardlist' items='${list}' varStatus='status' >
                                 <tr class='go_view'>
-                                    <td articleno='${boardlist.articleno}'><h6>${no - status.index}</h6></td>
+                                    <td articleno='${boardlist.articleno}' curPage='${curPage}'><h6>${no - status.index}</h6></td>
                                     <!--  ${no - status.index} 게시판 순서대로 번호 넣기 --> 
                                     <td><h6>${boardlist.title}</h6></td>
                                     <td><h6>${boardlist.userid } </h6></td>

@@ -68,6 +68,8 @@ public interface IDaoBoard {
     
     List<ModelArticle> getArticleList(String boardcd, String searchWord, Integer start, Integer end);
     
+    ModelArticle getArticleOne(int articleno);
+    
     ModelArticle getArticle(ModelArticle article);
     
     int insertArticle(ModelArticle article);

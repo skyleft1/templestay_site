@@ -141,7 +141,7 @@ var comment_modify = function comment_modify(commentno) {
         // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
         if(data != null ){
         	$('div[commentno="' + commentno + '"]').find($('.comment_memo')).remove('textarea');
-        	$('div[commentno="' + commentno + '"]').find($('.comment_memo')).text(data);
+        	$('div[commentno="' + commentno + '"]').find($('.comment_memo')).text(data.memo);
 
         }
         else {

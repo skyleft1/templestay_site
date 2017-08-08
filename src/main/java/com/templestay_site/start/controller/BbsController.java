@@ -53,6 +53,8 @@ public class BbsController {
 	        ) {
 		logger.info("article_list");
 
+        model.addAttribute("curPage", curPage);
+		
 		// 공지사항, 자유게시판 등 name을 가져옴
         String boardname = srv.getBoardName(boardcd); 
         model.addAttribute("boardname", boardname );
@@ -74,6 +76,7 @@ public class BbsController {
         model.addAttribute("nextLink", paging.getNextLink());
         model.addAttribute("lastPage", paging.getLastPage());
 
+
         
 		return "board/article_list";
 	}
@@ -83,12 +86,15 @@ public class BbsController {
     public String article_view(Model model
             , @PathVariable(value="boardcd") String boardcd
             , @PathVariable(value="articleno") Integer articleno
+            , @RequestParam(value="curPage", defaultValue="1") int curPage
             , @ModelAttribute ModelArticle article
             , @ModelAttribute ModelComments comment
             ) {
         logger.info("article_view");
         
         srv.increaseHit(articleno);
+
+        model.addAttribute("curPage", curPage );
         
         ModelArticle article1 = srv.getArticle(article);
         model.addAttribute("article", article1 );
@@ -192,9 +198,12 @@ public class BbsController {
     public String article_modify(Model model
             , @PathVariable(value="boardcd") String boardcd
             , @PathVariable(value="articleno") Integer articleno
+            , @RequestParam(value="curPage", defaultValue="1") int curPage
             , @ModelAttribute ModelArticle article
             ) {
         logger.info("article_modify");
+        
+        model.addAttribute("curPage", curPage);
         
         ModelArticle article2 = srv.getArticle(article);
         model.addAttribute("article", article2 );
@@ -208,14 +217,17 @@ public class BbsController {
     public String article_modify_POST(Model model
             , @PathVariable(value="boardcd") String boardcd
             , @PathVariable(value="articleno") Integer articleno
+            , @RequestParam(value="curPage", defaultValue="1") int curPage
             , @RequestParam(value="title", defaultValue="") String title
             , @RequestParam(value="content", defaultValue="") String content
             , @ModelAttribute ModelArticle article
             ) {
         logger.info("article_modify");
         
+        model.addAttribute("curPage", curPage);
+        
         ModelArticle searchValue = new ModelArticle();
-        searchValue = srv.getArticle(article);
+        searchValue = srv.getArticleOne(articleno);
         ModelArticle updateValue = new ModelArticle();
         updateValue.setBoardcd(boardcd);
         updateValue.setTitle(title);
@@ -235,11 +247,14 @@ public class BbsController {
     public String article_delete(Model model
             , @PathVariable(value="boardcd") String boardcd
             , @PathVariable(value="articleno") Integer articleno
+            , @RequestParam(value="curPage", defaultValue="1") int curPage
             , @ModelAttribute ModelArticle article
             , @ModelAttribute ModelComments comment
             , @ModelAttribute ModelAttachFile attachFile
             ) {
         logger.info("article_delete");
+        
+        model.addAttribute("curPage", curPage);
         
         int result = srv.deleteArticle(article);
         srv.deleteComment(comment);
@@ -293,12 +308,14 @@ public class BbsController {
     // 댓글 수정 : post
     @RequestMapping(value = "/article_comment_modify", method = RequestMethod.POST)
     @ResponseBody
-    public String article_comment_modify(Model model
+    public Map<String, Object> article_comment_modify(Model model
             , @RequestParam(value="commentno", defaultValue="") Integer commentno
             , @RequestParam(value="memo", defaultValue="") String memo
             , HttpSession session
             ) {
         logger.info("article_comment_modify");
+        
+        Map<String, Object> map = new HashMap<String, Object>();
         
         ModelComments searchValue = new ModelComments();
         searchValue.setCommentno(commentno);
@@ -307,11 +324,13 @@ public class BbsController {
         updateValue.setMemo(memo);
         
         int result = srv.updateComment(updateValue, searchValue);
-        
+                
         if (result == 1) {
-            return memo;
+            map.put("memo", memo);
+            
+            return map;
         } else {
-            return memo;
+            return map;
         }
     }
     

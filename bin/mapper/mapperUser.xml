@@ -5,7 +5,7 @@
 <mapper namespace="mapper.mapperUser">
     
     <select id="login" parameterType="ModelUser" resultType="ModelUser">
-            select userid, userpassword, username,  useremail, phonenumber, address,  joindate 
+            select userid, userpassword, username,  useremail, phonenumber, addr_postcode , addr_road , addr_jibun,  joindate 
               from TB_USER
              WHERE  userid = #{userid}
               AND userpassword = #{userpassword}
@@ -18,28 +18,28 @@
     </select>
     
     <select id="getUserOne" parameterType="string" resultType="ModelUser">
-        SELECT userid, userpassword, username, useremail, phonenumber, address,  joindate 
+        SELECT userid, userpassword, username, useremail, phonenumber, addr_postcode , addr_road , addr_jibun,  joindate 
           FROM TB_User 
          WHERE userid = #{userid}
     </select>
     
     <select id="getUserList" resultType="ModelUser">
-        SELECT userno, userid, userpassword, username, useremail, phonenumber, address,  joindate 
+        SELECT userno, userid, userpassword, username, useremail, phonenumber, addr_postcode , addr_road , addr_jibun,  joindate 
           FROM TB_User
         ORDER BY username
     </select>         
         
     <insert id="insertUser" parameterType="ModelUser">
         INSERT INTO 
-        TB_User ( userid, userpassword, username, useremail, phonenumber, address,  joindate   )
-        VALUES ( #{userid}, #{userpassword}, #{username}, #{useremail}, #{phonenumber} , #{address} , #{joindate} )
+        TB_User ( userid, userpassword, username, useremail, phonenumber, addr_postcode , addr_road , addr_jibun,  joindate   )
+        VALUES ( #{userid}, #{userpassword}, #{username}, #{useremail}, #{phonenumber} , #{addr_postcode} , #{addr_road} , #{addr_jibun} , now() )
     </insert>
     
     <insert id="insertUserList" parameterType="java.util.List">
-        INSERT INTO tb_User( userid, userpassword, username, useremail, phonenumber , address , joindate )
+        INSERT INTO tb_User( userid, userpassword, username, useremail, phonenumber , addr_postcode , addr_road , addr_jibun , joindate )
         VALUES
             <foreach collection="list" item="item" index="index" open="(" separator="),(" close=")">
-                #{item.userid} , #{item.userpassword} , #{item.username}, #{item.useremail} , #{item.phonenumber} , #{item.address}  , now() }
+                #{item.userid} , #{item.userpassword} , #{item.username}, #{item.useremail} , #{item.phonenumber} , #{item.addr_postcode} , #{item.addr_road} , #{item.addr_jibun}  , now() }
             </foreach>
     </insert>
     
@@ -57,7 +57,9 @@
               , username = #{updateValue.username}
               , useremail  = #{updateValue.useremail}
               , phonenumber  = #{updateValue.phonenumber}
-              , address  = #{updateValue.address}
+              , addr_postcode  = #{updateValue.addr_postcode}
+              , addr_road  = #{updateValue.addr_road}
+              , addr_jibun  = #{updateValue.addr_jibun}
             WHERE 1 = 1 
               <if test="searchValue.userno != null and searchValue.userno != ''" >
               AND userno    = #{searchValue.userno}

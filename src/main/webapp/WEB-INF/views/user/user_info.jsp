@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>user_info</title>
 
 <link rel="stylesheet" type="text/css" href="/resources/css/common.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/user_info.css">
@@ -88,6 +88,14 @@ $(document).ready(function(){
                                 <tr>
                                     <th>연락처</th>
                                     <td>${session_user.phonenumber}</td>
+                                </tr>
+                                <tr>
+                                    <th>주소</th>
+                                    <td>
+                                    우편번호    : ${session_user.addr_postcode} <br>
+                                    도로명주소  : ${session_user.addr_road} <br>
+                                    지번주소    : ${session_user.addr_jibun} 
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

@@ -47,7 +47,7 @@ $(document).ready(function(){
                     </c:when>
                     <c:otherwise>
                         <div class='move_login box2'>
-                            ${ session_user.userid} 님 환영합니다! ^0^/                          
+                            ${ session_user.userid} 님 환영합니다!                           
                         </div>
                         <div class='move_login box'>
                             <input type="button" value="로그아웃" class="go_logout" />

@@ -7,7 +7,7 @@
     <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Insert title here</title>
+        <title>article_view</title>
 
         <link rel="stylesheet" type="text/css" href="/resources/css/common.css">
         <link rel="stylesheet" type="text/css" href="/resources/css/bbs_view.css">
@@ -21,14 +21,17 @@
     
     $(document).ready(function(){
         $('.go_modify').click(function(e){
-            window.location.href = "/board/article_modify/${boardcd}/${articleno}";
+            var articleno = $('.modify_delete').attr('articleno');
+            var curPage = $('.modify_delete').attr('curPage');
+            window.location.href = "/board/article_modify/${boardcd}/${articleno}?curPage="+curPage;
         });
         
         // 글삭제 (삭제시 파일, 댓글 모두 삭제되어야함)
         $('.go_delete').click(function(e){
-                var boardcd = $(this).attr('boardcd');
-                var articleno = $(this).attr('articleno'); 
-                sendpost('/board/article_delete/${boardcd}/${articleno}', {'boardcd':boardcd , 'articleno':articleno});
+            var boardcd = $('.modify_delete').attr('boardcd');
+            var articleno = $('.modify_delete').attr('articleno'); 
+            var curPage = $('.modify_delete').attr('curPage');
+            sendpost('/board/article_delete/${boardcd}/${articleno}', {'boardcd':boardcd , 'articleno':articleno, 'curPage':curPage });
         });
         
         // 댓글 쓰기
@@ -70,7 +73,7 @@
         });
         
         $('.go_list').click(function(e){
-            window.location.href = "/board/article_list/${boardcd}";
+            window.location.href = "/board/article_list/${boardcd}?curPage=${curPage}";
         });
         $('.go_write').click(function(e){
             window.location.href = "/board/article_write/${boardcd}";
@@ -158,14 +161,14 @@
                     </div>
 
                     
-                    <div class='modify_delete'>
+                    <div class='modify_delete' boardcd='${article.boardcd }' articleno='${ article.articleno}' curPage='${curPage}'>
                         <c:choose>
                         <c:when test='${session_user.userid == article.userid}'>
                         <div>
-                            <input type='button' name='' class='go_modify' value='수정'>
+                            <input type='button' name='' class='go_modify' value='수정' >
                         </div>
                         <div>
-                            <input type='button' name='' class='go_delete' value='삭제' boardcd='${article.boardcd }' articleno='${ article.articleno}' />
+                            <input type='button' name='' class='go_delete' value='삭제' />
                         </div>
                         </c:when>
                         </c:choose>
