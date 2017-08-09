@@ -38,7 +38,12 @@
         $('.go_comment_write').click(function(e){
         	<c:choose>
         	   <c:when test="${session_user == null}">
-        	     alert('로그인을 하셔야 작성이 가능합니다.');   
+               $('.popup_cancel_wrap').show();
+               $('.popup_content').text('로그인을 하셔야 작성이 가능합니다.');
+               $('.popup_button_cancel').click(function(e){
+                   $('.popup_cancel_wrap').hide();
+               });
+
         	   </c:when>
         	   <c:otherwise>
         	     var textarea = $('.comment textarea');

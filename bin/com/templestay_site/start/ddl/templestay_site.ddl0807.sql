@@ -95,6 +95,12 @@ AUTO_INCREMENT=1
 DEFAULT CHARACTER SET utf8 
 COLLATE utf8_general_ci;
 
+insert into TB_Bbs_Article (boardcd, title, content, email, hit, date , userid ) 
+value('free', 'test_title', 'test_content', 'new@naver.com', 0, now(), 'new' );
+insert into TB_Bbs_Article (boardcd, title, content, email, hit, date , userid ) 
+value('free', 'test_title', 'test_content', 'new@naver.com', 0, now(), 'new' );
+insert into TB_Bbs_Article (boardcd, title, content, email, hit, date , userid ) 
+value('free', 'test_title', 'test_content', 'new@naver.com', 0, now(), 'new' );
 
 select * from TB_Bbs_Article;
 

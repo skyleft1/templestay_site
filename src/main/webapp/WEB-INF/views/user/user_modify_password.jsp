@@ -14,19 +14,27 @@
 <script src='/resources/js/jquery-3.1.0.js'></script>
 <script src='/resources/js/jquery-ui.js'></script>
 <script src="/resources/js/common.js"></script>
+<script src="/resources/js/ajaxsetup.js"></script>
+<script src="/resources/js/MyApp.board.js"></script>
 
 <script>
 $(document).ready(function(){
 	// 비밀번호 일치여부 확인하는 부분
     $('.modify_password_submit').click(function(e){
-    	if( $('input[name="currentpassword"]').val()  != '${session_user.userpassword}'){
-    		alert('로그인 비밀번호가 틀렸습니다.');
-    	}
-    	else if( $('input[name="newpassword"]').val() != $('input[name="newpassword_confirm"]').val()){
-    		alert('비밀번호 확인이 일치하지 않습니다.');
-    	}
-    	else{
-    		$('.modify_password_form').submit();
+    	if( $('input[name="currentpassword"]').val()  != '${session_user.userpassword}') {
+                $('.popup_cancel_wrap') .show();
+                $('.popup_content').text('로그인 비밀번호가 틀렸습니다.');
+                $('.popup_button_cancel').click(function(e) {
+                    $('.popup_cancel_wrap').hide();
+                });
+            } else if ($('input[name="newpassword"]').val() != $('input[name="newpassword_confirm"]').val()) {
+                $('.popup_cancel_wrap').show();
+                $('.popup_content').text('비밀번호 확인이 일치하지 않습니다.');
+                $('.popup_button_cancel').click(function(e) {
+                    $('.popup_cancel_wrap').hide();
+                });
+            } else {
+                $('.modify_password_form').submit();
     	}
     });
 });

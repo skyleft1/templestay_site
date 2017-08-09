@@ -15,6 +15,7 @@
 <script src='/resources/js/jquery-3.1.0.js'></script>
 <script src='/resources/js/jquery-ui.js'></script>
 <script src="/resources/js/common.js"></script>
+<script src="/resources/js/MyApp.board.js"></script>
 
 <script type="text/javascript">
     
@@ -26,11 +27,23 @@
         });
         
         $('.go_write').click(function(e){
-            <c:if test="${session_user == null}">
-            alert('로그인을 하셔야 작성이 가능합니다.');
-            </c:if>
-         // 로그인을 하지 않고 게시판 작성할 경우 alert 출력
-            window.location.href = "/board/article_write/${boardcd}";
+            <c:choose>
+                <c:when test="${session_user == null}">
+                $('.popup_cancel_wrap').show();
+                $('.popup_content').text('로그인을 하셔야 작성이 가능합니다.');
+
+                $('.popup_button_cancel').click(function(e){
+                    $('.popup_cancel_wrap').hide();
+                    window.location.href = "/user/user_login" ;
+                });
+                // 로그인을 하지 않고 게시판 작성할 경우 alert 출력
+                </c:when>
+            
+            <c:otherwise>
+                window.location.href = "/board/article_write/${boardcd}";
+                </c:otherwise>
+            </c:choose>
+            
         });
         
         $('.bbs_write span').click(function(e){
@@ -96,7 +109,7 @@
                         </tbody>
                     </table>
                     <div class='bbs_write'>
-                        <div>
+                        <div class='list_paging' >
                             <c:if test="${prevLink > 0 }">
                                 <span articleno='${prevLink }'>[이전]</span>
                             </c:if>
@@ -111,9 +124,6 @@
                         <div class='write_button'>
                             <input type='button' name='' class='go_write' value='글쓰기'>
                         </div>
-                        <c:if test="${not empty msg }">
-                            <p>alert(${msg});</p>
-                        </c:if>      
                     </div>
                 </div>
             </div>

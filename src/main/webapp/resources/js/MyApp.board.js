@@ -1,5 +1,25 @@
 var MyApp = {}
 
+/*
+// 팝업 띄우는 부분
+var go_popup = function go_popup(content){ 
+$('body').append("<div class='popup'></div>");
+$('.popup').append("<div class='popup_head'>경고</div>");
+$('.popup').append("<div class='popup_content'>"+ content +"</div>");
+$('.popup').append("<div class='popup_bottom'><button class='popup_bottom_button' data-dismiss='modal'>Cancel </button></div>");
+
+
+}
+
+var go_popup_confirm = function go_popup_confirm(content){ 
+$('body').append("<div class='popup'></div>");
+$('.popup').append("<div class='popup_head'>경고</div>");
+$('.popup').append("<div class='popup_content'>"+ content +"</div>");
+$('.popup').append("<div class='popup_bottom'><button class='popup_bottom_button_confirm' data-trigger='confirm'>확인</button><button class='popup_bottom_button' data-dismiss='modal'>Cancel </button></div>");
+}
+*/
+
+
 var download = function download(tempfilename, filename) {
 	var f = document.createElement('form');
 	f.setAttribute('method','post');
@@ -67,8 +87,12 @@ var sendpost = function sendpost(url, params) {
 
 
 var delete_AttachFile = function delete_AttachFile(attachfileno) {
-	var chk = confirm("정말로 삭제하시겠습니까?");
-	if(chk == true){
+	$('.popup_confirm_wrap').show();
+	$('.popup_content').text('삭제하시겠습니까?');
+	
+	$('.popup_button_confirm').click(function(e){
+		$('.popup_confirm_wrap').hide();
+		
 	$.ajax({
         url : '/board/attachfiledelete',
         data: { 'attachfileno': attachfileno },   // 사용하는 경우에는 { data1:'test1', data2:'test2' }
@@ -82,12 +106,15 @@ var delete_AttachFile = function delete_AttachFile(attachfileno) {
             $('.attachfilelist a[attachfileno="' + attachfileno +'"]').parent().remove();
         }
         else {
-            alert( '댓글 삭제 실패');
         }
     });
     return false;
-    };
-}
+	});
+    $('.popup_button_cancel').click(function(e){
+   	 $('.popup_cancel_wrap').hide();
+    });
+};
+
 
 // 댓글쓰기
 var comment_write = function comment_write(articleno, memo) {
@@ -120,7 +147,11 @@ var comment_write = function comment_write(articleno, memo) {
         	$('textarea').val('');
         	}
         	else {
-            alert( '댓글 추가 실패');
+            $('.popup_cancel_wrap').show();
+            $('.popup_content').text('댓글 추가 실패.');
+            $('.popup_button_cancel').click(function(e){
+            	$('.popup_cancel_wrap').hide();
+            });
         }
     });
     return false;
@@ -145,7 +176,11 @@ var comment_modify = function comment_modify(commentno) {
 
         }
         else {
-            alert( '댓글 수정 실패');
+            $('.popup_cancel_wrap').show();
+            $('.popup_content').text('댓글 수정 실패.');
+            $('.popup_button_cancel').click(function(e){
+            	$('.popup_cancel_wrap').hide();
+            });
         }
     });
     return false;
@@ -153,9 +188,12 @@ var comment_modify = function comment_modify(commentno) {
 
 // 댓글 삭제
 var comment_delete = function comment_delete(commentno) {
-    var chk = confirm("정말로 삭제하시겠습니까?");
-    if (chk==true) {
-
+	$('.popup_confirm_wrap').show();
+	$('.popup_content').text('삭제하시겠습니까?');
+	
+	$('.popup_button_confirm').click(function(e){
+		$('.popup_confirm_wrap').hide();
+	
         $.ajax({
             url : '/board/article_comment_delete',
             data: { 'commentno': commentno },   // 사용하는 경우에는 { data1:'test1', data2:'test2' }
@@ -168,12 +206,15 @@ var comment_delete = function comment_delete(commentno) {
                 $('div[commentno="' + commentno +'"]').remove();
             }
             else {
-                alert( '댓글 삭제 실패');
             }
         });
         return false;
-    };
+	});
+    $('.popup_button_cancel').click(function(e){
+   	 $('.popup_confirm_wrap').hide();
+    });
 };
+
 
 
 

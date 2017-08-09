@@ -17,10 +17,10 @@
 <script src='/resources/js/jquery-ui.js'></script>
 <script src="/resources/js/common.js"></script>
 <script src="/resources/js/ajaxsetup.js"></script>
+<script src="/resources/js/MyApp.board.js"></script>
+
 
 <script type="text/javascript">
-
-
 
 $(document).ready( function(e){
 		
@@ -39,11 +39,19 @@ $(document).ready( function(e){
             }
         }).done( function(data, textStatus, xhr ){
             if (data.code === 1){
-            	alert( data.userid + " 님 환영합니다. " );
-            	window.location = "/"
+                $('.popup_cancel_wrap').show();
+                $('.popup_content').text( data.userid + " 님 환영합니다. ");
+                $('.popup_button_cancel').click(function(e){
+                    $('.popup_cancel_wrap').hide();
+                    window.location.href = "/" ;
+                });
             }else {
-            	alert("아이디 또는 비밀번호가 틀렸습니다. ");
-            	window.location = "/user/user_login"
+                $('.popup_cancel_wrap').show();
+                $('.popup_content').text( "아이디 또는 비밀번호가 틀렸습니다." );
+                $('.popup_button_cancel').click(function(e){
+                    $('.popup_cancel_wrap').hide();
+                    window.location.href = "/user/user_login";
+                });
             }
         });
     });
@@ -60,7 +68,7 @@ $(document).ready( function(e){
     </div>
 
     <!-- login -->
-    <div class=''>
+    <div class='login_head'>
         <div class='login_content'>
         
             <div class=''>

@@ -127,7 +127,7 @@ public class BbsController {
             model.addAttribute("a", "a");
             return "/board/article_write";
         }else{
-            return "/user/user_login";
+            return "/board/article_list";
         }
     }
     

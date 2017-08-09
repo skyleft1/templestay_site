@@ -14,6 +14,8 @@
 <script src='/resources/js/jquery-3.1.0.js'></script>
 <script src='/resources/js/jquery-ui.js'></script>
 <script src="/resources/js/common.js"></script>
+<script src="/resources/js/ajaxsetup.js"></script>
+<script src="/resources/js/MyApp.board.js"></script>
 
 <script>
 $(document).ready(function(){
@@ -27,26 +29,37 @@ $(document).ready(function(){
 	
 	// 회원 탈퇴
     $('.go_user_delete').click(function(e){
-        var confirm_delete = confirm("정말로 탈퇴하시겠습니까? ㅠㅠ");
-            if (confirm_delete == true) {
+        $('.popup_confirm_wrap').show();
+        $('.popup_content').text('정말로 탈퇴하시겠습니까...?');
+        
+        $('.popup_button_confirm').click(function(e){
+            $('.popup_cancel_wrap').hide();
+
                 $.ajax({
                     url : '/user/user_delete',
-                    data : null, // 사용하는 경우에는 { data1:'test1', data2:'test2' }
-                    type : 'POST', // get, post
-                    timeout : 30000, // 30초
-                    dataType : 'json', // text, html, xml, json, jsonp, script
+                    data : null, 
+                    type : 'POST', 
+                    timeout : 30000, 
+                    dataType : 'json', 
                     beforeSend : function() {
-                        // 통신이 시작되기 전에 이 함수를 타게 된다.
                     }
                 }).done(function(data, textStatus, xhr) {
                     if (data.code === 1) {
                         window.location = data.url;
                     } else {
-                        alert("삭제실패. 관리자 문의 바람.");
-                        window.location = "user/user_delete" ;
+                        $('.popup_cancel_wrap').show();
+                        $('.popup_content').text("삭제실패. 관리자 문의 바람.");
+                        $('.popup_button_cancel').click(function(e){
+                            $('.popup_cancel_wrap').hide();
+                            window.location = "user/user_delete" ;
+                        });
                     }
                 });
-        }
+
+         });
+         $('.popup_button_cancel').click(function(e){
+        	 $('.popup_confirm_wrap').hide();
+         });
     });
 });
 

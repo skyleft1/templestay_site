@@ -125,6 +125,7 @@ td:nth-child(4)
 
 .bbs_write {
     text-align: right;
+    display: inline-block;
 }
 
 .bbs_write div{
@@ -132,5 +133,18 @@ td:nth-child(4)
 }
 
 .write_button{
-    margin-left: 550px;
+    display: inline-block;
+    width: 380px;
+}
+
+
+/* paging css */
+
+.list_paging{
+    width: 400px;
+}
+
+
+.list_paging span{
+    margin: 10px 3px;
 }

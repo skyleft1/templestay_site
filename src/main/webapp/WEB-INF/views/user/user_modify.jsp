@@ -15,6 +15,8 @@
 <script src='/resources/js/jquery-3.1.0.js'></script>
 <script src='/resources/js/jquery-ui.js'></script>
 <script src="/resources/js/common.js"></script>
+<script src="/resources/js/ajaxsetup.js"></script>
+<script src="/resources/js/MyApp.board.js"></script>
 
 <script>
 $(document).ready(function(){

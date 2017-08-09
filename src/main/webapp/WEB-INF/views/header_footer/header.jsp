@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 
+
  
 <script type="text/javascript">
     
@@ -16,9 +17,15 @@ $(document).ready(function(){
             
     
     $('.go_logout').click(function(e){
-    	window.location.href = "/user/user_logout" ;
-        alert('로그아웃 되었습니다.');
+    	$('.popup_cancel_wrap').show();
+    	$('.popup_content').text('로그아웃 되었습니다.');
+    	$('.popup_button_cancel').click(function(e){
+    		$('.popup_cancel_wrap').hide();
+    		window.location.href = "/user/user_logout" ;
+    	});
+
     });
+
     $('.go_user_info').click(function(e){
         window.location.href = "/user/user_info" ;
     });
@@ -124,4 +131,30 @@ $(document).ready(function(){
             </div>
         </div>
     </div>
+    
+<!--  팝업창(숨겨짐)  -->
+<div class='popup_cancel_wrap'>
+    <div class="popup_cancel_cover"></div>
+    <div class='popup_cancel'>
+        <div class='popup_head'>알림</div>
+        <div class='popup_content'></div>
+        <div class='popup_bottom'>
+            <button class='popup_button_cancel' data-dismiss='modal'>Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div class='popup_confirm_wrap'>   
+    <div class="popup_confirm_cover"></div>
+    <div class='popup_confirm'>
+        <div class='popup_head'>알림</div>
+        <div class='popup_content'></div>
+        <div class='popup_bottom'>
+            <button class='popup_button_confirm' data-trigger='confirm'>확인</button>
+            <button class='popup_button_cancel' data-dismiss='modal'>Cancel</button>
+        </div>
+    </div>
+</div>
+
+
 </div>

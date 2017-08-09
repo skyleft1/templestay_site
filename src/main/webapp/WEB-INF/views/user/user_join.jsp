@@ -16,6 +16,7 @@
 <script src='/resources/js/jquery-ui.js'></script>
 <script src="/resources/js/common.js"></script>
 <script src="/resources/js/ajaxsetup.js"></script>
+<script src="/resources/js/MyApp.board.js"></script>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 <!--  다음 지도 이용 -->
@@ -42,7 +43,11 @@ $(document).ready(function(){
             }
         }).done( function(data, textStatus, xhr ){
             if (data.code === 1){
-                alert( data.msg );
+                $('.popup_cancel_wrap').show();
+                $('.popup_content').text( data.msg );
+                $('.popup_button_cancel').click(function(e){
+                    $('.popup_cancel_wrap').hide();
+                });
             }else {
             	$('table input:not([type=button])').removeAttr('disabled', '').css('background-color', '#f7f7f7');
             }
@@ -53,10 +58,18 @@ $(document).ready(function(){
     $('.join_submit').click(function(e) {
     	var a = $('.submit_check');
         if ($('.password').val() !== $('.password_confirm').val()) {
-            alert('비밀번호가 일치하지 않습니다.'); 
+            $('.popup_cancel_wrap').show();
+            $('.popup_content').text('비밀번호가 일치하지 않습니다.');
+            $('.popup_button_cancel').click(function(e){
+                $('.popup_cancel_wrap').hide();
+            });
         }
         else if( $(a[0]).val() === '' || $(a[1]).val() === '' || $(a[2]).val() === '' ){
-            alert('빈값이 있습니다.');
+            $('.popup_cancel_wrap').show();
+            $('.popup_content').text('빈 값이 있습니다.');
+            $('.popup_button_cancel').click(function(e){
+                $('.popup_cancel_wrap').hide();
+            });
         } else{
             $('.join_form').submit();
         }
