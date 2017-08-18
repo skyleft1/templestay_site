@@ -140,7 +140,7 @@ var comment_write = function comment_write(articleno, memo) {
             	$('.comment_list:eq(0)').append("<div class= 'comment_memo'>" + memo + "</div>");
             	$('.comment_list:eq(0)').append('<div class= "comment_date">'+ date1 + '</div>');
 
-            	$('.comment_list:eq(0)').append("<input type= 'button' name='" + "' class= 'click_comment_modify hide_comment_modify_delete' value='댓글수정' />");
+            	$('.comment_list:eq(0)').append("<input type= 'button' name='" + "' class= 'click_comment_modify hide_comment_modify_delete' value='댓글수정' /> ");
             	$('.comment_list:eq(0)').append("<input type= 'button' name='" + "' class= 'go_comment_delete hide_comment_modify_delete' value='댓글삭제' />");        		
         	$('.commentlist_parent').append("</div>") ;
 
