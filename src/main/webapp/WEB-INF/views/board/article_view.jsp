@@ -56,19 +56,20 @@
         
         // 댓글 수정
         $('.commentlist_parent').on('click', '.click_comment_modify', function(e){
-        	var aa =  $(this).siblings('.comment_memo').text();
-        	$(this).siblings('.comment_memo').html("<textarea maxlength='500' class='comment_textarea'>"+ aa +"</textarea>");
+        	var memo =  $(this).siblings('.comment_memo').text();
+        	$(this).siblings('.comment_memo').html("<textarea maxlength='500' class='comment_textarea'>"+ memo +"</textarea>");
+        	 
         	$(this).parent().find('.hide_comment_modify_delete').hide();
         	$(this).parent().append("<input type='button' class='go_comment_modify' value='수정확인'/>");
-        	
-        	$('.commentlist_parent').on('click', '.go_comment_modify', function(e){
-        		var commentno = $(this).parent($('.comment_list')).attr('commentno');
-        		comment_modify(commentno);
-        		
-        		$('.hide_comment_modify_delete').show();
-        		$('.go_comment_modify').remove();
+
         	});
-        });
+        	$('.commentlist_parent').on('click', '.go_comment_modify', function(e){
+        	    var commentno = $(this).parent($('.comment_list')).attr('commentno');
+                comment_modify(commentno);
+                $(this).siblings($('.hide_comment_modify_delete')).show();
+                $(this).hide();
+            });
+        
         
         // 댓글 삭제
         $('.commentlist_parent').on('click', '.go_comment_delete', function(e){

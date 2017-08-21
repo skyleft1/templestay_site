@@ -111,13 +111,13 @@
                     <div class='bbs_write'>
                         <div class='list_paging' >
                             <c:if test="${prevLink > 0 }">
-                                <span articleno='${prevLink }'>[이전]</span>
+                                <span articleno='${prevLink }'>이전</span>
                             </c:if>
                             <c:forEach var="i" items="${pageLinks }" varStatus="stat">
                                 <span articleno='${i }'>${i }</span>
                             </c:forEach>
                             <c:if test="${nextLink > 0 }">
-                                <span articleno='${nextLink }' class='nextpage'>[다음]</span>
+                                <span articleno='${nextLink }' class='nextpage'>다음</span>
                             </c:if>
 
                         </div>

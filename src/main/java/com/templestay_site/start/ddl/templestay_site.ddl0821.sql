@@ -86,7 +86,6 @@ CREATE TABLE IF NOT EXISTS `tb_bbs_article` (
 /*!40000 ALTER TABLE `tb_bbs_article` DISABLE KEYS */;
 INSERT INTO `tb_bbs_article` (`boardcd`, `title`, `content`, `email`, `hit`, `date`, `userid`)
 VALUES
-    ('notice', 'test_title', 'test_content', 'admin@naver.com', 0, '2017-08-08 12:58:06', 'admin'),
     ('qna', 'test_title', 'test_content', 'new@naver.com', 0, '2017-08-08 12:58:33', 'new'),
     ('qna', '댓글관련', '댓글에 대한 화면구성을 보여주는 글 입니다.', 'new@naver.com', 0, '2017-08-08 12:58:34', 'new'),
     ('free', 'test_title', 'test_content', 'new@naver.com', 0, '2017-08-08 12:57:33', 'new'),
@@ -531,9 +530,13 @@ VALUES
     ('free', 'test_title', 'test_content', 'new@naver.com', 0, '2017-08-08 12:57:33', 'new'),
     ('free', 'test_title', 'test_content', 'new@naver.com', 0, '2017-08-08 12:57:33', 'new'),
     ('free', 'test_title', 'test_content', 'new@naver.com', 0, '2017-08-08 12:57:33', 'new'),
-    ('free', 'test_title', 'test_content', 'new@naver.com', 0, '2017-08-08 12:57:33', 'new')
+    ('free', 'test_title', 'test_content', 'new@naver.com', 0, '2017-08-08 12:57:33', 'new'),
     
-    
+    ('notice', '첫번째 공지입니다.', 'test_content', 'new@naver.com', 0, '2017-08-08 12:57:33', 'admin'),
+    ('notice', '두번째 공지입니다.', 'test_content', 'new@naver.com', 0, '2017-08-08 12:57:33', 'admin'),
+    ('notice', '세번째 공지입니다.', 'test_content', 'new@naver.com', 0, '2017-08-08 12:57:33', 'admin'),
+    ('notice', '네번째 공지입니다.', 'test_content', 'new@naver.com', 0, '2017-08-08 12:57:33', 'admin'),
+    ('notice', '다섯번째 공지입니다.', 'test_content', 'new@naver.com', 0, '2017-08-08 12:57:33', 'admin')
     
     
 /*!40000 ALTER TABLE `tb_bbs_article` ENABLE KEYS */;
@@ -567,12 +570,12 @@ CREATE TABLE IF NOT EXISTS `tb_bbs_comments` (
 -- 테이블 데이터 templestay_site.tb_bbs_comments:~6 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `tb_bbs_comments` DISABLE KEYS */;
 INSERT INTO `tb_bbs_comments` ( `articleno`, `memo`, `date`, `userid`) VALUES
-    ( 3, 'another_one의 연습용 댓글1', '2017-08-09 17:25:23', 'another_one'),
-    ( 3, 'another_one의 연습용 댓글2', '2017-08-09 17:25:23', 'another_one'),
-    ( 3, 'another_one의 연습용 댓글3', '2017-08-09 17:25:23', 'another_one'),
-    ( 3, 'admin의 연습용 댓글1', '2017-08-09 17:25:23', 'admin'),
-    ( 3, 'yoo의 연습용 댓글1', '2017-08-09 17:25:23', 'yoo'),
-    ( 3, 'yoo의 연습용 댓글2', '2017-08-09 17:25:23', 'yoo');
+    ( 2, 'another_one의 연습용 댓글1', '2017-08-09 17:25:23', 'another_one'),
+    ( 2, 'another_one의 연습용 댓글2', '2017-08-09 17:25:23', 'another_one'),
+    ( 2, 'another_one의 연습용 댓글3', '2017-08-09 17:25:23', 'another_one'),
+    ( 2, 'admin의 연습용 댓글1', '2017-08-09 17:25:23', 'admin'),
+    ( 2, 'yoo의 연습용 댓글1', '2017-08-09 17:25:23', 'yoo'),
+    ( 2, 'yoo의 연습용 댓글2', '2017-08-09 17:25:23', 'yoo');
 /*!40000 ALTER TABLE `tb_bbs_comments` ENABLE KEYS */;
 
 

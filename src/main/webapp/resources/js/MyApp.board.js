@@ -95,13 +95,11 @@ var delete_AttachFile = function delete_AttachFile(attachfileno) {
 		
 	$.ajax({
         url : '/board/attachfiledelete',
-        data: { 'attachfileno': attachfileno },   // 사용하는 경우에는 { data1:'test1', data2:'test2' }
-        type: 'post',       // get, post
-        timeout: 30000,     // 30초
-        dataType: 'html',   // text, html, xml, json, jsonp, script
+        data: { 'attachfileno': attachfileno },   
+        type: 'post',      
+        timeout: 30000,     
+        dataType: 'html',  
     }).done( function(data, textStatus, xhr ){
-        // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
-    	// 즉 DB에서는 삭제가 되었다는 의미
         if(data != null ){
             $('.attachfilelist a[attachfileno="' + attachfileno +'"]').parent().remove();
         }
@@ -120,19 +118,17 @@ var delete_AttachFile = function delete_AttachFile(attachfileno) {
 var comment_write = function comment_write(articleno, memo) {
     $.ajax({
         url : '/board/article_comment_write' 
-        , data: { 'articleno': articleno, 'memo': memo },   // 사용하는 경우에는 { data1:'test1', data2:'test2' }
-        type: 'post',       // get, post
-        timeout: 30000,     // 30초
-        dataType: 'json',   // text, html, xml, json, jsonp, script
+        , data: { 'articleno': articleno, 'memo': memo },   
+        type: 'post',     
+        timeout: 30000,    
+        dataType: 'json', 
     }).done( function(data, textStatus, xhr ){
-        // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
         if(data != null ){
         	var commentno = data.commentno;
         	var userid = data.userid;
         	var memo = data.memo;
         	var date1 = new Date( data.date ).toISOString().substring(0, 10);
         	var session_userid = "${session_user.userid}";
-
         	
         	$('.commentlist_parent').prepend("<div class= 'comment_list' commentno='" + commentno + "'>") ;
 
@@ -164,12 +160,11 @@ var comment_modify = function comment_modify(commentno) {
 	// 댓글 내용을 textarea에 담아 data로 controller에 쏴준다.
     $.ajax({
         url : '/board/article_comment_modify' 
-        , data: { 'commentno': commentno, 'memo' : $(textarea).val() },   // 사용하는 경우에는 { data1:'test1', data2:'test2' }
-        type: 'post',       // get, post
-        timeout: 30000,     // 30초
-        dataType: 'json',   // text, html, xml, json, jsonp, script
+        , data: { 'commentno': commentno, 'memo' : $(textarea).val() },  
+        type: 'post',      
+        timeout: 30000,    
+        dataType: 'json',  
     }).done( function(data, textStatus, xhr ){
-        // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
         if(data != null ){
         	$('div[commentno="' + commentno + '"]').find($('.comment_memo')).remove('textarea');
         	$('div[commentno="' + commentno + '"]').find($('.comment_memo')).text(data.memo);
@@ -196,12 +191,11 @@ var comment_delete = function comment_delete(commentno) {
 	
         $.ajax({
             url : '/board/article_comment_delete',
-            data: { 'commentno': commentno },   // 사용하는 경우에는 { data1:'test1', data2:'test2' }
-            type: 'post',       // get, post
-            timeout: 30000,    // 30초
-            dataType: 'html',  // text, html, xml, json, jsonp, script
+            data: { 'commentno': commentno },  
+            type: 'post',      
+            timeout: 30000,   
+            dataType: 'html',  
         }).done( function(data, textStatus, xhr ){
-            // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
             if(data > 0){
                 $('div[commentno="' + commentno +'"]').remove();
             }
