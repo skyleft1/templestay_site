@@ -36,7 +36,7 @@
                     $('.popup_cancel_wrap').hide();
                     window.location.href = "/user/user_login" ;
                 });
-                // 로그인을 하지 않고 게시판 작성할 경우 alert 출력
+                // 로그인을 하지 않고 게시판 작성할 경우 경고창 출력
                 </c:when>
             
             <c:otherwise>

@@ -148,3 +148,13 @@ td:nth-child(4)
 .list_paging span{
     margin: 10px 3px;
 }
+
+
+/* 커서효과 */
+.go_view{
+    cursor: pointer !important;
+}
+
+.list_paging span{
+    cursor: pointer !important;
+}

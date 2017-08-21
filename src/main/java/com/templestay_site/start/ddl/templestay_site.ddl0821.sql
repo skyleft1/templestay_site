@@ -567,12 +567,12 @@ CREATE TABLE IF NOT EXISTS `tb_bbs_comments` (
 -- 테이블 데이터 templestay_site.tb_bbs_comments:~6 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `tb_bbs_comments` DISABLE KEYS */;
 INSERT INTO `tb_bbs_comments` ( `articleno`, `memo`, `date`, `userid`) VALUES
-    ( 3, '댓글 연습용', '2017-08-09 17:25:23', 'another_one'),
-    ( 3, '댓글 연습용', '2017-08-09 17:25:23', 'another_one'),
-    ( 3, '댓글 연습용', '2017-08-09 17:25:23', 'another_one'),
-    ( 3, '댓글 연습용', '2017-08-09 17:25:23', 'admin'),
-    ( 3, '댓글 연습용', '2017-08-09 17:25:23', 'yoo'),
-    ( 3, '댓글 연습용', '2017-08-09 17:25:23', 'yoo');
+    ( 3, 'another_one의 연습용 댓글1', '2017-08-09 17:25:23', 'another_one'),
+    ( 3, 'another_one의 연습용 댓글2', '2017-08-09 17:25:23', 'another_one'),
+    ( 3, 'another_one의 연습용 댓글3', '2017-08-09 17:25:23', 'another_one'),
+    ( 3, 'admin의 연습용 댓글1', '2017-08-09 17:25:23', 'admin'),
+    ( 3, 'yoo의 연습용 댓글1', '2017-08-09 17:25:23', 'yoo'),
+    ( 3, 'yoo의 연습용 댓글2', '2017-08-09 17:25:23', 'yoo');
 /*!40000 ALTER TABLE `tb_bbs_comments` ENABLE KEYS */;
 
 
