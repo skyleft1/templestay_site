@@ -159,6 +159,9 @@ td:nth-child(4)
 .list_paging span{
     cursor: pointer !important;
     padding: 6px;
-    background-color: #547014;
+    background-color: #87b913 ;
     color: white;
+}
+.prev_next{
+    background-color: #547014 !important;
 }

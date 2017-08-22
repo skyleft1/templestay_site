@@ -20,6 +20,7 @@
 <script type="text/javascript">
     
     $(document).ready(function(){
+    	// 글 수정
         $('.go_modify').click(function(e){
             var articleno = $('.modify_delete').attr('articleno');
             var curPage = $('.modify_delete').attr('curPage');
@@ -122,7 +123,7 @@
                             </tr>
                             <tr>
                                 <th><h5>내용</h5></th>
-                                <td><h6>${article.content}</h6></td>
+                                <td><textarea class='textarea_box' readonly="readonly">${article.content}</textarea></td>
                             </tr>
                             <tr>
                                 <th><h5>첨부파일</h5></th>

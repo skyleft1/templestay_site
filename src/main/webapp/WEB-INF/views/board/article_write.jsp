@@ -25,13 +25,31 @@
         });
         
         $('.write_confirm').click(function(e){
+
+        	// 엔터를 <br>로 치환해 DB전송하고 받는 부분
+        	var str = $('textarea[name="content"]').val();
+        	var str1 = str.replace(/(?:\r\n|\r|\n)/g, '\n');
+        	$('textarea[name="content"]').val(str1);
+
         	$('.write_modify_Form').attr('action', '/board/article_write/${boardcd}/${article.articleno}');
         	$('.write_modify_Form').submit();
+        	
+        	/*  
+        	var str1 = str.replace('<br />', /(?:\r\n|\r|\n)/g);
+            $('textarea[name="content"]').val(str1);
+            */
         });
         
         $('.modify_confirm').click(function(e){
+        	/* 
+        	// 엔터를 <br>로 치환해 DB전송하고 받는 부분
+            var str = $('textarea[name="content"]').val();
+            var str = str.replace(/(?:\r\n|\r|\n)/g, '<br />');
+            $('textarea[name="content"]').val(str);
+             */
         	$('.write_modify_Form').attr('action', '/board/article_modify/${boardcd}/${article.articleno}?curPage=${curPage}');
         	$('.write_modify_Form').submit();
+        	
         });
 
     });

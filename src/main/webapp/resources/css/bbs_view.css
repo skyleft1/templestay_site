@@ -55,6 +55,13 @@ td {
 	width: 600px;
 }
 
+.textarea_box{
+    line-height: 22px;
+    font-size: 14px;
+    width: 600px;
+    height: 175px;    
+}
+
 
 .wrap_submit{
 	display: inline-block;
