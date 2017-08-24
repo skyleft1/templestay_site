@@ -541,31 +541,42 @@ VALUES
     
 /*!40000 ALTER TABLE `tb_bbs_article` ENABLE KEYS */;
 
--- 테이블 templestay_site.tb_bbs_attachfile 구조 내보내기
 CREATE TABLE IF NOT EXISTS `tb_bbs_attachfile` (
-  `attachfileno` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `filename` varchar(50) NOT NULL,
-  `filetype` varchar(30) DEFAULT NULL,
-  `filesize` int(11) DEFAULT NULL,
-  `articleno` int(11) DEFAULT NULL,
-  `date` datetime DEFAULT NULL,
-  `userid` varchar(40) DEFAULT NULL,
-  `imageData` longblob,
-  `tempfilename` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`attachfileno`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+    `attachfileno` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `filename` VARCHAR(50) NOT NULL,
+    `filetype` VARCHAR(30) NULL DEFAULT NULL,
+    `filesize` INT(11) NULL DEFAULT NULL,
+    `articleno` INT(10) UNSIGNED NOT NULL,
+    `date` DATETIME NULL DEFAULT NULL,
+    `userid` VARCHAR(40) NULL DEFAULT NULL,
+    `imageData` LONGBLOB NULL,
+    `tempfilename` VARCHAR(50) NULL DEFAULT NULL,
+    PRIMARY KEY (`attachfileno`),
+    INDEX `FK_tb_bbs_attachfile_tb_bbs_article` (`articleno`),
+    CONSTRAINT `FK_tb_bbs_attachfile_tb_bbs_article` FOREIGN KEY (`articleno`) REFERENCES `tb_bbs_article` (`articleno`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=21
+;
 
 
 
 -- 테이블 templestay_site.tb_bbs_comments 구조 내보내기
 CREATE TABLE IF NOT EXISTS `tb_bbs_comments` (
-  `commentno` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `articleno` int(10) unsigned NOT NULL,
-  `memo` varchar(4000) DEFAULT NULL,
-  `date` datetime DEFAULT NULL,
-  `userid` varchar(40) DEFAULT NULL,
-  PRIMARY KEY (`commentno`)
-) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf8;
+    `commentno` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `articleno` INT(10) UNSIGNED NOT NULL,
+    `memo` VARCHAR(4000) NULL DEFAULT NULL,
+    `date` DATETIME NULL DEFAULT NULL,
+    `userid` VARCHAR(40) NULL DEFAULT NULL,
+    PRIMARY KEY (`commentno`),
+    INDEX `FK_tb_bbs_comments_tb_bbs_article` (`articleno`),
+    CONSTRAINT `FK_tb_bbs_comments_tb_bbs_article` FOREIGN KEY (`articleno`) REFERENCES `tb_bbs_article` (`articleno`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=126
+;
 
 -- 테이블 데이터 templestay_site.tb_bbs_comments:~6 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `tb_bbs_comments` DISABLE KEYS */;

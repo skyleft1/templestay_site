@@ -57,7 +57,7 @@ $(document).ready(function(){
         <div class='join_content'>
             <div class=''>
                 <div class='join_maintitle'>
-                    <h3>회원정보 수정</h3>
+                    <h3>비밀번호 수정</h3>
                 </div>
                 <div class=''>
                 <form class='modify_password_form' method='post' action='/user/user_modify_password'>

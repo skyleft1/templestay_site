@@ -44,15 +44,13 @@ $(document).ready(function(){
                     <h3>회원정보 수정</h3>
                 </div>
                 <div class=''>
-                
-                    <div><a href='/user/user_modify_password'>비밀번호 변경</a></div>
-                
+
                     <form class='modify_form' method='post' action='/user/user_modify' >
                         <table>
                             <tbody>
-                                <p>
+
                                     <input type="hidden" name="userid" value="${modify.userid }" />
-                                </p>
+
                                 <tr>
                                     <th>이름</th>
                                     <td><input type='text' name='username' value='${modify.username}' /></td>
