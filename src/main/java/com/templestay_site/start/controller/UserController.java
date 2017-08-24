@@ -127,12 +127,12 @@ public class UserController {
         if(user != null) {
             map.put("code", 1);
             map.put("msg", "이미 존재하는 아이디 입니다.");
-            
             return map;
         } else {
             map.put("code", 2);
             return map;
         }
+        
     }
     
     
@@ -297,4 +297,41 @@ public class UserController {
         
         return "user/user_delete_success";
     }
+    
+    
+    // 비밀번호 찾기/재설정 :get
+    @RequestMapping(value = "/user_find_password", method = RequestMethod.GET)
+    public String user_find_password_get( Model model
+            , HttpSession session
+            ) {
+        logger.info("user_find_password_get");
+        
+        return "user/user_find_password";
+    }
+    // 비밀번호 찾기/재설정 :get
+    @RequestMapping(value = "/user_find_password", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> user_find_password_post( Model model
+            , @ModelAttribute ModelUser user
+            , HttpSession session
+            ) {
+        logger.info("user_find_password_post");
+        
+        Map<String, Object> map = new HashMap<String, Object>();
+        
+        ModelUser user1 = new ModelUser(); 
+        user1 = srv.getUserOne(user.getUserid());
+        
+        String hint = user.getPassword_hint();
+        String hint_confirm = user.getPassword_hint_confirm();
+        
+        if( hint.equals(user1.getPassword_hint())  && hint_confirm.equals(user1.getPassword_hint_confirm())){
+            map.put("code", 1);
+            return map;
+        } else {
+            map.put("code", 2);
+            return map;
+        }
+    }
+    
 }

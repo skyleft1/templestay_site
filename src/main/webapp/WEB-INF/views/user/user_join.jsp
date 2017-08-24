@@ -18,6 +18,7 @@
 <script src="/resources/js/ajaxsetup.js"></script>
 <script src="/resources/js/MyApp.board.js"></script>
 
+
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 <!--  다음 지도 이용 -->
 <!--autoload=false 파라미터를 이용하여 자동으로 로딩되는 것을 막습니다.-->
@@ -29,6 +30,7 @@
 3 비밀번호 확인 일치여부(ajax로 하자)
 
  -->
+
 <script>
 $(document).ready(function(){
     $('.id_check').click(function(e){
@@ -49,7 +51,7 @@ $(document).ready(function(){
                     $('.popup_cancel_wrap').hide();
                 });
             }else {
-            	$('table input:not([type=button])').removeAttr('disabled', '').css('background-color', '#f7f7f7');
+            	$('table input:not([type=button]) ,  select').removeAttr('disabled', '').css('background-color', '#f7f7f7');
             }
         });
     });
@@ -64,7 +66,7 @@ $(document).ready(function(){
                 $('.popup_cancel_wrap').hide();
             });
         }
-        else if( $(a[0]).val() === '' || $(a[1]).val() === '' || $(a[2]).val() === '' ){
+        else if( $(a[0]).val() === '' || $(a[1]).val() === '' || $(a[2]).val() === ''  || $(a[3]).val() === '' ){
             $('.popup_cancel_wrap').show();
             $('.popup_content').text('빈 값이 있습니다.');
             $('.popup_button_cancel').click(function(e){
@@ -120,8 +122,30 @@ $(document).ready(function(){
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th>비밀번호 힌트</th>
+                                    <td> 
+                                    <select name='password_hint' class='password_hint' disabled style='background-color: grey'>
+                                        <option>내가 태어난 지역은?</option>
+                                        <option>어머니 성함은?</option>
+                                        <option>첫사랑의 이름은?</option>
+                                    </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>비밀번호 정답</th>
+                                    <td><input type='text' name='password_hint_confirm' class='submit_check' value='' disabled style='background-color: grey' />
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th>이름</th>
                                     <td><input type='text' name='username' value='' class='submit_check' disabled style='background-color: grey'></td>
+                                </tr>
+                                <tr>
+                                    <th>성별</th>
+                                    <td>
+                                        <input type="radio" name="usersex" value="M" disabled style='background-color: grey' checked><span>남성</span>
+                                        <input type="radio" name="usersex" value="F" disabled style='background-color: grey'><span>여성</span>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>이메일</th>
@@ -208,6 +232,7 @@ $(document).ready(function(){
         }).open();
     }
 </script>
+
     <!-- footer -->
     <div class='footer'>
         <%@ include file="../header_footer/footer.jsp" %>

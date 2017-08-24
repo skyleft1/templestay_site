@@ -95,6 +95,19 @@ $(document).ready(function(){
                                     <td>${session_user.username}</td>
                                 </tr>
                                 <tr>
+                                    <th>성별</th>
+                                    <td>
+                                    <c:choose>
+                                        <c:when test='${session_user.usersex == "M" }'>
+                                            남성
+                                        </c:when>
+                                        <c:when test="${session_user.usersex == 'F'}">
+                                            여성
+                                        </c:when>
+                                    </c:choose>                
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th>이메일</th>
                                     <td>${session_user.useremail}</td>
                                 </tr>

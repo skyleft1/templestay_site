@@ -6,8 +6,11 @@ public class ModelUser {
     
         private Integer         userno ; 
         private String          userid ;
-        private String          userpassword ; 
         private String          username ;
+        private String          userpassword ;
+        private String          password_hint ;
+        private String          password_hint_confirm ;
+        private String          usersex ;
         private String          useremail ;
         private String          phonenumber ;
         private String          addr_postcode ;
@@ -23,23 +26,6 @@ public class ModelUser {
             super();
             this.userid = userid;
             this.userpassword = userpassword;
-        }
-
-        public ModelUser(Integer userno, String userid, String userpassword,
-                String username, String useremail, String phonenumber,
-                String addr_postcode, String addr_road, String addr_jibun,
-                Date joindate) {
-            super();
-            this.userno = userno;
-            this.userid = userid;
-            this.userpassword = userpassword;
-            this.username = username;
-            this.useremail = useremail;
-            this.phonenumber = phonenumber;
-            this.addr_postcode = addr_postcode;
-            this.addr_road = addr_road;
-            this.addr_jibun = addr_jibun;
-            this.joindate = joindate;
         }
 
         public Integer getUserno() {
@@ -58,6 +44,14 @@ public class ModelUser {
             this.userid = userid;
         }
 
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
         public String getUserpassword() {
             return userpassword;
         }
@@ -66,12 +60,28 @@ public class ModelUser {
             this.userpassword = userpassword;
         }
 
-        public String getUsername() {
-            return username;
+        public String getPassword_hint() {
+            return password_hint;
         }
 
-        public void setUsername(String username) {
-            this.username = username;
+        public void setPassword_hint(String password_hint) {
+            this.password_hint = password_hint;
+        }
+        
+        public String getPassword_hint_confirm() {
+            return password_hint_confirm;
+        }
+
+        public void setPassword_hint_confirm(String password_hint_confirm) {
+            this.password_hint_confirm = password_hint_confirm;
+        }
+
+        public String getUsersex() {
+            return usersex;
+        }
+
+        public void setUsersex(String usersex) {
+            this.usersex = usersex;
         }
 
         public String getUseremail() {
@@ -125,21 +135,14 @@ public class ModelUser {
         @Override
         public String toString() {
             return "ModelUser [userno=" + userno + ", userid=" + userid
-                    + ", userpassword=" + userpassword + ", username="
-                    + username + ", useremail=" + useremail + ", phonenumber="
-                    + phonenumber + ", addr_postcode=" + addr_postcode
-                    + ", addr_road=" + addr_road + ", addr_jibun=" + addr_jibun
-                    + ", joindate=" + joindate + ", getUserno()=" + getUserno()
-                    + ", getUserid()=" + getUserid() + ", getUserpassword()="
-                    + getUserpassword() + ", getUsername()=" + getUsername()
-                    + ", getUseremail()=" + getUseremail()
-                    + ", getPhonenumber()=" + getPhonenumber()
-                    + ", getAddr_postcode()=" + getAddr_postcode()
-                    + ", getAddr_road()=" + getAddr_road()
-                    + ", getAddr_jibun()=" + getAddr_jibun()
-                    + ", getJoindate()=" + getJoindate() + ", getClass()="
-                    + getClass() + ", hashCode()=" + hashCode()
-                    + ", toString()=" + super.toString() + "]";
+                    + ", username=" + username + ", userpassword="
+                    + userpassword + ", password_hint=" + password_hint
+                    + ", password_hint_confirm=" + password_hint_confirm
+                    + ", usersex=" + usersex + ", useremail=" + useremail
+                    + ", phonenumber=" + phonenumber + ", addr_postcode="
+                    + addr_postcode + ", addr_road=" + addr_road
+                    + ", addr_jibun=" + addr_jibun + ", joindate=" + joindate
+                    + "]";
         }
 
 

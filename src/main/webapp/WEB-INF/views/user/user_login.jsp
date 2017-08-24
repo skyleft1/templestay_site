@@ -87,6 +87,9 @@ $(document).ready( function(e){
                         <div>
                             아직 회원이 아닌가요? <a href='/user/user_join'>회원가입</a>
                         </div>
+                        <div>
+                            비밀번호를 잊어버렸나요? <a href='/user/user_find_password'>비밀번호 찾기/재설정</a>
+                        </div>
 
                     </form>
                 </div>

@@ -26,28 +26,30 @@ DROP TABLE IF EXISTS TB_Bbs_Board;
 
 -- 테이블 templestay_site.tb_user 구조 내보내기
 CREATE TABLE IF NOT EXISTS `tb_user` (
-  `userno` int(11) NOT NULL AUTO_INCREMENT,
-  `userid` varchar(20) NOT NULL,
-  `userpassword` varchar(40) NOT NULL,
-  `username` varchar(40) NOT NULL,
-  `useremail` varchar(40) DEFAULT NULL,
-  `phonenumber` varchar(40) DEFAULT NULL,
-  `addr_postcode` varchar(40) DEFAULT NULL,
-  `addr_road` varchar(40) DEFAULT NULL,
-  `addr_jibun` varchar(40) DEFAULT NULL,
-  `joindate` datetime DEFAULT NULL,
+    `userno` INT(11) NOT NULL AUTO_INCREMENT,
+    `userid` VARCHAR(20) NOT NULL,
+    `username` VARCHAR(40) NOT NULL,
+    `userpassword` VARCHAR(40) NOT NULL,
+    `password_hint` VARCHAR(30) NULL DEFAULT NULL,
+    `password_hint_confirm` VARCHAR(30) NULL DEFAULT NULL,
+    `usersex` CHAR(1) NULL DEFAULT NULL,
+    `useremail` VARCHAR(40) NULL DEFAULT NULL,
+    `phonenumber` VARCHAR(40) NULL DEFAULT NULL,
+    `addr_postcode` VARCHAR(40) NULL DEFAULT NULL,
+    `addr_road` VARCHAR(40) NULL DEFAULT NULL,
+    `addr_jibun` VARCHAR(40) NULL DEFAULT NULL,
+    `joindate` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`userno`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 templestay_site.tb_user:~6 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `tb_user` DISABLE KEYS */;
-INSERT INTO `tb_user` (`userno`, `userid`, `userpassword`, `username`, `useremail`, `phonenumber`, `addr_postcode`, `addr_road`, `addr_jibun`, `joindate`) VALUES
-    (12, '유영기', '1234', '유영기', 'youngki@naver.com', '0100000000', '13560', '경기 성남시 분당구 분당수서로 305 (정자동)', '경기 성남시 분당구 정자동 184-3', '2017-08-08 11:02:10'),
-    (15, 'admin', 'admin', 'admin', 'admin@naver.com', '01000000000', '01849', '서울 노원구 공릉로 95 (공릉동)', '서울 노원구 공릉동 661-11', '2017-08-08 12:59:56'),
-    (17, '존재아이디', '1234', '1234', '1234@12', '1234', '02446', '서울 동대문구 망우로 3 (휘경동)', '서울 동대문구 휘경동 343-16', '2017-08-08 13:08:07'),
-    (22, 'another_one', '12', 'another_one', '12@12', '12', '', '', '', '2017-08-08 15:19:18'),
-    (26, 'yoo', '1234', 'yoo', 'yoo@naver.com', '01012345678', '05089', '서울 광진구 강변북로 6 (자양동)', '서울 광진구 자양동 158-17', '2017-08-08 17:50:18'),
-    (28, 'aa', 'aa', 'aa', 'aa@aa', 'aa', '04150', '서울 마포구 큰우물로 3 (대흥동)', '서울 마포구 대흥동 337-10', '2017-08-09 16:10:22');
+INSERT INTO `tb_user` (`userid`, `username`, `userpassword`, `password_hint`, `password_hint_confirm`, `usersex` , `useremail`, `phonenumber`, `addr_postcode`, `addr_road`, `addr_jibun`, `joindate`) VALUES
+    ('admin', 'admin', 'admin', '12', '12', 'M' ,'admin@naver.com', '01000000000', '01849', '서울 노원구 공릉로 95 (공릉동)', '서울 노원구 공릉동 661-11', '2017-08-08 12:59:56'),
+    ('존재아이디', '1234', '1234', '12', '12', 'M' , '1234@12', '1234', '02446', '서울 동대문구 망우로 3 (휘경동)', '서울 동대문구 휘경동 343-16', '2017-08-08 13:08:07'),
+    ('another_one', 'another_one', '12', '12', '12', 'M' , '12@12', '12', '', '', '', '2017-08-08 15:19:18'),
+    ('yoo', 'yoo', '1234', '12','12',  'F' , 'yoo@naver.com', '01012345678', '05089', '서울 광진구 강변북로 6 (자양동)', '서울 광진구 자양동 158-17', '2017-08-08 17:50:18'),
+    ('aa', 'aa', 'aa', '12', 'F' '12', , 'aa@aa', 'aa', '04150', '서울 마포구 큰우물로 3 (대흥동)', '서울 마포구 대흥동 337-10', '2017-08-09 16:10:22');
 
 
 
