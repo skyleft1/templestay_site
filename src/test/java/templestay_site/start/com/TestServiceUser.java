@@ -37,7 +37,7 @@ public class TestServiceUser {
         user.setUserpassword("aa");
         user.setUsername("aa");
         user.setUseremail("aa@aa");
-        user.setPhonenumber("aa");
+        user.setUserphone("aa");
         
         int result = service.insertUser(user);
         
@@ -70,7 +70,7 @@ public class TestServiceUser {
             user.setUserpassword("aa");
             user.setUsername("aa");
             user.setUseremail("aa@aa");
-            user.setPhonenumber("aa");
+            user.setUserphone("aa");
            
             list.add(user);
         }

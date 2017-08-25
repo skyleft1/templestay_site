@@ -12,7 +12,7 @@ public class ModelUser {
         private String          password_hint_confirm ;
         private String          usersex ;
         private String          useremail ;
-        private String          phonenumber ;
+        private String          userphone ;
         private String          addr_postcode ;
         private String          addr_road ;
         private String          addr_jibun ;
@@ -67,7 +67,7 @@ public class ModelUser {
         public void setPassword_hint(String password_hint) {
             this.password_hint = password_hint;
         }
-        
+
         public String getPassword_hint_confirm() {
             return password_hint_confirm;
         }
@@ -92,12 +92,12 @@ public class ModelUser {
             this.useremail = useremail;
         }
 
-        public String getPhonenumber() {
-            return phonenumber;
+        public String getUserphone() {
+            return userphone;
         }
 
-        public void setPhonenumber(String phonenumber) {
-            this.phonenumber = phonenumber;
+        public void setUserphone(String userphone) {
+            this.userphone = userphone;
         }
 
         public String getAddr_postcode() {
@@ -139,11 +139,10 @@ public class ModelUser {
                     + userpassword + ", password_hint=" + password_hint
                     + ", password_hint_confirm=" + password_hint_confirm
                     + ", usersex=" + usersex + ", useremail=" + useremail
-                    + ", phonenumber=" + phonenumber + ", addr_postcode="
+                    + ", userphone=" + userphone + ", addr_postcode="
                     + addr_postcode + ", addr_road=" + addr_road
                     + ", addr_jibun=" + addr_jibun + ", joindate=" + joindate
                     + "]";
         }
-
-
+        
 }

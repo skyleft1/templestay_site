@@ -316,10 +316,10 @@ public class ServiceBoard implements IServiceBoard {
     }
 
     @Override
-    public int deleteAttachFile(ModelAttachFile attachfileno) {
+    public int deleteAttachFile(ModelAttachFile attachfile) {
         int result = -1;
         try {
-            result = daoboard.deleteAttachFile(attachfileno);
+            result = daoboard.deleteAttachFile(attachfile);
         } catch (Exception e) {
             logger.error("deleteAttachFile" + e.getMessage() );
         }

@@ -113,7 +113,7 @@ $(document).ready(function(){
                                 </tr>
                                 <tr>
                                     <th>연락처</th>
-                                    <td>${session_user.phonenumber}</td>
+                                    <td>${session_user.userphone}</td>
                                 </tr>
                                 <tr>
                                     <th>주소</th>

@@ -325,7 +325,8 @@ public class UserController {
         String hint = user.getPassword_hint();
         String hint_confirm = user.getPassword_hint_confirm();
         
-        if( hint.equals(user1.getPassword_hint())  && hint_confirm.equals(user1.getPassword_hint_confirm())){
+        // 기존 DB의 비밀번호 힌트와 사용자가 입력한 비밀번호 힌트가 맞는지 확인한다. 
+        if( hint.equals(user1.getPassword_hint()) && hint_confirm.equals(user1.getPassword_hint_confirm())){
             map.put("code", 1);
             return map;
         } else {
@@ -334,4 +335,28 @@ public class UserController {
         }
     }
     
+    // 비밀번호 재설정 POST
+    @RequestMapping(value = "/user_new_password", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object>  user_new_password( Model model
+            , @RequestParam(value="userid", defaultValue="") String userid
+            , @RequestParam(value="newpassword", defaultValue="") String newpassword
+            , HttpSession session
+            ) {
+        logger.info("user_new_password");
+        Map<String, Object> map = new HashMap<String, Object>();
+        ModelUser user = srv.getUserOne(userid);
+        
+        // jsp에서 받아온 userid, newpassword를 통해 비빌번호를 변경한다. 
+        int result = srv.updatePassword(newpassword, user.getUserpassword(), userid);
+            
+        if(result == 1){
+            map.put("code", 1);
+            return map;                
+        }else{
+            map.put("code", 2);
+            return map;
+        }
+    }
+
 }

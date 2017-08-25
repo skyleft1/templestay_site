@@ -26,31 +26,36 @@ DROP TABLE IF EXISTS TB_Bbs_Board;
 
 -- 테이블 templestay_site.tb_user 구조 내보내기
 CREATE TABLE IF NOT EXISTS `tb_user` (
-    `userno` INT(11) NOT NULL AUTO_INCREMENT,
-    `userid` VARCHAR(20) NOT NULL,
+    `userno` INT(10) NOT NULL AUTO_INCREMENT,
+    `userid` VARCHAR(50) NOT NULL,
     `username` VARCHAR(40) NOT NULL,
     `userpassword` VARCHAR(40) NOT NULL,
-    `password_hint` VARCHAR(30) NULL DEFAULT NULL,
-    `password_hint_confirm` VARCHAR(30) NULL DEFAULT NULL,
+    `password_hint` VARCHAR(40) NULL DEFAULT NULL,
+    `password_hint_confirm` VARCHAR(40) NULL DEFAULT NULL,
     `usersex` CHAR(1) NULL DEFAULT NULL,
     `useremail` VARCHAR(40) NULL DEFAULT NULL,
-    `phonenumber` VARCHAR(40) NULL DEFAULT NULL,
+    `userphone` VARCHAR(40) NULL DEFAULT NULL,
     `addr_postcode` VARCHAR(40) NULL DEFAULT NULL,
     `addr_road` VARCHAR(40) NULL DEFAULT NULL,
     `addr_jibun` VARCHAR(40) NULL DEFAULT NULL,
     `joindate` DATETIME NULL DEFAULT NULL,
-  PRIMARY KEY (`userno`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+    PRIMARY KEY (`userid`),
+    UNIQUE INDEX `userno` (`userno`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=20
+;
 
 -- 테이블 데이터 templestay_site.tb_user:~6 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `tb_user` DISABLE KEYS */;
-INSERT INTO `tb_user` (`userid`, `username`, `userpassword`, `password_hint`, `password_hint_confirm`, `usersex` , `useremail`, `phonenumber`, `addr_postcode`, `addr_road`, `addr_jibun`, `joindate`) VALUES
-    ('admin', 'admin', 'admin', '12', '12', 'M' ,'admin@naver.com', '01000000000', '01849', '서울 노원구 공릉로 95 (공릉동)', '서울 노원구 공릉동 661-11', '2017-08-08 12:59:56'),
-    ('존재아이디', '1234', '1234', '12', '12', 'M' , '1234@12', '1234', '02446', '서울 동대문구 망우로 3 (휘경동)', '서울 동대문구 휘경동 343-16', '2017-08-08 13:08:07'),
-    ('another_one', 'another_one', '12', '12', '12', 'M' , '12@12', '12', '', '', '', '2017-08-08 15:19:18'),
-    ('yoo', 'yoo', '1234', '12','12',  'F' , 'yoo@naver.com', '01012345678', '05089', '서울 광진구 강변북로 6 (자양동)', '서울 광진구 자양동 158-17', '2017-08-08 17:50:18'),
-    ('aa', 'aa', 'aa', '12', 'F' '12', , 'aa@aa', 'aa', '04150', '서울 마포구 큰우물로 3 (대흥동)', '서울 마포구 대흥동 337-10', '2017-08-09 16:10:22');
-
+INSERT INTO `tb_user` (`userid`, `username`, `userpassword`, `password_hint`, `password_hint_confirm`, `usersex` , `useremail`, `userphone`, `addr_postcode`, `addr_road`, `addr_jibun`, `joindate`) VALUES
+    ('admin', 'admin', 'admin', '내가 태어난 지역은?', '12', 'M' ,'admin@naver.com', '01000000000', '01849', '서울 노원구 공릉로 95 (공릉동)', '서울 노원구 공릉동 661-11', '2017-08-08 12:59:56'),
+    ('존재아이디', '1234', '1234', '내가 태어난 지역은?', '12', 'M' , '1234@12', '1234', '02446', '서울 동대문구 망우로 3 (휘경동)', '서울 동대문구 휘경동 343-16', '2017-08-08 13:08:07'),
+    ('another_one', 'another_one', '12', '내가 태어난 지역은?', '12', 'M' , '12@12', '12', '', '', '', '2017-08-08 15:19:18'),
+    ('yoo', 'yoo', '1234', '내가 태어난 지역은?','12',  'F' , 'yoo@naver.com', '01012345678', '05089', '서울 광진구 강변북로 6 (자양동)', '서울 광진구 자양동 158-17', '2017-08-08 17:50:18'),
+    ('a1', 'a1', '12', '내가 태어난 지역은?', '12',  'F' , 'yoo@naver.com', '01012345678', '05089', '서울 광진구 강변북로 6 (자양동)', '서울 광진구 자양동 158-17', '2017-08-08 17:50:18')
+;
 
 
 -- 테이블 templestay_site.tb_bbs_board 구조 내보내기
@@ -82,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `tb_bbs_article` (
   PRIMARY KEY (`articleno`),
   KEY `boardcd` (`boardcd`),
   CONSTRAINT `tb_bbs_article_ibfk_1` FOREIGN KEY (`boardcd`) REFERENCES `tb_bbs_board` (`boardcd`)
-) ENGINE=InnoDB AUTO_INCREMENT=555 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 templestay_site.tb_bbs_article:~509 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `tb_bbs_article` DISABLE KEYS */;
@@ -559,7 +564,7 @@ CREATE TABLE IF NOT EXISTS `tb_bbs_attachfile` (
 )
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
-AUTO_INCREMENT=21
+AUTO_INCREMENT=1
 ;
 
 
@@ -577,7 +582,7 @@ CREATE TABLE IF NOT EXISTS `tb_bbs_comments` (
 )
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
-AUTO_INCREMENT=126
+AUTO_INCREMENT=1
 ;
 
 -- 테이블 데이터 templestay_site.tb_bbs_comments:~6 rows (대략적) 내보내기

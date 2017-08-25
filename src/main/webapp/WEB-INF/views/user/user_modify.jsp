@@ -61,7 +61,7 @@ $(document).ready(function(){
                                 </tr>
                                 <tr>
                                     <th>연락처</th>
-                                    <td><input type='text' name='phonenumber' value='${modify.phonenumber}' /></td>
+                                    <td><input type='text' name='userphone' value='${modify.userphone}' /></td>
                                 </tr>
                                 <tr>
                                     <th>주소</th>

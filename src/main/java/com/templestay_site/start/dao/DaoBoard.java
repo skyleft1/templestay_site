@@ -166,8 +166,8 @@ public class DaoBoard implements IDaoBoard {
         return session.insert("mapper.mapperBoard.insertAttachFile", attachfile);
     }
     @Override
-    public int deleteAttachFile(ModelAttachFile attachfileno) {
-        return session.delete("mapper.mapperBoard.deleteAttachFile", attachfileno);
+    public int deleteAttachFile(ModelAttachFile attachfile) {
+        return session.delete("mapper.mapperBoard.deleteAttachFile", attachfile);
     }
     @Override
     public ModelComments getComment(ModelComments comment) {

@@ -154,7 +154,7 @@ $(document).ready(function(){
                                 </tr>
                                 <tr>
                                     <th>연락처</th>
-                                    <td><input type='text' name='phonenumber' value='' class='submit_check' disabled style='background-color: grey'>
+                                    <td><input type='text' name='userphone' value='' class='submit_check' disabled style='background-color: grey'>
                                     </td>
                                 </tr>
                                 

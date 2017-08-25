@@ -39,7 +39,7 @@
                 // 로그인을 하지 않고 게시판 작성할 경우 경고창 출력
                 </c:when>
             
-            <c:otherwise>
+                <c:otherwise>
                 window.location.href = "/board/article_write/${boardcd}";
                 </c:otherwise>
             </c:choose>

@@ -250,16 +250,18 @@ public class BbsController {
             , @RequestParam(value="curPage", defaultValue="1") int curPage
             , @ModelAttribute ModelArticle article
             , @ModelAttribute ModelComments comment
-            , @ModelAttribute ModelAttachFile attachFile
             ) {
         logger.info("article_delete");
         
         model.addAttribute("curPage", curPage);
         
-        int result = srv.deleteArticle(article);
-        srv.deleteComment(comment);
-
+        ModelAttachFile attachfile = new ModelAttachFile();
+        attachfile.setArticleno(articleno);
         
+        srv.deleteAttachFile(attachfile);
+        srv.deleteComment(comment);
+        int result = srv.deleteArticle(article);
+                
         if (result == 1) {
             return "redirect:/board/article_list/{boardcd}";
         } else {
